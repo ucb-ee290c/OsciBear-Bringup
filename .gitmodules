@@ -1,0 +1,6 @@
+[submodule "chip-sw/riscv-tests"]
+	path = chip-sw/riscv-tests
+	url = https://github.com/riscv-software-src/riscv-tests.git
+[submodule "chip-sw/env"]
+	path = chip-sw/env
+	url = https://github.com/riscv/riscv-test-env.git
