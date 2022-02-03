@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+# bring up LBWIF clock/uncore
+beagle-reset
+
+# bring both cores out of reset
+touch ~/dummy
+vcu118_beagle_boot ~/dummy
+rm -f ~/dummy
+
+echo "Core bringup complete"

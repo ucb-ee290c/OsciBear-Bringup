@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+# need to have libgpio set
+
+RESET_PIN=26
+
+gpioset 0 $RESET_PIN=1
+
+# set clk sel's to use "slow clock" over FMC
+gpioset 0 16=0
+gpioset 0 17=0
+gpioset 0 18=0
+
+# set the boot signal to 0 so that you can use LBWIF
+gpioset 0 25=0
+
+gpioset 0 $RESET_PIN=0
+
+# at this point the LBWIF clock should be set

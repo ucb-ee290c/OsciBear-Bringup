@@ -1,0 +1,78 @@
+#!/bin/sh
+
+set -e
+
+# out of boot the clks are set to the following
+# uncore_clk - 20M
+# bh_clk - 50M
+# rs_clk - 50M
+# lbwif_clk_out - 20M
+
+# help
+#   beagle-set-clocks [s/d] [s/d] [s/d] [uncore_div] [bh_div] [rs_div] [lbwif_div]
+#                      ^- select the single or diff clock for uncore, bh, rs
+#                                        ^- select uncore clk divide amt - 1,2..., (2^8)-1
+#                                                     ^-       ^-       ^- same with the other clks
+#   requires ALL arguments
+#   assumes that you have a slow clock connected by default
+
+if [ "$#" -ne 7 ]; then
+    echo "Usage: beagle-set-clocks [s/d] [s/d] [s/d] [uncore_div] [bh_div] [rs_div] [lbwif_div]" >&2
+    exit 1
+fi
+
+SCR_UNCORE_CLK_DIVISOR=0x110020
+SCR_UNCORE_PASS_CLK_SEL=0x110050
+
+SCR_BH_CLK_DIVISOR=0x110024
+SCR_BH_PASS_CLK_SEL=0x110054
+
+SCR_RS_CLK_DIVISOR=0x110028
+SCR_RS_PASS_CLK_SEL=0x110058
+
+SCR_LBWIF_CLK_DIVISOR=0x110034
+SCR_LBWIF_PASS_CLK_SEL=0x11005c
+
+set_divisor(){
+    num=$1
+    div_addr=$2
+    sel_addr=$3
+    name=$4
+
+    if [[ "$num" -eq 1 ]]; then
+        vcu118_tsi_rw +w=$3,0x0 # set to passthrough
+        echo "[$name] Div=$num"
+    else
+        num_min_one=$(( num-1 ))
+        num_print=$(echo "obase=16; $num_min_one" | bc)
+        vcu118_tsi_rw +w=$2,0x$num_print # to divider amt
+        vcu118_tsi_rw +w=$3,0x1 # set to divided
+        echo "[$name] Div=$num,($num_print+1)"
+    fi
+}
+
+set_speed(){
+    speed=$1
+    gpionum=$2
+    name=$3
+    if [ $speed == "s" ]; then
+        echo "[$name]: Set slow clock"
+        gpioset 0 $gpionum=0
+    else
+        echo "[$name]: Set fast/diff clock"
+        gpioset 0 $gpionum=1
+    fi
+}
+
+# start with core clks
+set_speed $3 16 RocketTile
+set_divisor $6 $SCR_RS_CLK_DIVISOR $SCR_RS_PASS_CLK_SEL RocketTile
+set_speed $2 17 BoomTile
+set_divisor $5 $SCR_BH_CLK_DIVISOR $SCR_BH_PASS_CLK_SEL BoomTile
+
+# set lbwif (slow down first)
+set_divisor $7 $SCR_LBWIF_CLK_DIVISOR $SCR_LBWIF_PASS_CLK_SEL LBWIF
+
+# set uncore (speed up overall last)
+set_speed $1 18 Uncore
+set_divisor $4 $SCR_UNCORE_CLK_DIVISOR $SCR_UNCORE_PASS_CLK_SEL Uncore

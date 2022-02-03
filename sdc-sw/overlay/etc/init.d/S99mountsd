@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [[ -b /dev/mmcblk0p2 ]]; then
+  mkdir -p /mnt/sdcard
+  mount /dev/mmcblk0p2 /mnt/sdcard
+fi
