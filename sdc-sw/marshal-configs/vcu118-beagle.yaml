@@ -1,0 +1,5 @@
+{
+  "name" : "vcu118-beagle",
+  "base" : "vcu118-bringup.yaml",
+  "overlay" : "overlay"
+}

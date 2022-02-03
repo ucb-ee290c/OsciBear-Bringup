@@ -1,0 +1,12 @@
+{
+  "name" : "vcu118-bringup",
+  "base" : "br-base.json",
+  "distro" : {
+    "name" : "br",
+    "opts" : {
+      "configs" : ["buildroot-config"],
+      # note: this needs to be an absolute path
+      "environment" : { "BR2_EXTERNAL" : "/tools/B/abejgonza/beagle-work/beagle-vcu118-sw/marshal-configs/vcu118-bringup/buildroot-external" }
+    }
+  }
+}

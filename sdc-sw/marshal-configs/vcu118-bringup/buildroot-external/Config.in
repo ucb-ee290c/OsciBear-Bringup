@@ -1,0 +1,1 @@
+source "$BR2_EXTERNAL_BRINGUP_PATH/package/riscv-openocd/Config.in"

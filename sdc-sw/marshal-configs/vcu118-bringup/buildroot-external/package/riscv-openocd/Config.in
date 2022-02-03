@@ -1,0 +1,6 @@
+config BR2_PACKAGE_RISCV_OPENOCD
+	bool "riscv-openocd"
+	help
+	  OpenOCD - Open On-Chip Debugger (RISC-V)
+
+	  http://openocd.sourceforge.net/
