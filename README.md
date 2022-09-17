@@ -4,6 +4,8 @@ Various files for bringing up the EE290C Spring '21 chip
 Contents:
 * `chip-sw/` - C programs to loaded and executed on test chip 
   * taken from here: https://bwrcrepo.eecs.berkeley.edu/EE290C_EE194_tstech28/ee290c-software-stack.git
+* `chip-hw-fa22/` - FPGA project files used for bringup of the test chip
+  * Contains a Verilog port of the TileLinkTrafficAdapter (originally written in C)
 * `fesvr/` - scripts and C programs for running FESVR TSI C program on FPGA RISCV Softcore
   * https://bwrcrepo.eecs.berkeley.edu/beagle/beagle-fesvr
   * https://github.com/riscv-software-src/riscv-isa-sim
