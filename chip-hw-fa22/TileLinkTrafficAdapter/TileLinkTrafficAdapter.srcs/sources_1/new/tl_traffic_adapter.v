@@ -70,14 +70,29 @@ module tl_traffic_adapter#(
         .data_in_ready(uart_tx_data_in_ready)
     );
     
-    // FIFO 
+    //////////////////////////////////
+    // TileLink Adapter
+    //////////////////////////////////
+    // Controller
+    tl_transmitter tl_transmitter;
+    
+    
+    
+    //////////////////////////////////
+    // FIFO
+    ////////////////////////////////// 
     wire fifo_wr_en;
     wire fifo_rd_en;
     wire fifo_empty;
+    
+    // Connect FIFO <-> UART Receiver
+    assign fifo_wr_en = uart_rx_data_out_valid;
+    assign uart_rx_data_out_ready = fifo_empty;
+    
     fifo #(
         .WIDTH(8),
         .DEPTH(64)
-    ) io_fifo (
+    ) uart_fifo (
         .clk(sysclk),
         .rst(reset),
         .wr_en(fifo_wr_en),
