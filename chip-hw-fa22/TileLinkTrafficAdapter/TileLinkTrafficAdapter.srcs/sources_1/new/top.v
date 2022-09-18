@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: UC Berkeley
-// Engineer: Daniel Lovell
+// Engineer: Daniel L.
 // 
 // Create Date: 09/16/2022 06:16:51 PM
 // Design Name: 
@@ -20,8 +20,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module z1top #(
-    parameter BAUD_RATE = 115_200,
+module top #(
+
     /* verilator lint_off REALCVT */
     // Sample the button signal every 500us
     parameter integer B_SAMPLE_CNT_MAX = 0.0005 * CPU_CLOCK_FREQ,
@@ -34,8 +34,21 @@ module z1top #(
     input [1:0] SWITCHES,
     output [5:0] LEDS,
     input  FPGA_SERIAL_RX,
-    output FPGA_SERIAL_TX
+    output FPGA_SERIAL_TX,
+    // TileLink
+    // Clock signal
+    input TL_CLK,
+    // testchip to FPGA link
+    input TL_OUT_VALID,
+    output TL_OUT_READY,
+    input TL_OUT_BITS,
+    // FPGA to testchip link
+    output TL_IN_VALID,
+    input TL_IN_READY,
+    output TL_IN_BITS
 );
+
+    // Debounce resets
 
     // Use IOBs to drive/sense the UART serial lines
     wire uart_tx, uart_rx;
@@ -47,5 +60,26 @@ module z1top #(
         fpga_serial_tx_iob <= uart_tx;
         fpga_serial_rx_iob <= FPGA_SERIAL_RX;
     end
+    
+    tl_traffic_adapter #(
+        .BAUD_RATE(115_200)
+    ) adapter (
+        .sysclk(CLK_125MHZ_FPGA),
+        .reset(reset),
+        /// UART lines
+        .uart_rx(uart_rx),
+        .uart_tx(uart_tx),
+        /// TileLink
+        // Clock signal
+        .tl_clk(tl_clk),
+        // testchip to FPGA link
+        .tl_out_valid(tl_out_valid),
+        .tl_out_ready(tl_out_ready),
+        .tl_out_bits(tl_out_bits),
+        // FPGA to testchip link
+        .tl_in_valid(tl_in_valid),
+        .tl_in_ready(tl_in_ready),
+        .tl_in_bits(tl_in_bits)
+    );
 
 endmodule
