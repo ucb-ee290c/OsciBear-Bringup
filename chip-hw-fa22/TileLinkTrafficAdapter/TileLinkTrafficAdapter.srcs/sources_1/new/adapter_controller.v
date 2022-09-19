@@ -31,7 +31,7 @@ module adapter_controller(
 );
 reg fifo_empty_buff;
 always @(posedge sysclk) begin
-    // FIFO no longer empty
+    // FIFO has received a byte
     if(fifo_empty_buff & ~fifo_empty)
     
     end 

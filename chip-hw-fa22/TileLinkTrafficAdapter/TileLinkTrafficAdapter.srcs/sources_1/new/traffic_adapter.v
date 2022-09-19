@@ -81,10 +81,10 @@ module traffic_adapter#(
     //////////////////////////////////
     // FIFO
     ////////////////////////////////// 
-    wire fifo_wr_en;
-    wire fifo_rd_en;
-    wire fifo_empty;
-    wire fifo_full;
+    wire rx_fifo_wr_en;
+    wire rx_fifo_rd_en;
+    wire rx_fifo_empty;
+    wire rx_fifo_full;
     
     // Connect FIFO <-> UART Receiver
     assign fifo_wr_en = uart_rx_data_out_valid;
@@ -93,7 +93,7 @@ module traffic_adapter#(
     fifo #(
         .WIDTH(8),
         .DEPTH(64)
-    ) uart_fifo (
+    ) rx_fifo (
         .clk(sysclk),
         .rst(reset),
         .wr_en(fifo_wr_en),
@@ -104,5 +104,15 @@ module traffic_adapter#(
         .empty(fifo_empty)
     );
     
+    fifo #(
+        .WIDTH(8),
+        .DEPTH(64) 
+    ) tx_fifo ( 
+        .clk(sysclk),
+        .rst(reset),
+        .wr_en(
+    
+    
+    );  
     
 endmodule
