@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 09/17/2022 08:03:34 PM
+// Create Date: 09/17/2022 11:44:34 PM
 // Design Name: 
-// Module Name: tl_controller
+// Module Name: tl_transmitter_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tl_controller(
+module tl_transmitter_tb(
 
     );
 endmodule

@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tl_traffic_adapter#(
+module traffic_adapter#(
     parameter BAUD_RATE = 115_200
 ) (
     input sysclk,
@@ -84,6 +84,7 @@ module tl_traffic_adapter#(
     wire fifo_wr_en;
     wire fifo_rd_en;
     wire fifo_empty;
+    wire fifo_full;
     
     // Connect FIFO <-> UART Receiver
     assign fifo_wr_en = uart_rx_data_out_valid;
