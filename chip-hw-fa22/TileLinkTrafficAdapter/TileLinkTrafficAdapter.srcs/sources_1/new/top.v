@@ -21,11 +21,11 @@
 
 
 module top #(
-
     /* verilator lint_off REALCVT */
-    // Sample the button signal every 500us
-    parameter integer B_SAMPLE_CNT_MAX = 0.0005 * CPU_CLOCK_FREQ,
-    // The button is considered 'pressed' after 100ms of continuous pressing
+    parameter integer CLK_FREQ = 125_000_000,
+    // Sample period of the button
+    parameter integer B_SAMPLE_CNT_MAX = 0.0005 * CLK_FREQ,
+    // Button press interval to register edge
     parameter integer B_PULSE_CNT_MAX = 0.100 / 0.0005
     /* lint_on */
 ) (
@@ -61,7 +61,7 @@ module top #(
         fpga_serial_rx_iob <= FPGA_SERIAL_RX;
     end
     
-    tl_traffic_adapter #(
+    traffic_adapter #(
         .BAUD_RATE(115_200)
     ) adapter (
         .sysclk(CLK_125MHZ_FPGA),

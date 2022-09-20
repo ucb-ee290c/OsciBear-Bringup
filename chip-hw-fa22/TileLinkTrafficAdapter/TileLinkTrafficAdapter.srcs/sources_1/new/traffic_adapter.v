@@ -4,11 +4,11 @@
 // Engineer: Daniel L. (referenced from Yufeng C.'s microcontroller approach)
 // 
 // Create Date: 09/17/2022 07:23:47 PM
-// Design Name: 
-// Module Name: tl_traffic_adapter
+// Design Name: Traffic Adapter
+// Module Name: traffic_adapter
 // Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Target Devices: PYNQ Z1, Arty, CMOD A7
+// Tool Versions: Vivado 2022.1
 // Description: 
 // 
 // Dependencies: 
@@ -49,7 +49,7 @@ module traffic_adapter#(
     wire uart_rx_data_out_valid;
     wire uart_rx_data_out_ready;
     //// UART Transmitter
-    reg [7:0] uart_tx_data_in;
+    wire [7:0] uart_tx_data_in;
     wire uart_tx_data_in_valid;
     wire uart_tx_data_in_ready;
     uart #(
@@ -73,22 +73,68 @@ module traffic_adapter#(
     //////////////////////////////////
     // TileLink Adapter
     //////////////////////////////////
+    // TL Adapter Transmitter nets
+    wire tl_tx_done, tl_tx_busy;
+    wire tl_tx_ready, tl_tx_valid;
+    wire [7:0] tl_tx_data;
+    // Controller nets
+    wire tx_controller_error;
+    wire [7:0] tl_tx_length;
+    
     // Controller
-    tl_transmitter tl_transmitter;
+    adapter_controller adapter_controller (
+        .sysclk(sysclk),
+        .reset(reset),
+        // Controller Status
+        .tx_controller_error(tx_controller_error),
+        // TL Adapter Transmitter
+        .tl_tx_busy(tl_tx_busy),
+        .tl_tx_done(tl_tx_done),
+        .tl_tx_ready(tl_tx_ready),
+        .tl_tx_valid(tl_tx_valid),
+        .tl_tx_data(tl_tx_data),
+        .tl_tx_length(tl_tx_length),
+        // RX FIFO interface
+        .fifo_output(rx_fifo_dout),
+        .fifo_empty(rx_fifo_empty),
+        .fifo_full(rx_fifo_full),
+        .fifo_rd_en(rx_fifo_rd_en)
+    );
     
-    
+    // Transmitter
+    tl_transmitter tl_transmitter(
+        .sysclk(sysclk),
+        .reset(reset),
+        // TileLink Bus
+        .tl_clk(tl_clk),
+        .tl_out_ready(tl_out_ready),
+        .tl_out_valid(tl_out_valid),
+        .tl_out_bits(tl_out_bits),
+        // Interface with the Adapter Controller
+        .tl_tx_length(tl_tx_length),
+        .tl_tx_data(tl_tx_data),
+        .tl_tx_valid(tl_tx_valid),
+        .tl_tx_ready(tl_tx_ready),
+        // Transmitter state
+        .tx_busy(tl_tx_busy),
+        .tx_done(tl_tx_done)
+    );
+
     
     //////////////////////////////////
     // FIFO
-    ////////////////////////////////// 
+    //////////////////////////////////
+    
+    // RX FIFO 
     wire rx_fifo_wr_en;
     wire rx_fifo_rd_en;
     wire rx_fifo_empty;
     wire rx_fifo_full;
+    wire [7:0] rx_fifo_dout;
     
     // Connect FIFO <-> UART Receiver
-    assign fifo_wr_en = uart_rx_data_out_valid;
-    assign uart_rx_data_out_ready = fifo_empty;
+    assign rx_fifo_wr_en = uart_rx_data_out_valid;
+    assign uart_rx_data_out_ready = rx_fifo_empty;
     
     fifo #(
         .WIDTH(8),
@@ -96,23 +142,33 @@ module traffic_adapter#(
     ) rx_fifo (
         .clk(sysclk),
         .rst(reset),
-        .wr_en(fifo_wr_en),
+        .wr_en(rx_fifo_wr_en),
         .din(uart_rx_data_out),
-        .full(fifo_full),
-        .rd_en(fifo_rd_en),
-        .dout(fifo_dout),
-        .empty(fifo_empty)
+        .full(rx_fifo_full),
+        .rd_en(rx_fifo_rd_en),
+        .dout(rx_fifo_dout),    // UART RX output
+        .empty(rx_fifo_empty)
     );
+    
+    // TX FIFO 
+    wire tx_fifo_wr_en;
+    wire tx_fifo_rd_en;
+    wire tx_fifo_empty;
+    wire tx_fifo_full;
+    wire [7:0] tx_fifo_din;
     
     fifo #(
         .WIDTH(8),
-        .DEPTH(64) 
-    ) tx_fifo ( 
+        .DEPTH(64)
+    ) tx_fifo (
         .clk(sysclk),
         .rst(reset),
-        .wr_en(
-    
-    
+        .wr_en(tx_fifo_wr_en),
+        .din(tx_fifo_din),
+        .full(tx_fifo_full),
+        .rd_en(tx_fifo_rd_en),
+        .dout(uart_tx_data_in), // UART TX input
+        .empty(tx_fifo_empty)
     );  
     
 endmodule
