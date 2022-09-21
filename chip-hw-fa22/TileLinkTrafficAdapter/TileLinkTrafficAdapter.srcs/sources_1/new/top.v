@@ -38,14 +38,14 @@ module top #(
     // TileLink
     // Clock signal
     input TL_CLK,
-    // testchip to FPGA link
-    input TL_OUT_VALID,
-    output TL_OUT_READY,
-    input TL_OUT_BITS,
     // FPGA to testchip link
-    output TL_IN_VALID,
-    input TL_IN_READY,
-    output TL_IN_BITS
+    output TL_OUT_VALID,
+    input TL_OUT_READY,
+    output TL_OUT_BITS,
+    // testchip to FPGA link
+    input TL_IN_VALID,
+    output TL_IN_READY,
+    input TL_IN_BITS
 );
 
     // Debounce resets
@@ -71,15 +71,15 @@ module top #(
         .uart_tx(uart_tx),
         /// TileLink
         // Clock signal
-        .tl_clk(tl_clk),
+        .tl_clk(TL_CLK),
         // testchip to FPGA link
-        .tl_out_valid(tl_out_valid),
-        .tl_out_ready(tl_out_ready),
-        .tl_out_bits(tl_out_bits),
+        .tl_out_valid(TL_OUT_VALID),
+        .tl_out_ready(TL_OUT_READY),
+        .tl_out_bits(TL_OUT_BITS),
         // FPGA to testchip link
-        .tl_in_valid(tl_in_valid),
-        .tl_in_ready(tl_in_ready),
-        .tl_in_bits(tl_in_bits)
+        .tl_in_valid(TL_IN_VALID),
+        .tl_in_ready(TL_IN_READY),
+        .tl_in_bits(TL_IN_BITS)
     );
 
 endmodule

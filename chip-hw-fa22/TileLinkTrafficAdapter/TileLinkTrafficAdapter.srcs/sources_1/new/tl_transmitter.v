@@ -48,7 +48,7 @@ edge_detector #(
 );
 
 localparam IDLE = 0, TRANSMITTING = 1, EXITING = 2;
-reg state;
+reg [1:0] state;
 reg tx_buffered_length;
 
 reg [7:0] bit_ctr;

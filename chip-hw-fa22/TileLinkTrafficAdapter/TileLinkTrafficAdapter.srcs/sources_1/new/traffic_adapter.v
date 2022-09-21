@@ -31,14 +31,14 @@ module traffic_adapter#(
     /// TileLink
     // Clock signal
     input tl_clk,
-    // testchip to FPGA link
-    input tl_out_valid,
-    output tl_out_ready,
-    input tl_out_bits,
     // FPGA to testchip link
-    output tl_in_valid,
-    input tl_in_ready,
-    output tl_in_bits
+    output tl_out_valid,
+    input tl_out_ready,
+    output tl_out_bits,
+    // testchip to FPGA link
+    input tl_in_valid,
+    output tl_in_ready,
+    input tl_in_bits
 );
     
     //////////////////////////////////////
@@ -50,21 +50,21 @@ module traffic_adapter#(
     wire uart_rx_data_out_ready;
     //// UART Transmitter
     wire [7:0] uart_tx_data_in;
-    wire uart_tx_data_in_valid;
+    reg uart_tx_data_in_valid;
     wire uart_tx_data_in_ready;
     uart #(
         .CLOCK_FREQ(125_000_000),
         .BAUD_RATE(BAUD_RATE)
     ) on_chip_uart (
-        .clk(clk),
-        .reset(rst),
+        .clk(sysclk),
+        .reset(reset),
 
-        .serial_in(serial_in),
+        .serial_in(uart_rx),
         .data_out(uart_rx_data_out),
         .data_out_valid(uart_rx_data_out_valid),
         .data_out_ready(uart_rx_data_out_ready),
 
-        .serial_out(serial_out),
+        .serial_out(uart_tx),
         .data_in(uart_tx_data_in),
         .data_in_valid(uart_tx_data_in_valid),
         .data_in_ready(uart_tx_data_in_ready)
@@ -83,7 +83,7 @@ module traffic_adapter#(
     
     // Connect FIFO <-> UART Receiver
     assign rx_fifo_wr_en = uart_rx_data_out_valid;
-    assign uart_rx_data_out_ready = rx_fifo_empty;
+    assign uart_rx_data_out_ready = ~rx_fifo_full;
     
     fifo #(
         .WIDTH(8),
@@ -101,10 +101,23 @@ module traffic_adapter#(
     
     // TX FIFO 
     wire tx_fifo_wr_en;
-    wire tx_fifo_rd_en;
+    reg tx_fifo_rd_en;
     wire tx_fifo_empty;
     wire tx_fifo_full;
     wire [7:0] tx_fifo_din;
+    
+    // Connect FIFO <-> UART Transmitter
+    always @(posedge sysclk) begin
+        if(~tx_fifo_empty && uart_tx_data_in) begin
+            tx_fifo_rd_en <= 1;
+            uart_tx_data_in_valid <= 1; // This might cause trouble.. Need to wait?
+        end
+        else begin 
+            // UART should make a copy of din for himself
+            tx_fifo_rd_en <= 0;
+            uart_tx_data_in_valid <= 0;
+        end
+    end
     
     fifo #(
         .WIDTH(8),
@@ -128,6 +141,10 @@ module traffic_adapter#(
     wire tl_tx_done, tl_tx_busy;
     wire tl_tx_ready, tl_tx_valid;
     wire [7:0] tl_tx_data;
+    // TL Adapter Receiver nets
+    wire tl_rx_done, tl_rx_busy;
+    wire tl_rx_ready, tl_rx_valid;
+    wire [7:0] tl_rx_data;
     // Controller nets
     wire tx_controller_error;
     wire [7:0] tl_tx_length;
@@ -169,6 +186,23 @@ module traffic_adapter#(
         // Transmitter state
         .tx_busy(tl_tx_busy),
         .tx_done(tl_tx_done)
+    );
+    // Receiver
+    tl_receiver tl_receiver(
+        .sysclk(sysclk),
+        .reset(reset),
+        // TileLink Bus
+        .tl_clk(tl_clk),
+        .tl_in_valid(tl_in_valid),
+        .tl_in_ready(tl_in_ready),
+        .tl_in_bits(tl_in_bits),
+        // Interface with the Adapter Controller
+        .tl_rx_data(tl_rx_data),
+        .tl_rx_valid(tl_rx_valid),
+        .tl_rx_ready(tl_rx_ready),
+        // Receiver state
+        .rx_busy(tl_rx_busy),
+        .rx_done(tl_rx_done)
     );
 
     

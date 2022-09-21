@@ -41,12 +41,17 @@ module adapter_controller(
 localparam IDLE = 0, PARSING = 1, TRANSMITTING = 2;
 localparam RECEIVING = 1;
 reg fifo_empty_buff;
-reg tx_state;
+reg [1:0] tx_state;
 reg rx_state;
 
 reg tx_fifo_rf;
 
 assign tl_tx_data = fifo_output;
+
+// Buffered FIFO Empty signal 
+always @(posedge sysclk) begin
+    fifo_empty_buff <= fifo_empty;
+end
 
 //////////////////////////
 // Transmitter Controller

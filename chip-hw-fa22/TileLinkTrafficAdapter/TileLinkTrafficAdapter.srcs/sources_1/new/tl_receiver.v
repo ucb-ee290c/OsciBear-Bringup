@@ -32,7 +32,7 @@ module tl_receiver(
     output [7:0] tl_rx_data,
     output reg tl_rx_valid,
     input tl_rx_ready,
-    // Recceiver state
+    // Receiver state
     output reg rx_busy,
     output reg rx_done
 );
