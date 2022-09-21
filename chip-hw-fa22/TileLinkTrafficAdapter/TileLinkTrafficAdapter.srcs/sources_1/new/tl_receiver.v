@@ -47,96 +47,54 @@ edge_detector #(
     .edge_detect_pulse(posedge_tl_clk)
 );
 
-localparam IDLE = 0, RECEIVING = 1, WRITING = 2;
+localparam IDLE = 0, RECEIVING = 1;
 
-reg [1:0] cur_state;
-reg [1:0] nxt_state;
+reg state;
 reg [3:0] tl_byte_ctr;
-reg [3:0] tl_byte_ctr_in;
 reg [7:0] tl_rx_byte;
-reg [7:0] tl_rx_byte_in;
 
 assign tl_rx_data = tl_rx_byte;
 
 always @(posedge sysclk) begin
     if(reset) begin
-        cur_state <= IDLE;
+        state <= IDLE;
         tl_byte_ctr  <= 'd0;
         tl_rx_byte <= 'd0;
     end
     else begin
-        cur_state <= nxt_state;
-        tl_byte_ctr  <= tl_byte_ctr_in;
-        tl_rx_byte <= tl_rx_byte_in;
-    end
-end
-
-always @(*) begin
-    case(cur_state) 
+        case(state) 
         IDLE : begin
-            tl_in_ready = 1;
-            tl_rx_valid = 0;
+            tl_in_ready <= 1;
+            tl_rx_valid <= 0;
             if(posedge_tl_clk && tl_in_valid) begin
-                nxt_state = RECEIVING;
-                tl_byte_ctr_in = 'd1;
-                tl_rx_byte_in = {7'b0, tl_in_bits};
+                state <= RECEIVING;
+                tl_byte_ctr <= 'd1;
+                tl_rx_byte <= {7'b0, tl_in_bits};
             end
             else begin 
-                nxt_state = IDLE;
-                tl_byte_ctr_in = 'd0;
-                tl_rx_byte_in = 8'b0;
+                state <= IDLE;
+                tl_byte_ctr <= 'd0;
+                tl_rx_byte <= 8'b0;
             end
         end
         RECEIVING : begin
-            tl_in_ready = 1;
-            tl_rx_valid = 0;
+            tl_in_ready <= 1;
+            tl_rx_valid <= 0;
             if(posedge_tl_clk) begin
                 if(tl_in_valid) begin
-                    tl_rx_byte_in = tl_rx_byte  | (tl_in_bits  << tl_byte_ctr); 
+                    tl_rx_byte <= tl_rx_byte  | (tl_in_bits  << tl_byte_ctr);
+                    tl_byte_ctr <= tl_byte_ctr + 1; 
                     if(tl_byte_ctr == 'd7) begin
                         // Need to wait a cycle to propagate the last bit
                         // to output of tl_rx_byte
-                        tl_byte_ctr_in = 8'b0;
-                        nxt_state = WRITING;
-                    end
-                    else begin 
-                        tl_byte_ctr_in = tl_byte_ctr + 1;
-                        nxt_state = RECEIVING;
+                        tl_rx_valid <= 1;
+                        tl_byte_ctr <= 8'b0;
                     end
                 end
-                else begin
-                    tl_rx_byte_in = tl_rx_byte;
-                    tl_byte_ctr_in = tl_byte_ctr;
-                    nxt_state = RECEIVING;
-                end
-            end
-            else begin 
-                nxt_state = RECEIVING;
-                tl_byte_ctr_in = tl_byte_ctr;
-                tl_rx_byte_in = tl_rx_byte;
             end
         end
-        WRITING : begin
-            tl_rx_byte_in = tl_rx_byte;
-            tl_in_ready = 0;
-            tl_rx_valid = 1;
-            tl_byte_ctr_in = 8'b0;
-            if(tl_rx_ready) begin
-                nxt_state = RECEIVING;
-            end
-            else begin
-                nxt_state = WRITING;
-            end
-        end
-        default : begin
-            tl_in_ready  = 0;
-            tl_rx_valid  = 0;
-            nxt_state = IDLE;
-            tl_byte_ctr_in = 8'b0;
-            tl_rx_byte_in = tl_rx_byte;
-        end
-    endcase
-
+        endcase
+    end
 end
 
 endmodule
