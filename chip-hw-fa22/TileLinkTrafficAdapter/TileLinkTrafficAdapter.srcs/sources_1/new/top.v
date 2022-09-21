@@ -20,15 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module top #(
-    /* verilator lint_off REALCVT */
-    parameter integer CLK_FREQ = 125_000_000,
-    // Sample period of the button
-    parameter integer B_SAMPLE_CNT_MAX = 0.0005 * CLK_FREQ,
-    // Button press interval to register edge
-    parameter integer B_PULSE_CNT_MAX = 0.100 / 0.0005
-    /* lint_on */
-) (
+module top (
     input CLK_125MHZ_FPGA,
     input [3:0] BUTTONS,
     input [1:0] SWITCHES,
@@ -47,9 +39,28 @@ module top #(
     output TL_IN_READY,
     input TL_IN_BITS
 );
+    parameter integer CLK_FREQ = 125_000_000;
 
     // Debounce resets
-
+    // Sample period of the button
+    parameter integer B_SAMPLE_CNT_MAX = 0.0005 * CLK_FREQ;
+    // Button press interval to register edge
+    parameter integer B_PULSE_CNT_MAX = 0.100 / 0.0005;
+    
+    // Buttons after the button_parser
+    wire [3:0] buttons_pressed;
+    button_parser #(
+        .WIDTH(4),
+        .SAMPLE_CNT_MAX(B_SAMPLE_CNT_MAX),
+        .PULSE_CNT_MAX(B_PULSE_CNT_MAX)
+    ) bp (
+        .clk(cpu_clk),
+        .in(BUTTONS),
+        .out(buttons_pressed)
+    );
+    // Master reset signal
+    assign reset = buttons_pressed[0];
+    
     // Use IOBs to drive/sense the UART serial lines
     wire uart_tx, uart_rx;
     (* IOB = "true" *) reg fpga_serial_tx_iob;
