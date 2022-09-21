@@ -23,7 +23,6 @@
 module top (
     input CLK_125MHZ_FPGA,
     input [3:0] BUTTONS,
-    input [1:0] SWITCHES,
     output [5:0] LEDS,
     input  FPGA_SERIAL_RX,
     output FPGA_SERIAL_TX,
