@@ -71,6 +71,57 @@ module traffic_adapter#(
     );
     
     //////////////////////////////////
+    // FIFO
+    //////////////////////////////////
+    
+    // RX FIFO 
+    wire rx_fifo_wr_en;
+    wire rx_fifo_rd_en;
+    wire rx_fifo_empty;
+    wire rx_fifo_full;
+    wire [7:0] rx_fifo_dout;
+    
+    // Connect FIFO <-> UART Receiver
+    assign rx_fifo_wr_en = uart_rx_data_out_valid;
+    assign uart_rx_data_out_ready = rx_fifo_empty;
+    
+    fifo #(
+        .WIDTH(8),
+        .DEPTH(64)
+    ) rx_fifo (
+        .clk(sysclk),
+        .rst(reset),
+        .wr_en(rx_fifo_wr_en),
+        .din(uart_rx_data_out),
+        .full(rx_fifo_full),
+        .rd_en(rx_fifo_rd_en),
+        .dout(rx_fifo_dout),    // UART RX output
+        .empty(rx_fifo_empty)
+    );
+    
+    // TX FIFO 
+    wire tx_fifo_wr_en;
+    wire tx_fifo_rd_en;
+    wire tx_fifo_empty;
+    wire tx_fifo_full;
+    wire [7:0] tx_fifo_din;
+    
+    fifo #(
+        .WIDTH(8),
+        .DEPTH(64)
+    ) tx_fifo (
+        .clk(sysclk),
+        .rst(reset),
+        .wr_en(tx_fifo_wr_en),
+        .din(tx_fifo_din),
+        .full(tx_fifo_full),
+        .rd_en(tx_fifo_rd_en),
+        .dout(uart_tx_data_in), // UART TX input
+        .empty(tx_fifo_empty)
+    );  
+    
+    
+     //////////////////////////////////
     // TileLink Adapter
     //////////////////////////////////
     // TL Adapter Transmitter nets
@@ -120,55 +171,5 @@ module traffic_adapter#(
         .tx_done(tl_tx_done)
     );
 
-    
-    //////////////////////////////////
-    // FIFO
-    //////////////////////////////////
-    
-    // RX FIFO 
-    wire rx_fifo_wr_en;
-    wire rx_fifo_rd_en;
-    wire rx_fifo_empty;
-    wire rx_fifo_full;
-    wire [7:0] rx_fifo_dout;
-    
-    // Connect FIFO <-> UART Receiver
-    assign rx_fifo_wr_en = uart_rx_data_out_valid;
-    assign uart_rx_data_out_ready = rx_fifo_empty;
-    
-    fifo #(
-        .WIDTH(8),
-        .DEPTH(64)
-    ) rx_fifo (
-        .clk(sysclk),
-        .rst(reset),
-        .wr_en(rx_fifo_wr_en),
-        .din(uart_rx_data_out),
-        .full(rx_fifo_full),
-        .rd_en(rx_fifo_rd_en),
-        .dout(rx_fifo_dout),    // UART RX output
-        .empty(rx_fifo_empty)
-    );
-    
-    // TX FIFO 
-    wire tx_fifo_wr_en;
-    wire tx_fifo_rd_en;
-    wire tx_fifo_empty;
-    wire tx_fifo_full;
-    wire [7:0] tx_fifo_din;
-    
-    fifo #(
-        .WIDTH(8),
-        .DEPTH(64)
-    ) tx_fifo (
-        .clk(sysclk),
-        .rst(reset),
-        .wr_en(tx_fifo_wr_en),
-        .din(tx_fifo_din),
-        .full(tx_fifo_full),
-        .rd_en(tx_fifo_rd_en),
-        .dout(uart_tx_data_in), // UART TX input
-        .empty(tx_fifo_empty)
-    );  
     
 endmodule

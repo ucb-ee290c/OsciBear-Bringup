@@ -46,9 +46,11 @@ reg rx_state;
 
 reg tx_fifo_rf;
 
-
 assign tl_tx_data = fifo_output;
 
+//////////////////////////
+// Transmitter Controller
+//////////////////////////
 always @(posedge sysclk) begin
     if(reset) begin
         tl_tx_length <= 8'd0;

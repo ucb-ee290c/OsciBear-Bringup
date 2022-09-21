@@ -26,15 +26,15 @@ module tl_receiver(
     // TileLink Bus
     input tl_clk,
     input tl_in_valid,
-    output reg tl_out_ready,
+    output reg tl_in_ready,
     input tl_in_bits,
     // Interface with the Adapter Controller
     output [7:0] tl_rx_data,
     output reg tl_rx_valid,
     input tl_rx_ready,
     // Recceiver state
-    output reg tx_busy,
-    output reg tx_done
+    output reg rx_busy,
+    output reg rx_done
 );
 
 
@@ -47,21 +47,96 @@ edge_detector #(
     .edge_detect_pulse(posedge_tl_clk)
 );
 
-localparam IDLE = 0, RECEIVING = 1;
+localparam IDLE = 0, RECEIVING = 1, WRITING = 2;
 
-reg cur_state;
-reg nxt_state;
-reg [3:0] fifo_byte_ctr;
+reg [1:0] cur_state;
+reg [1:0] nxt_state;
+reg [3:0] tl_byte_ctr;
+reg [3:0] tl_byte_ctr_in;
+reg [7:0] tl_rx_byte;
+reg [7:0] tl_rx_byte_in;
+
+assign tl_rx_data = tl_rx_byte;
 
 always @(posedge sysclk) begin
     if(reset) begin
-        state <= IDLE;
-        fifo_byte_ctr  <= 'd0;
+        cur_state <= IDLE;
+        tl_byte_ctr  <= 'd0;
+        tl_rx_byte <= 'd0;
     end
     else begin
-        case  
+        cur_state <= nxt_state;
+        tl_byte_ctr  <= tl_byte_ctr_in;
+        tl_rx_byte <= tl_rx_byte_in;
     end
 end
 
+always @(*) begin
+    case(cur_state) 
+        IDLE : begin
+            tl_in_ready = 1;
+            tl_rx_valid = 0;
+            if(posedge_tl_clk && tl_in_valid) begin
+                nxt_state = RECEIVING;
+                tl_byte_ctr_in = 'd1;
+                tl_rx_byte_in = {7'b0, tl_in_bits};
+            end
+            else begin 
+                nxt_state = IDLE;
+                tl_byte_ctr_in = 'd0;
+                tl_rx_byte_in = 8'b0;
+            end
+        end
+        RECEIVING : begin
+            tl_in_ready = 1;
+            tl_rx_valid = 0;
+            if(posedge_tl_clk) begin
+                if(tl_in_valid) begin
+                    tl_rx_byte_in = tl_rx_byte  | (tl_in_bits  << tl_byte_ctr); 
+                    if(tl_byte_ctr == 'd7) begin
+                        // Need to wait a cycle to propagate the last bit
+                        // to output of tl_rx_byte
+                        tl_byte_ctr_in = 8'b0;
+                        nxt_state = WRITING;
+                    end
+                    else begin 
+                        tl_byte_ctr_in = tl_byte_ctr + 1;
+                        nxt_state = RECEIVING;
+                    end
+                end
+                else begin
+                    tl_rx_byte_in = tl_rx_byte;
+                    tl_byte_ctr_in = tl_byte_ctr;
+                    nxt_state = RECEIVING;
+                end
+            end
+            else begin 
+                nxt_state = RECEIVING;
+                tl_byte_ctr_in = tl_byte_ctr;
+                tl_rx_byte_in = tl_rx_byte;
+            end
+        end
+        WRITING : begin
+            tl_rx_byte_in = tl_rx_byte;
+            tl_in_ready = 0;
+            tl_rx_valid = 1;
+            tl_byte_ctr_in = 8'b0;
+            if(tl_rx_ready) begin
+                nxt_state = RECEIVING;
+            end
+            else begin
+                nxt_state = WRITING;
+            end
+        end
+        default : begin
+            tl_in_ready  = 0;
+            tl_rx_valid  = 0;
+            nxt_state = IDLE;
+            tl_byte_ctr_in = 8'b0;
+            tl_rx_byte_in = tl_rx_byte;
+        end
+    endcase
+
+end
 
 endmodule
