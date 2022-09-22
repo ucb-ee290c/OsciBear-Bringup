@@ -162,11 +162,22 @@ module traffic_adapter#(
         .tl_tx_valid(tl_tx_valid),
         .tl_tx_data(tl_tx_data),
         .tl_tx_length(tl_tx_length),
+        // TL Adapter Receiver
+        .tl_rx_busy(tl_rx_busy),
+        .tl_rx_done(tl_rx_done),
+        .tl_rx_ready(tl_rx_ready),
+        .tl_rx_valid(tl_rx_valid),
+        .tl_rx_data(tl_rx_data),
+        // TX FIFO interface
+        .tx_fifo_input(tx_fifo_din),
+        .tx_fifo_empty(tx_fifo_empty),
+        .tx_fifo_full(tx_fifo_full),
+        .tx_fifo_wr_en(tx_fifo_wr_en),
         // RX FIFO interface
-        .fifo_output(rx_fifo_dout),
-        .fifo_empty(rx_fifo_empty),
-        .fifo_full(rx_fifo_full),
-        .fifo_rd_en(rx_fifo_rd_en)
+        .rx_fifo_output(rx_fifo_dout),
+        .rx_fifo_empty(rx_fifo_empty),
+        .rx_fifo_full(rx_fifo_full),
+        .rx_fifo_rd_en(rx_fifo_rd_en)
     );
     
     // Transmitter
