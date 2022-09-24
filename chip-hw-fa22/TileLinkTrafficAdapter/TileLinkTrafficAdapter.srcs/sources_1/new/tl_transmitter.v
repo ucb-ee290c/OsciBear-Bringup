@@ -66,6 +66,8 @@ always @ (posedge sysclk) begin
         IDLE : begin
             if(tl_tx_valid) begin
                 state <= TRANSMITTING;
+                tx_busy <= 1;
+                tx_done <= 0;
                 tx_buffered_length  <= tl_tx_length ;             
             end
         
@@ -77,6 +79,8 @@ always @ (posedge sysclk) begin
                 bit_ctr <= bit_ctr + 1;     
                 if(bit_ctr >= (tx_buffered_length - 1)) begin
                     state <= EXITING;
+                    tx_done <= 0;
+                    tx_busy <= 1;
                     tx_buffered_length <= 8'd0;
                     bit_ctr  <= 'd0;
                     fifo_byte_ctr <= 'd0;
@@ -97,6 +101,8 @@ always @ (posedge sysclk) begin
                 tl_out_valid <= 0;
                 state <= IDLE;
                 tl_tx_ready <= 0;
+                tx_busy <= 0;
+                tx_done <= 1;
             end
         end
     endcase

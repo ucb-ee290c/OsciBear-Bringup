@@ -38,7 +38,12 @@ module traffic_adapter#(
     // testchip to FPGA link
     input tl_in_valid,
     output tl_in_ready,
-    input tl_in_bits
+    input tl_in_bits,
+    // Status bits
+    output tl_tx_busy,
+    output tl_tx_done,
+    output tl_rx_busy,
+    output tl_rx_done
 );
     
     //////////////////////////////////////
@@ -107,14 +112,20 @@ module traffic_adapter#(
     wire [7:0] tx_fifo_din;
     
     // Connect FIFO <-> UART Transmitter
-    always @(posedge sysclk) begin
-        if(~tx_fifo_empty && uart_tx_data_in) begin
-            tx_fifo_rd_en <= 1;
-            uart_tx_data_in_valid <= 1; // This might cause trouble.. Need to wait?
+    always @(*) begin
+        if(~tx_fifo_empty && uart_tx_data_in_ready) begin
+            tx_fifo_rd_en = 1;
         end
         else begin 
             // UART should make a copy of din for himself
-            tx_fifo_rd_en <= 0;
+            tx_fifo_rd_en = 0;
+        end
+    end
+    always @(posedge sysclk) begin
+        if(~tx_fifo_empty && uart_tx_data_in_ready) begin
+            uart_tx_data_in_valid <= 1; // This might cause trouble.. Need to wait?
+        end
+        else begin
             uart_tx_data_in_valid <= 0;
         end
     end
@@ -138,11 +149,9 @@ module traffic_adapter#(
     // TileLink Adapter
     //////////////////////////////////
     // TL Adapter Transmitter nets
-    wire tl_tx_done, tl_tx_busy;
     wire tl_tx_ready, tl_tx_valid;
     wire [7:0] tl_tx_data;
     // TL Adapter Receiver nets
-    wire tl_rx_done, tl_rx_busy;
     wire tl_rx_ready, tl_rx_valid;
     wire [7:0] tl_rx_data;
     // Controller nets
