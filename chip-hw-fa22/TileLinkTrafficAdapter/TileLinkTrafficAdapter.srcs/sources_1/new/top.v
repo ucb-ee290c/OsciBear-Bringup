@@ -38,6 +38,15 @@ module top (
     output TL_IN_READY,
     input TL_IN_BITS
 );
+    //// LED assignments
+    // LED 4 is on when the bitstream is flashed
+    wire tl_tx_busy, tl_tx_done, tl_rx_busy, tl_rx_done;
+    assign LEDS[0] = tl_tx_busy;
+    assign LEDS[1] = tl_tx_done;
+    assign LEDS[2] = tl_rx_busy;
+    assign LEDS[3] = tl_rx_done;
+    assign LEDS[4] = 1;
+
     parameter integer CLK_FREQ = 125_000_000;
 
     // Debounce resets
@@ -53,7 +62,7 @@ module top (
         .SAMPLE_CNT_MAX(B_SAMPLE_CNT_MAX),
         .PULSE_CNT_MAX(B_PULSE_CNT_MAX)
     ) bp (
-        .clk(cpu_clk),
+        .clk(CLK_125MHZ_FPGA),
         .in(BUTTONS),
         .out(buttons_pressed)
     );
@@ -89,7 +98,12 @@ module top (
         // FPGA to testchip link
         .tl_in_valid(TL_IN_VALID),
         .tl_in_ready(TL_IN_READY),
-        .tl_in_bits(TL_IN_BITS)
+        .tl_in_bits(TL_IN_BITS),
+         // Status bits
+        .tl_tx_busy(tl_tx_busy),
+        .tl_tx_done(tl_tx_done),
+        .tl_rx_busy(tl_rx_busy),
+        .tl_rx_done(tl_rx_done)
     );
 
 endmodule

@@ -57,6 +57,8 @@ assign tl_rx_data = tl_rx_byte;
 
 always @(posedge sysclk) begin
     if(reset) begin
+        rx_busy <= 0;
+        rx_done <= 1;
         state <= IDLE;
         tl_byte_ctr  <= 'd0;
         tl_rx_byte <= 'd0;
@@ -67,6 +69,7 @@ always @(posedge sysclk) begin
             tl_in_ready <= 1;
             tl_rx_valid <= 0;
             if(posedge_tl_clk && tl_in_valid) begin
+                rx_busy <= 1;
                 state <= RECEIVING;
                 tl_byte_ctr <= 'd1;
                 tl_rx_byte <= {7'b0, tl_in_bits};
@@ -78,6 +81,7 @@ always @(posedge sysclk) begin
             end
         end
         RECEIVING : begin
+            
             tl_in_ready <= 1;
             tl_rx_valid <= 0;
             if(posedge_tl_clk) begin
