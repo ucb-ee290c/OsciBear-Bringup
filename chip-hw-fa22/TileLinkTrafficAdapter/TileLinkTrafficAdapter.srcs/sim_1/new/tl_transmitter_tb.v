@@ -13,16 +13,18 @@
 //
 // Dependencies:
 //
-// Revision: 7:08Removed UART and FIFO wirings and replaced them with the top module. No need
-// to rewire
+// Revision:    9/21 7:08pm Removed UART and FIFO wirings and replaced them with the adapter module - DL
+//              9/22 5:30pm Cleaned up logic and wirings - TM
+//              9/23 5:02pm Reorganized testbench, removed unnecessary wires and regs, and documented more thoroughly - DL
 // Revision 0.01 - File Created
 // Additional Comments:
 //
 //////////////////////////////////////////////////////////////////////////////////
+
 /*
-Thomas Notes:
+Thomas's Notes:
 - Might be a good idea to use UART module instead of manually implementing UART in task PC_to_UART
-- only need to test traffic_adapter module rather than top module (see inside top.v where traffic_adapter is instatiated)
+- only need to test traffic_adapter module rather than adapter module (see inside adapter.v where traffic_adapter is instatiated)
     - can make things cleaner/simpler
 - ran through vivado and fixed some minor syntax errors (mispelling, extra comma, etc)
 - changed bitstring and FIFO_data_out widths from 128 to 256 to let it compile (fifo was instantiated to 256 width so has to match)
@@ -40,18 +42,18 @@ module tl_transmitter_tb();
     always #(CLOCK_PERIOD / 2) clk = ~clk;
 
     // PC related variables
-    reg [7:0] UART_data = 8'd8; initial UART_data = 8'd8;   // 1 byte data from PC to top
+    reg [7:0] UART_data = 8'd8; initial UART_data = 8'd8;   // 1 byte data from PC to adapter
     wire PC_Valid; assign PC_Valid = 1'b1;                  // Right now, data from PC is always valid
-    reg PC_data_to_UART; initial PC_data_to_UART = 1'b1;    // UART data bits
+    reg PC_data_to_UART; initial PC_data_to_UART = 1'b1;    // UART data bit
     // PC related task
     integer i;                                              // Bit index
-    task PC_to_UART;
+    task PC_to_UART;                                        // Sends bits from PC to adapter
         begin
             PC_data_to_UART = 0;                            // Start bit is 0 to signify start of comm
             #(BAUD_PERIOD);                                 // Wait one buad period before sending data
             for (i = 0; i < 8; i = i + 1) begin             // Send the test data bit-by-bit
-                PC_data_to_UART = UART_data[i];             // Set the bit to be the ith bit of the UART data
-                #(BAUD_PERIOD);                             // Wait one buad period before sending data
+                PC_data_to_UART = UART_data[i];             // Set the ith bit to the input bit
+                #(BAUD_PERIOD);                             // Wait one baud period before sending data
             end
             PC_data_to_UART = 1;                            // End bit is 0 to signify end of comm
             #(BAUD_PERIOD);
@@ -85,7 +87,7 @@ module tl_transmitter_tb();
         .tl_out_ready(1'b1),                                // tb always ready to recieve from the DUT
         .tl_out_bits(TL_OUT_BITS),
         // testchip to FPGA link - not testing in 
-        // this module (see tl_recieve_tb.v)
+        // this module (see tl_reciever_tb.v)
         .tl_in_valid(),
         .tl_in_ready(),
         .tl_in_bits()  
