@@ -1,5 +1,7 @@
 # EE290C Integration Team
 
+***NOTE: This is a copy of SOME the integration team's repo, so that no PDK-specific information was present. The [original repo can be found here](https://bwrcrepo.eecs.berkeley.edu/EE290C_EE194_tstech28/ee290c-integration-team) but requires a signed TSMC28 NDA. 
+
 Main repository for the integration team.
 This branch reflects the final delivery of OsciBear, including all components except for final flattened layouts (for which this repo contains pointers).
 [Final industry design review slides](https://ucberkeley-ee290c.github.io/sp21/assets/review-final.pdf).
