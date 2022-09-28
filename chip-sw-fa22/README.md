@@ -17,6 +17,7 @@
 6. the waveform of TSI bus can be monitored with logic analyzer. channels are:
 
 | Channel | Signal        |
+| ------- | ------------- |
 | 0       | TL CLK        |
 | 1       | TL MOSI DATA  |
 | 2       | TL MOSI VALID |
