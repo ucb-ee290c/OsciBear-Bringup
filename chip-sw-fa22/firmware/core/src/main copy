@@ -217,19 +217,21 @@ int main() {
   #define LOOPBACK_MODEM    0x4 // This cannot be electrically functional
   uint8_t payload[]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; 
   uint8_t byte_size = 7;
-
-
+  
   uint32_t res_addr = payload + ((byte_size & ~3) + ((byte_size % 4) > 0 ? 4 : 0)); 
-  sprintf(str, "PRERES_ADDR: %.8x \n", res_addr);
+  sprintf(str, "PRE-CMD RES_ADDR: %.8x \n", res_addr);
   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
   for (int i = 0; i < byte_size; i++) {
     sprintf(str, "%.2x ", (unsigned)*(unsigned char*)(res_addr + i));
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    
   }
+  HAL_UART_transmit(UART0, "\n", 1, 0);
 
 
   reg_write32(BASEBAND_ADDITIONAL_DATA, payload);
-  reg_write32(BASEBAND_INST, BASEBAND_INSTRUCTION(BASEBAND_DEBUG, LOOPBACK_BASEBAND, byte_size));
+  reg_write32(BASEBAND_INST, BASEBAND_INSTRUCTION(BASEBAND_DEBUG, 0xFF, byte_size));
 
 
   while (1) {
@@ -262,8 +264,7 @@ int main() {
     // clint_connect_interrupt(INT_CODE_MACHINE_EXTERNAL, &plic_handler);  
     // clint_machine_interrupt_enable(INT_CODE_MACHINE_EXTERNAL);
     
-    // uint32_t res_addr = payload + ((byte_size & ~3) + ((byte_size % 4) > 0 ? 4 : 0)); 
-    sprintf(str, "RES_ADDR: %.8x \n", res_addr);
+    sprintf(str, "DATA AFTER:\n");
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
     for (int i = 0; i < byte_size; i++) {
       sprintf(str, "%.2x ", (unsigned)*(unsigned char*)(res_addr + i));
