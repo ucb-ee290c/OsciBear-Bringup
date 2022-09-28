@@ -60,13 +60,17 @@ always @ (posedge sysclk) begin
         tx_buffered_length <= 8'd0;
         bit_ctr  <= 'd0;
         fifo_byte_ctr <= 'd0;
+        tl_tx_ready <= 0;
+        tx_done <= 0;
     end 
     else begin 
     case (state) 
         IDLE : begin
+            tl_tx_ready <= 1;
             if(tl_tx_valid) begin
                 state <= TRANSMITTING;
-                tx_buffered_length  <= tl_tx_length ;             
+                tx_buffered_length  <= tl_tx_length;   
+                tx_done <= 0;          
             end
         
         end
@@ -98,6 +102,7 @@ always @ (posedge sysclk) begin
                 state <= IDLE;
                 tl_tx_ready <= 0;
             end
+            tx_done <= 1; // Thomas addition - assume it is done upon exiting (done was not driven anywhere else)
         end
     endcase
     end

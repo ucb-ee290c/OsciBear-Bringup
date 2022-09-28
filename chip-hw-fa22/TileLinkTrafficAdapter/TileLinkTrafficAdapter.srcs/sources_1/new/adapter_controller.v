@@ -73,6 +73,7 @@ always @(posedge sysclk) begin
         tx_state <= IDLE;
         tx_fifo_rf = 0;
         tx_controller_error  <= 0;
+        tl_tx_valid <= 0;
     end
     case(tx_state)
         IDLE : begin

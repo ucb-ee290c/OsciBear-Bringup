@@ -63,7 +63,6 @@ module tl_transmitter_tb();
     initial TL_CLK = 0; always #(TL_PERIOD / 2) TL_CLK = ~TL_CLK;
     wire TL_OUT_VALID, TL_OUT_BITS;
     //FIFO related variables
-    reg [255:0] bitstring;
     traffic_adapter #(
         .BAUD_RATE(115_200)
     ) adapter (
@@ -83,11 +82,14 @@ module tl_transmitter_tb();
         .tl_in_ready(),
         .tl_in_bits()
     );
-    reg [7:0] data_array [255:0]; // Buffer to hold data coming
-    integer index, size;
+    reg [255:0] data_array [7:0]; // Buffer to hold data coming
+    integer index = 1;
     initial begin
         // Hold reset
         rst = 1; repeat (10) @(posedge clk);
+        for (i = 0; i < 256; i = i + 1) begin
+            data_array[i] = 0;
+        end
         // Delay for some time; no data should be transmitted
         rst = 0; repeat (10) @(posedge clk);
         // Send test data to the adapter
@@ -97,15 +99,12 @@ module tl_transmitter_tb();
         // Initially the bitstream length I want to send has a length of 8. Also, I'm not sure where the bitstring data is coming from
         // For now I'll just assume that there is a byte of data in the adapter_controller waiting to get shifted out
         PC_to_UART();
-        repeat (10) @(posedge clk);
-        bitstring = 256'd0;
-        size = UART_data; // Hardcode right now
-        index = 0;
-        repeat (size) @(posedge TL_CLK) begin
+        repeat (100) @(posedge TL_CLK);
+        /*repeat (UART_data) @(posedge TL_CLK) begin
             #(TL_PERIOD / 2); // Wait until half cycle before sampling
             data_array[0][index] = TL_OUT_BITS;
             index = index + 1;
-        end
+        end*/
         $finish();
     end
 endmodule
