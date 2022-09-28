@@ -3,6 +3,10 @@ import time
 
 import serial
 
+
+BINARY_LOCATION = r"C:\Users\TK\Desktop\BWRC-ChipUtil-TileLinkTrafficGenerator\firmware\build\firmware.bin"
+
+
 DEBUG_CONTROLLER_BASE   =0x00000000
 BOOT_SELECT_BASE        =0x00002000
 ERROR_DEVICE_BASE       =0x00003000
@@ -69,7 +73,7 @@ def TL_PutFullData(addr, data, verbal=True):
 
 def flash_prog():
     
-    with open(r"C:\Users\TK\Desktop\BWRC-ChipUtil-TileLinkTrafficGenerator\firmware\build\firmware.bin", "rb") as f:
+    with open(BINARY_LOCATION, "rb") as f:
         prog_bin = f.read()
 
     size = len(prog_bin)
