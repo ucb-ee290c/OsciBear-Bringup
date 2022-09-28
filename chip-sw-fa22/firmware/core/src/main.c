@@ -1,8 +1,8 @@
 
 #include "main.h"
 
-
-  char str[512];
+volatile int done_status = 0;
+char str[512];
 
 
 // Command functions
@@ -171,173 +171,55 @@ int main() {
   UART_InitTypeDef UART_init_config;
   UART_init_config.baudrate = 10000;
 
+
+
+
   HAL_UART_init(UART0, &UART_init_config);
   HAL_GPIO_init(GPIOA, GPIO_PIN_0);
 
   // HAL_delay(2000);
 
+  // set tuning trim G0 0th bit 1
+  CLEAR_BITS(*(uint8_t *)BASEBAND_TRIM_G0, 0b1);
+
+
+
+
+  sprintf(str, "TRIM G0 value: %x\n", *(uint8_t *)BASEBAND_TRIM_G0);
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+  // Payload is <header><data>, where data is "TEST DATA FOR BASEBAND!"
+  uint8_t payload[]  = {0x1, 0x17, 0x54, 0x45, 0x53, 0x54, 0x20, 0x44, 0x41, 0x54, 0x41, 0x20, 0x46, 0x4f, 0x52, 0x20, 0x42, 0x41, 0x53, 0x45, 0x42, 0x41, 0x4e, 0x44, 0x21};
+
+  // Interrupts for baseband TX are 9, 10
   // plic_enable_for_hart(0, 9);
   // plic_enable_for_hart(0, 10);
   // plic_set_priority(9, 5); // Set all the priorities to 5 for now
   // plic_set_priority(10, 5);
-
-  // uint8_t payload[]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
-  // reg_write32(BASEBAND_ADDITIONAL_DATA, 5);
   
-
   // HAL_CORE_enableIRQ(MachineExternal_IRQn);
   // HAL_CORE_enableInterrupt();
-  
-  // uint64_t target_tick = HAL_getTick() + (3000 * MTIME_FREQ);
-  // HAL_CLINT_setMTimeCmp(target_tick);
-
-  // HAL_CORE_enableIRQ(MachineTimer_IRQn);
-
-  // uint32_t counter = 0;
-
-
-  // for (uint32_t i = 0; i < 64; i +=1) {
-  //   baseband_set_lut((uint8_t) LUT_LOCT, (uint8_t) i, (uint32_t) (i * 4));
-  // }
-  
-  // uint32_t channel_index = 0;
-  ////
-  // Setup loopback 
-  ////
-  // It seems from the device tree, interrupts for baseband are 6, 7, 8, 9, 10
-  HAL_CORE_enableIRQ(MachineExternal_IRQn);
-  HAL_CORE_enableInterrupt();
-  for (int i = 6; i < 11; i++)
-  {
-    plic_enable_for_hart(0, i);
-    plic_set_priority(i, 5); // Set all the priorities to 5 for now
-  }
-  #define LOOPBACK_NONE     0x0
-  #define LOOPBACK_BASEBAND 0x2
-  #define LOOPBACK_MODEM    0x4 // This cannot be electrically functional
-  uint8_t payload[]  = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; 
-  uint8_t byte_size = 7;
-
-
-  uint32_t res_addr = payload + ((byte_size & ~3) + ((byte_size % 4) > 0 ? 4 : 0)); 
-  sprintf(str, "PRERES_ADDR: %.8x \n", res_addr);
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-  for (int i = 0; i < byte_size; i++) {
-    sprintf(str, "%.2x ", (unsigned)*(unsigned char*)(res_addr + i));
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-  }
-
-
-  reg_write32(BASEBAND_ADDITIONAL_DATA, payload);
-  reg_write32(BASEBAND_INST, BASEBAND_INSTRUCTION(BASEBAND_DEBUG, LOOPBACK_BASEBAND, byte_size));
 
 
   while (1) {
 
-  // Data must be in format <header><data>. The header is 2 bytes, with the second byte representing the length of the of the following data.
 
-    /*
-    // Short sanity test
-    uint8_t good_data_one[]  = {0x1, 0x4, 0x11, 0x22, 0x33, 0x44};
-    // Spacing data for output
-    volatile uint8_t random_spacing_one[sizeof(good_data_one)] = {0x0};
+  uint32_t dcsr = 0;
+  asm volatile("csrr %0, dcsr" : "=r"(dcsr));
 
-    // char good_data_two[] = "TEST DATA FOR BASEBAND!";
-    // NOTE: Cannot use char, will have unecessary bytes in output. Need to use byte array!
-    uint8_t good_data_two[]  = {0x1, 0x17, 0x54, 0x45, 0x53, 0x54, 0x20, 0x44, 0x41, 0x54, 0x41, 0x20, 0x46, 0x4f, 0x52, 0x20, 0x42, 0x41, 0x53, 0x45, 0x42, 0x41, 0x4e, 0x44, 0x21};
-    volatile uint8_t random_spacing_two[sizeof(good_data_two)] = {0x0};
-
-    uint8_t good_data_three[]  = {0x1, 0xC, 0x41, 0x4e, 0x4f, 0x54, 0x48, 0x45, 0x52, 0x20, 0x54, 0x45, 0x53, 0x54};
-    volatile uint8_t random_spacing_three[sizeof(good_data_three)] = {0x0};
-    */
-
-    // No longer testing for this case - this is illegal instruction and should never happen (SW Enforced)
-    // // The following data is malformed as the size byte in the header is "2", which is smaller than the actual data payload
-    // uint8_t bad_data[]  = {0x1, 0x2, 0x54, 0x45, 0x53, 0x54, 0x20, 0x44, 0x41, 0x54, 0x41, 0x20, 0x46, 0x4f, 0x52, 0x20, 0x42, 0x41, 0x53, 0x45, 0x42, 0x41, 0x4e, 0x44, 0x21};
-    // volatile uint8_t random_spacing_three[sizeof(bad_data)] = {0x0};
-    
+  sprintf(str, "dcsr value: %x\n", dcsr);
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 
 
-    // plic_set_priority_threshold(0, 1); // Set Hart 0 priority threshold to 1
-    // clint_connect_interrupt(INT_CODE_MACHINE_EXTERNAL, &plic_handler);  
-    // clint_machine_interrupt_enable(INT_CODE_MACHINE_EXTERNAL);
-    
-    // uint32_t res_addr = payload + ((byte_size & ~3) + ((byte_size % 4) > 0 ? 4 : 0)); 
-    sprintf(str, "RES_ADDR: %.8x \n", res_addr);
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    for (int i = 0; i < byte_size; i++) {
-      sprintf(str, "%.2x ", (unsigned)*(unsigned char*)(res_addr + i));
-      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    }
-
-
-    // mstatus_enable_interrupt();
-    /*
-
-    sprintf(str, "The following DEBUG test should pass:\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    baseband_debug((uint32_t) good_data_one, 6);
-    sprintf(str, "Done.\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-    sprintf(str, "The following DEBUG test should pass:\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    baseband_debug((uint32_t) good_data_two, 25);
-    sprintf(str, "Done.\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-    sprintf(str, "The following DEBUG test should pass:\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    baseband_debug((uint32_t) good_data_three, 14);
-    sprintf(str, "Done.\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    */
-
-    // No longer testing for this case - this is illegal instruction and should never happen (SW Enforced)
-    // printf("The following DEBUG test should fail, and only the first 4 bytes should be non-zero (bad header size):\n");
-    // baseband_debug((uint32_t) bad_data, sizeof(bad_data));
-    // printf("Done.\n");
-
-    // Add more tests if desired
-
-    sprintf(str, "# end test #.\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-
-
-
-    
-    // // change channel index
-    // reg_write32(BASEBAND_INST, BASEBAND_INSTRUCTION(BASEBAND_CONFIG, BASEBAND_CONFIG_CHANNEL_INDEX, channel_index));
-
-
-    // channel_index += 1;
-    // if (channel_index >= 64) {
-    //   channel_index = 0;
+    // sprintf(str, "Sending payload to baseband...\n");
+    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    ble_send((uint32_t) payload, sizeof(payload));
+    // while (done_status != 1) {
+    //   sprintf(str, "*");
     // }
-
-    // // if (counter % 100 == 0) {
-    
-    // //   uint32_t status0 = *((uint32_t *)BASEBAND_STATUS0);
-    // //   uint32_t status1 = *((uint32_t *)BASEBAND_STATUS1);
-    // //   uint32_t status2 = *((uint32_t *)BASEBAND_STATUS2);
-    // //   uint32_t status3 = *((uint32_t *)BASEBAND_STATUS3);
-    // //   uint32_t status4 = *((uint32_t *)BASEBAND_STATUS4);
-
-
-
-    // char str[64];
-    // sprintf(str, "chanid: %d  sending\n", channel_index);
+    // sprintf(str, "\nDone.\n");
     // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 
-    // for (uint16_t i=0; i<200; i+=1) {
-    //   ble_send((uint32_t) payload, sizeof(payload));
-    // }
-
-    // HAL_delay(10);
-
-    // reg_write32(BASEBAND_ADDITIONAL_DATA, payload);
-    // reg_write32(BASEBAND_INST, BASEBAND_INSTRUCTION(BASEBAND_SEND, 0, 25));
-    HAL_delay(1000);
+    // HAL_delay(100);
   }
 }

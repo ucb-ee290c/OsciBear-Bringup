@@ -77,7 +77,7 @@ TARGET_VERILOG = $(BUILD_DIR)$(TARGET).out
 #################################
 
 # MCU Settings
-ARCH = rv32imaf_zicsr
+ARCH = rv32imafc_zicsr
 ABI = ilp32f
 CODEMODEL = medany
 LD_SCRIPT = $(SRC_DIR)oscibear.ld
