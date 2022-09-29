@@ -202,15 +202,6 @@ int main() {
 
 
   while (1) {
-
-
-  uint32_t dcsr = 0;
-  asm volatile("csrr %0, dcsr" : "=r"(dcsr));
-
-  sprintf(str, "dcsr value: %x\n", dcsr);
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-
     // sprintf(str, "Sending payload to baseband...\n");
     // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
     ble_send((uint32_t) payload, sizeof(payload));
