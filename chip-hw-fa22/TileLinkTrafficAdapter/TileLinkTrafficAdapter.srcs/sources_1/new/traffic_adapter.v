@@ -40,7 +40,6 @@ module traffic_adapter#(
     output tl_in_ready,
     input tl_in_bits,
     // Status bits
-    output tl_tx_busy,
     output tl_tx_done,
     output tl_rx_busy,
     output tl_rx_done
@@ -165,7 +164,6 @@ module traffic_adapter#(
         // Controller Status
         .tx_controller_error(tx_controller_error),
         // TL Adapter Transmitter
-        .tl_tx_busy(tl_tx_busy),
         .tl_tx_done(tl_tx_done),
         .tl_tx_ready(tl_tx_ready),
         .tl_tx_valid(tl_tx_valid),
@@ -204,7 +202,6 @@ module traffic_adapter#(
         .tl_tx_valid(tl_tx_valid),
         .tl_tx_ready(tl_tx_ready),
         // Transmitter state
-        .tx_busy(tl_tx_busy),
         .tx_done(tl_tx_done)
     );
     // Receiver

@@ -4,123 +4,165 @@
 // Engineer: Dang Le, Thomas Matthew
 //
 // Create Date: 09/17/2022 11:44:34 PM
-// Design Name:
 // Module Name: tl_transmitter_tb
-// Project Name:
-// Target Devices:
-// Tool Versions:
-// Description:
 //
-// Dependencies:
+// Dependencies: traffic_adapter.v
 //
 // Revision:    9/21 7:08pm Removed UART and FIFO wirings and replaced them with the adapter module - DL
 //              9/22 5:30pm Cleaned up logic and wirings - TM
 //              9/23 5:02pm Reorganized testbench, removed unnecessary wires and regs, and documented more thoroughly - DL
-// Revision 0.01 - File Created
-// Additional Comments:
+//              9/28 Replace PC_UART task with built in UART module - TM
+//              9/29 Work with Daniel clarifying adapter protocol and clean up testbench design. Add packet size param - TM
+// Additional Comments: This module tests the transmit (PC(UART)->chip(TSI)) side of the traffic_adapter
 //
 //////////////////////////////////////////////////////////////////////////////////
 
 /*
-Thomas's Notes:
-- Might be a good idea to use UART module instead of manually implementing UART in task PC_to_UART
-- only need to test traffic_adapter module rather than adapter module (see inside adapter.v where traffic_adapter is instatiated)
-    - can make things cleaner/simpler
-- ran through vivado and fixed some minor syntax errors (mispelling, extra comma, etc)
-- changed bitstring and FIFO_data_out widths from 128 to 256 to let it compile (fifo was instantiated to 256 width so has to match)
-- it now compiles but I haven't checked waveform for functionality. not entirely sure what you want to happen around line 140 either
+TO TEST:
+UART BAUD faster than TL TSI out rate
+Chipside TL ready goes low and see that TSI waits
+Determine how bits are being morphed as they are sent over so software can code accordingly
 */
 module tl_transmitter_tb();
-    reg rst;
-    // Clock related variables
-    reg clk;
+
+    parameter TL_PACKET_SIZE = 123;
+    parameter BYTES_TO_SEND = (TL_PACKET_SIZE+8-1)/8; // Rounds up # bytes
+
     parameter CLOCK_FREQ = 125_000_000;
     parameter CLOCK_PERIOD = 1_000_000_000 / CLOCK_FREQ;
-    parameter BAUD_RATE = 115_200;
+    parameter BAUD_RATE = 1_000_000;
     parameter BAUD_PERIOD = 1_000_000_000 / BAUD_RATE;
-    initial clk = 0;                                        // Clock generation
-    always #(CLOCK_PERIOD / 2) clk = ~clk;
-
-    // PC related variables
-    reg [7:0] UART_data = 8'd8; initial UART_data = 8'd8;   // 1 byte data from PC to adapter
-    wire PC_Valid; assign PC_Valid = 1'b1;                  // Right now, data from PC is always valid
-    reg PC_data_to_UART; initial PC_data_to_UART = 1'b1;    // UART data bit
-    // PC related task
-    integer i;                                              // Bit index
-    task PC_to_UART;                                        // Sends bits from PC to adapter
-        begin
-            PC_data_to_UART = 0;                            // Start bit is 0 to signify start of comm
-            #(BAUD_PERIOD);                                 // Wait one buad period before sending data
-            for (i = 0; i < 8; i = i + 1) begin             // Send the test data bit-by-bit
-                PC_data_to_UART = UART_data[i];             // Set the ith bit to the input bit
-                #(BAUD_PERIOD);                             // Wait one baud period before sending data
-            end
-            PC_data_to_UART = 1;                            // End bit is 0 to signify end of comm
-            #(BAUD_PERIOD);
-        end
-    endtask
-
-    // TL related variables
-    reg TL_CLK;
     parameter TL_RATE = 1_000_000; 
     parameter TL_PERIOD = 1_000_000_000 / TL_RATE;
-    initial TL_CLK = 0;                                     // Clock generation
+    
+    // Clocks (system and TileLink)
+    reg TL_CLK;
+    reg clk;    
+    
+    initial TL_CLK = 0;
     always #(TL_PERIOD / 2) TL_CLK = ~TL_CLK;
-    wire TL_OUT_VALID, TL_OUT_BITS, TL_OUT_READY;
-    reg TL_OUT_READY_reg; 
-    assign TL_OUT_READY = TL_OUT_READY_reg; 
-    initial TL_OUT_READY_reg = 1'b0;                        // Allows testbench to more easily control when
-                                                            // to accept adapter data
+    
+    initial clk = 0;
+    always #(CLOCK_PERIOD / 2) clk = ~clk;
 
+    // PC wires
+    reg rst;
+    reg [7:0] PC_UART_data_arr [16:0];
+    reg [7:0] PC_UART_data;
+    reg PC_UART_data_valid;
+    wire PC_UART_data_ready;
+    wire PC_UART_data_to_DUT; 
+
+    // TL WIRES
+    wire TL_OUT_VALID;
+    wire TL_OUT_BITS;
+    wire TL_TX_DONE;
+
+    // TB Wires
+    integer i;
+    integer send = 1;
+    integer recieved = 0;
+    reg [122:0] recieved_over_TSI;
+
+    // PC side UART (only use TX side)
+    uart #(.CLOCK_FREQ(CLOCK_FREQ), .BAUD_RATE(BAUD_RATE)) PC_UART (
+        .clk(clk),
+        .reset(rst),
+
+        .data_in(PC_UART_data),
+        .data_in_valid(PC_UART_data_valid),
+        .data_in_ready(PC_UART_data_ready),
+
+        .serial_out(PC_UART_data_to_DUT)
+    );
+
+    // Instatiate DUT
     traffic_adapter #(
         .BAUD_RATE(BAUD_RATE)
     ) adapter (
         .sysclk(clk),
         .reset(rst),
         // UART lines
-        .uart_rx(PC_data_to_UART),
+        .uart_rx(PC_UART_data_to_DUT),
         .uart_tx(),
         // TileLink Clock signal
         .tl_clk(TL_CLK),
         // FPGA to testchip 
         .tl_out_valid(TL_OUT_VALID),
-        .tl_out_ready(1'b1),                                // tb always ready to recieve from the DUT
+        .tl_out_ready(1'b1),        // tb always ready to recieve from the DUT
         .tl_out_bits(TL_OUT_BITS),
-        // testchip to FPGA link - not testing in 
-        // this module (see tl_reciever_tb.v)
+        // testchip to FPGA link    // not testing in this module (see tl_reciever_tb.v)
         .tl_in_valid(),
         .tl_in_ready(),
-        .tl_in_bits()  
+        .tl_in_bits(),
+        // Status Bits
+        .tl_tx_done(TL_TX_DONE),
+        .tl_rx_busy(),
+        .tl_rx_done()
     );
+    
+    // Recieve Adapter Response
+    always @(posedge TL_CLK) begin
+        if (TL_OUT_VALID) begin
+            recieved_over_TSI[recieved] = TL_OUT_BITS;
+            recieved = recieved + 1;
+        end
+    end
 
-    // Testbench output data from adapter array
-    reg [7:0] data_array [255:0];                           // Buffer to hold incoming data
-    integer index, size;
-
-    initial begin                                           // Right now, the only thing this testbench is doing 
-                                                            // is sending the number 8
-        // Hold reset
-        rst = 1; repeat (10) @(posedge clk);
-        // Delay for some time
-        // No data should be transmitted
-        rst = 0; repeat (10) @(posedge clk);
-
-        // Send test data to the adapter
-        PC_to_UART();                                       // Sending 8 bits of data
-        size = UART_data; 
-        PC_to_UART();                                       // Sending 8
-
-        repeat (1) @(posedge tl_out_valid);                 // Wait for adapter to have valid data
-        repeat (10) @(posedge clk);                         // Nothing should happen
-
-        index = 0; TL_OUT_READY_reg = 1'b1;                 // Readay to get data
-        repeat (size) @(posedge TL_CLK) begin               // I'm assuming one bit is pushed out every TL_CLK cycle
-            #(TL_PERIOD / 2);                               // Wait until half cycle before sampling
-            data_array[0][index] = TL_OUT_BITS;             // Right now, only populating one data point
-            index = index + 1;                              // Increment bit, earilest bit input at the lowest index
-        end TL_OUT_READY_reg = 1'b0;                        // Data acquired; testbench doesn't request anyone data rn
+    initial begin 
+        // Reset
+        rst = 1;
+        PC_UART_data_valid = 0;
+        // Initialize Arrays:
+        PC_UART_data_arr[0] = TL_PACKET_SIZE;       // First byte sent to the adapter is the packet size
+        for (i = 1; i < BYTES_TO_SEND + 1; i = i + 1) begin
+            PC_UART_data_arr[i] = 8'hf0 + i;            // Send some random data
+        end
+        repeat (10) @(posedge clk);
+        rst = 0; 
+        repeat (10) @(posedge clk);
         
-        repeat (5) @(posedge clk);                          // Nothing should happen
-        $finish();                                          // Terminate simulation
+        // Send first byte which indicates how many more bytes will be sent
+        PC_UART_data = PC_UART_data_arr[0];
+        PC_UART_data_valid = 1;
+        repeat (1) @(posedge clk);
+        PC_UART_data_valid = 0;
+
+        // Send rest of the bytes
+        repeat (BYTES_TO_SEND) @(posedge PC_UART_data_ready) begin
+            repeat (1) @(posedge clk);
+            PC_UART_data = PC_UART_data_arr[send];
+            PC_UART_data_valid = 1;
+            repeat (1) @(posedge clk);
+            PC_UART_data_valid = 0;
+            send = send + 1;
+        end
+
+        //repeat (1) @(posedge TL_TX_DONE);   // Wait until traffic adapter asserts done
+        repeat (50) @(posedge clk);
+        $finish();
     end
 endmodule
+
+/*
+Old problems: (Before meeting w Daniel)
+rx_fifo not properly reading data in. getting xxx because reading 1 cycle too soon
+this is because rd_en is always on after the first byte transferred, the first byte works but all
+subsequent get the value in the rx_fifo buffer 1 cycle before the data is placed there
+Proposed FIX: possible to buffer wr_en signal? prob not, will need to make rd_en more granular than
+just always on when PARSING
+
+
+tl_tx_valid bouncing while tl_transmitter in transmit state
+
+edge detector in tl_transmitter not working - its working just not showing on waveform???!
+
+tx_buffered_length only width 1 but 8 bit values passed to it. assuming should have been width 8
+
+change tl_tx_data from assign statment to putting into ff so value persists after fifo value changes
+
+--- 
+after meeting:
+
+took out tx_busy state because it was unused
+*/

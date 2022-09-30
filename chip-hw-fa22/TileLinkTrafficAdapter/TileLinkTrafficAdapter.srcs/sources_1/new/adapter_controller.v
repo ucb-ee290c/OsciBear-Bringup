@@ -26,7 +26,6 @@ module adapter_controller(
     // Controller Status
     output reg tx_controller_error,
     // TL Adapter Transmitter
-    input tl_tx_busy,
     input tl_tx_done,
     input tl_tx_ready,
     output reg tl_tx_valid,
@@ -49,19 +48,13 @@ module adapter_controller(
     input rx_fifo_full,
     output reg rx_fifo_rd_en
 );
-localparam IDLE = 0, PARSING = 1, TRANSMITTING = 2;
+localparam IDLE = 0, PARSING = 1, STAGING = 2, TRANSMITTING = 3;
 localparam RECEIVING = 1;
-reg rx_fifo_empty_buff;
 reg [1:0] tx_state;
 
 reg tx_fifo_rf;
 
 assign tl_tx_data = rx_fifo_output;
-
-// Buffered FIFO Empty signal 
-always @(posedge sysclk) begin
-    rx_fifo_empty_buff <= rx_fifo_empty;
-end
 
 //////////////////////////
 // Transmitter Controller
@@ -77,7 +70,8 @@ always @(posedge sysclk) begin
     end
     case(tx_state)
         IDLE : begin
-             if(rx_fifo_empty_buff & ~rx_fifo_empty) begin
+            rx_fifo_rd_en  <= 0;
+             if(~rx_fifo_empty) begin
                 rx_fifo_rd_en  <= 1; 
                 tx_state <= PARSING;
              end
@@ -85,7 +79,11 @@ always @(posedge sysclk) begin
         PARSING : begin 
             // FIFO output ready!
             tl_tx_length <= rx_fifo_output;
-            if(tl_tx_ready) begin
+            rx_fifo_rd_en  <= 0; 
+            tx_state <= STAGING;
+        end
+        STAGING : begin
+            if(tl_tx_ready && ~rx_fifo_empty) begin
                 // TL TX is ready
                 tx_state <= TRANSMITTING;
                 tl_tx_valid <= 1;
@@ -93,7 +91,7 @@ always @(posedge sysclk) begin
             end
             else begin
                 // TL TX is not ready
-                tx_state <= PARSING;
+                tx_state <= STAGING;
                 tl_tx_valid <= 0;
                 rx_fifo_rd_en <= 0;
             end
@@ -105,8 +103,9 @@ always @(posedge sysclk) begin
             end
             else begin
                 tl_tx_valid <= 0;
+                rx_fifo_rd_en  <= 0;
                 // Ready for next byte 
-                if(tl_tx_ready & ~tl_tx_valid) begin
+                if(tl_tx_ready & ~rx_fifo_empty) begin
                     rx_fifo_rd_en  <= 1;
                     tl_tx_valid  <= 1;
                 end
