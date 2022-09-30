@@ -1,3 +1,5 @@
+#ifndef TSI_H
+#define TSI_H
 #include <stdlib.h>
 #include <cstdint>
 #include <mutex>
@@ -33,6 +35,7 @@ struct TsiPacket {
     uint8_t source;
     uint8_t mask;
     bool corrupt;
+    bool last;
     uint64_t addr;
     uint64_t data;
 };
@@ -60,23 +63,14 @@ struct TsiPacket {
 // Not a thread safe impl yet. 
 class Tsi {
     public:
-        // Constructor configures TSI properly.
-        Tsi(uint8_t z, uint8_t o, uint8_t a, uint8_t w);
-
         // Returns actual packet length in # of bits.
-        virtual size_t bufferBitLength();
+        virtual size_t bufferBitLength() = 0;
 
         // Returns minimum buffer length in # of bytes. 
-        virtual size_t bufferByteLength();
-        virtual void setPacket(TsiPacket packet);
-        virtual TsiPacket getPacket();
+        virtual size_t bufferByteLength() = 0;
 
-        virtual int serialize(TsiPacket packet);
-        virtual TsiPacket deserialize();
-
-    protected:
-        // Fixed parameters
-        uint8_t z, o, a, w;
+        virtual int serialize(TsiPacket packet) = 0;
+        virtual TsiPacket deserialize() {};
 };
 
 /**
@@ -86,31 +80,40 @@ class Tsi {
 class TsiFpgaUart : public Tsi {
     public:
         // Constructor configures TSI properly.
-        TsiFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w);
+        TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport);
 
         // Returns actual packet length in # of bits.
         size_t bufferBitLength();
-        // Returns minimum buffer length in # of bytes. 
+        // Returns expected message length in # of bytes. 
         size_t bufferByteLength();
 
         int serialize(TsiPacket packet);
         TsiPacket deserialize();
+        /** 
+         * If loopback test is enabled, drivers wil use internal buffers to simulate. 
+         * This is accomplished by having the poll driver read the writeBuffer. 
+         */
+        void setLoopback(bool en) {loopbackEn = en;}
 
     private:
+        uint8_t z, o, a, w;
         unsigned char pollBuffer[128];
         char writeBuffer[128];
-        // Ignore locks for now, all driver functions should be locked. 
-        std::mutex driverMutex;
+        // Ignore locks for now, all driver functions should be locked later. 
+        //std::mutex driverMutex;
         unsigned comport;
+        bool loopbackEn;
 
         int initDriver(unsigned comport);
-        int pollDriver(unsigned char* buffer, size_t len);
-        int writeDriver(char* buffer, size_t len);
+        int pollDriver();
+        int writeDriver();
 };
 
 // Helper functions generally useful for TSI
 uint16_t TsiMsg_getHeader(TsiMsg type);
 TsiMsg TsiMsg_getType(uint16_t header);
+
+bool operator==(const TsiPacket& lhs, const TsiPacket& rhs);
 
 bool TsiPacket_isValidMsg(TsiPacket packet);
 
@@ -118,5 +121,8 @@ void put_uint64_into_buffer(uint8_t *buffer, size_t bitOffset, uint64_t data, si
 uint64_t get_uint64_from_buffer(uint8_t *buffer, size_t bitOffset, size_t bits);
 
 uint64_t getMask(size_t n, size_t m);
-uint8_t loadBits(uint8_t dest, uint64_t src, size_t n, size_t m, size_t k);
+void loadBits(uint8_t* dest, uint64_t src, size_t n, size_t m, size_t k);
+void getBits(uint64_t* dest, uint8_t src, size_t n, size_t m, size_t k);
 uint8_t reverseBits(uint8_t in);
+
+#endif

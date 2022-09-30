@@ -1,0 +1,26 @@
+#ifndef __BEAGLE_SCR_H
+#define __BEAGLE_SCR_H
+
+#define SCR_BASE  0x110000
+
+#define SCR_BOOT 0x00
+
+#define SCR_SWITCHER 0x04
+
+#define SCR_HBWIF_RST 0x08
+#define SCR_BH_RST 0x0c
+#define SCR_RS_RST 0x10
+
+#define SCR_UNCORE_CLK_DIVISOR 0x20
+#define SCR_BH_CLK_DIVISOR 0x24
+#define SCR_RS_CLK_DIVISOR 0x28
+#define SCR_BH_OUT_CLK_DIVISOR 0x2c
+#define SCR_RS_OUT_CLK_DIVISOR 0x30
+#define SCR_LBWIF_CLK_DIVISOR 0x34
+
+#define SCR_UNCORE_PASS_CLK_SEL 0x50
+#define SCR_BH_PASS_CLK_SEL 0x54
+#define SCR_RS_PASS_CLK_SEL 0x58
+#define SCR_LBWIF_PASS_CLK_SEL 0x5c
+
+#endif // __BEAGLE_SCR_H

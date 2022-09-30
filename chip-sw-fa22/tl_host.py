@@ -4,7 +4,7 @@ import time
 import serial
 
 
-BINARY_LOCATION = r"C:\Users\TK\Desktop\BWRC-ChipUtil-TileLinkTrafficGenerator\firmware\build\firmware.bin"
+BINARY_LOCATION = r".\firmware\build\firmware.bin"
 
 
 DEBUG_CONTROLLER_BASE   =0x00000000
