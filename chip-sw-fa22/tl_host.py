@@ -26,6 +26,7 @@ DTIM_BASE               =0x80000000
 TL_CHANID_CH_A = 0
 TL_CHANID_CH_D = 3
 TL_OPCODE_A_PUTFULLDATA = 0
+TL_OPCODE_A_PUTPARTIALDATA = 1
 TL_OPCODE_A_GET = 4
 TL_OPCODE_D_ACCESSACK = 0
 TL_OPCODE_D_ACCESSACKDATA = 1
@@ -54,6 +55,21 @@ def TL_Get(addr, verbal=True):
     print("<ERROR!>")
     return -1
 
+
+def TL_PutPartialData(addr, data, verbal=True):
+    buffer = struct.pack("<BBBBLL", TL_CHANID_CH_A, TL_OPCODE_A_PUTPARTIALDATA, 2, 0b11111111, addr, data)
+    ser.write(buffer)
+    if verbal:
+        print("[TL PutPartialData] <address: 0x{0:08X}, size: {1}, data: 0x{2:08X}>".format(addr, 8, data))
+
+    buffer = ser.read(12)
+    chanid, opcode, size, denied, addr, data = struct.unpack("<BBBBLL", buffer)
+    if opcode == TL_OPCODE_D_ACCESSACK:
+        if verbal:
+            print("[TL AccessAck]".format())
+        return
+    print("<ERROR!>")
+    return -1
 
 def TL_PutFullData(addr, data, verbal=True):
     buffer = struct.pack("<BBBBLL", TL_CHANID_CH_A, TL_OPCODE_A_PUTFULLDATA, 2, 0b11111111, addr, data)
@@ -114,7 +130,7 @@ def trigSoftwareInterrupt():
     TL_Get(CLINT_BASE)
     
 def main():
-    flash_prog()
+    #flash_prog()
     #time.sleep(0.02)
     #trigSoftwareInterrupt()
 
@@ -131,6 +147,9 @@ def main():
     #getUARTregs()
 
     #TL_Get(0x80000000)
+
+    TL_PutPartialData(GPIO_BASE, 0x1, True)
+    #TL_PutFullData(GPIO_BASE, 0x1, True)
 
 
 
