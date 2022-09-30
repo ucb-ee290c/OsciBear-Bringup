@@ -7,9 +7,15 @@ extern "C" {
 #endif
 
 #include "oscibear.h"
+#include "oscibear_hal.h"
 
+typedef struct {
+  uint32_t baudrate;
+} UART_InitTypeDef;
 
-void HAL_UART_init(UART_TypeDef *UARTx);
+// the default baudrate divisor is 0xAD, 173
+
+void HAL_UART_init(UART_TypeDef *UARTx, UART_InitTypeDef *UART_init);
 
 uint8_t HAL_UART_getRXFIFODepth(UART_TypeDef *UARTx);
 

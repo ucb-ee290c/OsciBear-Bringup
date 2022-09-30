@@ -2,6 +2,32 @@
 
 [TileLink Spec v1.8.1](https://starfivetech.com/uploads/tilelink_spec_1.8.1.pdf)
 
+## Usage
+
+1. make sure the RISC-V toolchain is installed, and change the Makefile to your toolchain prefix.
+
+2. cd to `/firmware` folder and run `make bin` to compile the code and generate a binary dump.
+
+3. open `tl_host.py` and change the `BINARY_LOCATION` to correct location pointing to `firmware.bin`.
+
+4. reset STM32, and then reset OSCIBEAR.
+
+5. run `tl_host.py` program to flash. The program may hung due to signal integrity issue, and if so, repeat step 4 and 5.
+
+6. the waveform of TSI bus can be monitored with logic analyzer. channels are:
+
+| Channel | Signal        |
+| ------- | ------------- |
+| 0       | TL CLK        |
+| 1       | TL MOSI DATA  |
+| 2       | TL MOSI VALID |
+| 3       | TL MOSI READY |
+| 4       | TL MISO DATA  |
+| 5       | TL MISO VALID |
+| 6       | TL MISO READY |
+| 7       | UART TX (from OSCI) |
+
+
 ## TileLink
 
 (OSCIBEAR Setup)
