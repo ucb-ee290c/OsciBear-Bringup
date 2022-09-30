@@ -37,7 +37,7 @@ TL_OPCODE_D_ACCESSACKDATA = 1
 
 # print(prog_hex)
 
-ser = serial.Serial("COM22", baudrate=2000000)
+ser = serial.Serial("COM10", baudrate=2000000)
 
 
 def TL_Get(addr, verbal=True):
@@ -130,7 +130,7 @@ def trigSoftwareInterrupt():
     TL_Get(CLINT_BASE)
     
 def main():
-    #flash_prog()
+    flash_prog()
     #time.sleep(0.02)
     #trigSoftwareInterrupt()
 
@@ -148,7 +148,7 @@ def main():
 
     #TL_Get(0x80000000)
 
-    TL_PutPartialData(GPIO_BASE, 0x1, True)
+    #TL_PutPartialData(GPIO_BASE, 0x1, True)
     #TL_PutFullData(GPIO_BASE, 0x1, True)
 
 
