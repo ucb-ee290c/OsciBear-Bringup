@@ -3,13 +3,17 @@
 
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
-Tsi::Tsi(uint8_t z, uint8_t o, uint8_t a, uint8_t w) {
-    // For Osci & SCuM-V we expect: 4, 4, 32, 8. For Bearly we expect: 4, 4, 64, 8.
-    // The z and o could be 13 though for SCuM-V and Bearly, nobody actually checked...
-    Tsi::z = z;
-    Tsi::o = o;
-    Tsi::a = a;
-    Tsi::w = w;
+TsiFpgaUart::TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport) {
+    z = zi;
+    o = oi;
+    a = ai;
+    w = wi;
+    TsiFpgaUart::comport = comport;
+    if (initDriver(TsiFpgaUart::comport) == -1) {
+        printf("Fatal error: unable to initialize comport");
+        throw "Cannot initialize comport";
+    }
+    loopbackEn = false;
 }
 
 /* To understand why, see https://github.com/ucberkeley-ee290c/fa22/tree/main/labs/lab2-tsi-flow */
@@ -30,7 +34,8 @@ size_t TsiFpgaUart::bufferByteLength() {
  */
 int TsiFpgaUart::serialize(TsiPacket packet) {    
     // Set the buffers to 0.
-    for (size_t i = 0; i < TsiFpgaUart::bufferByteLength(); i++) {
+    size_t bytes = TsiFpgaUart::bufferByteLength();
+    for (size_t i = 0; i < bytes; i++) {
         writeBuffer[i] = 0u;
     }
     
@@ -40,10 +45,12 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     // this is the header on top of UART to tell FPGA how big of a TSI packet to expect and transfer, max size 255.
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, bufferBitLength(), 8u);
     bitOffset += 8u;
-    put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.corrupt ? 0b11u : 0b01u, 2u);
-    bitOffset += 2u;
+    put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.last? 0b1u : 0b0u, 1u);
+    bitOffset += 1u;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.mask, w);
     bitOffset += w;
+    put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.corrupt ? 0b1u : 0b0u, 1u);
+    bitOffset += 1u;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.data, w*8u);
     bitOffset += w*8u;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.addr, a);
@@ -54,7 +61,7 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     bitOffset += z;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.rawHeader, TSI_HEADER_LEN);
     bitOffset += TSI_HEADER_LEN;
-    size_t bytes = (bitOffset/8u + ((bitOffset % 8u) > 0u ? 1u : 0u));
+    bytes = (bitOffset/8u + ((bitOffset % 8u) > 0u ? 1u : 0u));
 
     if (bytes != bufferByteLength()) {
         throw "Internal Tsi error, assembled packet byte length is not expected";
@@ -62,6 +69,13 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     if (bufferBitLength() != (bitOffset - 8u)) {
         throw "Internal Tsi error, assembled packet bit length is not expected";
     }
+    /*
+    printf("Write Buffer is now: [%lu] 0x", bytes);
+    for (size_t i = 0; i < bytes; i++) {
+        printf("%02hX ", writeBuffer[i]);
+    }
+    printf("\n");
+    */
     // Defined arguments: size, source, address, data, mask, corrupt(0), last(1);
     // tsimsg msgtype; uint8_t size; uint8_t source; uint32_t address; uint64_t data; uint8_t mask; 
     /*
@@ -98,7 +112,7 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     // buffer[15][3+0-1:0] = header[3+6-1:6]
     buffer[15] = loadBits(buffer[15], header, 3u, 0u, 6u);
     */
-    writeDriver(writeBuffer, bytes); 
+    writeDriver(); 
     return 0;
 }
 
@@ -113,25 +127,27 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
 TsiPacket TsiFpgaUart::deserialize() {
     TsiPacket packet;
     
-    size_t rxBytes = 0u;
-    size_t expBytes = bufferByteLength();
-    while (rxBytes < expBytes) {
-        pollDriver(pollBuffer+rxBytes, expBytes); 
-    }
+    pollDriver();
 
     size_t bitOffset = 0u;
     // this is the header on top of UART to tell FPGA how big of a TSI packet to expect and transfer, max size 255.
+    /*
+    // skipping first byte because fpga doesn't send length for now
     size_t expectedBits = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 8u);
     if (expectedBits != bufferBitLength()) {
         throw "Internal Tsi error, got unexpected packet header length";
     }
     bitOffset += 8u;
+    */
 
-    packet.corrupt = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 2u) != 0b01u;
-    bitOffset += 2u;
+    packet.last = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 1u) != 0;
+    bitOffset += 1u;
 
     packet.mask = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, w);
     bitOffset += w;
+    packet.corrupt = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 1u) != 0;
+    bitOffset += 1u;
+
     packet.data = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, w*8u);
     bitOffset += w*8u;
     packet.addr = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, a);
@@ -143,9 +159,16 @@ TsiPacket TsiFpgaUart::deserialize() {
     packet.rawHeader = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, TSI_HEADER_LEN);
     bitOffset += TSI_HEADER_LEN;
 
-    if (expectedBits != (bitOffset - 8u)) {
+    if (bufferBitLength() != bitOffset) { //(expectedBits != (bitOffset - 8u))
         throw "Internal Tsi error, got unexpected packet length";
     }
+    /*
+    printf("Poll Buffer is now: [%lu] 0x", bufferByteLength());
+    for (size_t i = 0; i < bufferByteLength()-1u; i++) {
+        printf("%02hX ", pollBuffer[i]);
+    }
+    printf("\n");
+    */
 
     packet.type = TsiMsg_getType(packet.rawHeader);
     return packet;
@@ -162,13 +185,25 @@ int TsiFpgaUart::initDriver(unsigned comport) {
     return 0;
 }
 
-int TsiFpgaUart::pollDriver(unsigned char *buffer, size_t len) {
-    return rs232::pollComport(comport, buffer, len);
+int TsiFpgaUart::pollDriver() {
+    size_t expBytes = bufferByteLength();
+    if (loopbackEn) {
+        // skipping first byte because fpga doesn't send length for now
+        for (size_t i = 0; i < expBytes-1; i++) {
+            pollBuffer[i] = writeBuffer[i+1];
+        }
+        return expBytes-1;
+    } else {
+        size_t rxBytes = 0u;
+        while (rxBytes < expBytes) {
+            rxBytes += rs232::pollComport(comport, pollBuffer+rxBytes, expBytes-rxBytes);
+        }
+        return rxBytes;
+    }
 }
 
-int TsiFpgaUart::writeDriver(char *buffer, size_t len) {
-    // WARNING: THIS WILL NOT WORK! IT STOPS AT NULL, WE WANT IT TO STOP AT A CERTAIN LENGTH.
-    return rs232::sendBuf(comport, buffer, len);
+int TsiFpgaUart::writeDriver() {
+    return loopbackEn ? bufferByteLength() : rs232::sendBuf(comport, writeBuffer, bufferByteLength());
 }
 
 // Helper functions generally useful for TSI
@@ -190,8 +225,9 @@ uint16_t TsiMsg_getHeader(TsiMsg type) {
         case AccessAck:
             header = TSI_HEADER_ACCESSACK;
             break;
-        type = Unknown;
+        case Unknown:
             throw "Cannot get header of TsiMsg: Unknown";
+            break;
     }
     return header;
 }
@@ -219,36 +255,49 @@ TsiMsg TsiMsg_getType(uint16_t header) {
     return type;
 }
 
-/* Puts an uint64_t into an uint8_t buffer. */
+// Check if all fields except the rawHeaders are equal.
+bool operator==(const TsiPacket& lhs, const TsiPacket& rhs) {
+    return (lhs.type == rhs.type) & (lhs.size == rhs.size) &
+        (lhs.source == rhs.source) & (lhs.mask == rhs.mask) &
+        (lhs.corrupt == rhs.corrupt) & (lhs.last == rhs.last) &
+        (lhs.addr == rhs.addr) & (lhs.data == rhs.data);
+}
+
+/** 
+ * Puts an uint64_t into an uint8_t array buffer.  
+ */
 void put_uint64_into_buffer(uint8_t *buffer, size_t bitOffset, uint64_t data, size_t bits) {
     size_t data_cnt = 0u;
+    //printf("put_uint64_into_buffer\n");
     while (data_cnt < bits) {
-        size_t buffer_i = (bitOffset+data_cnt) % 8;
-        size_t buffer_j = (bitOffset+data_cnt) - buffer_i*8;
+        size_t buffer_i = (bitOffset+data_cnt) / 8;
+        size_t buffer_j = (bitOffset+data_cnt) % 8;
         size_t step = MIN(bits - data_cnt, 8u - buffer_j);
+        //printf("%lu, %lu, %lu, %lu \n", buffer_i, buffer_j, step, data_cnt);
         // buffer[buffer_i][step+buffer_j-1:buffer_j] = data[step+data_cnt-1:data_cnt]
-        loadBits(buffer[buffer_i], data, step, buffer_j, data_cnt);
+        loadBits(&(buffer[buffer_i]), data, step, buffer_j, data_cnt);
         data_cnt += step;
     }
 }
 
-/* Gets an uint64_t from an uint8_t buffer. */
+/* Gets an uint64_t from an uint8_t array buffer. */
 uint64_t get_uint64_from_buffer(uint8_t *buffer, size_t bitOffset, size_t bits) {
-    uint64_t data;
+    uint64_t data = 0u;
     size_t data_cnt = 0u;
     while (data_cnt < bits) {
-        size_t buffer_i = (bitOffset+data_cnt) % 8;
-        size_t buffer_j = (bitOffset+data_cnt) - buffer_i*8;
+        size_t buffer_i = (bitOffset+data_cnt) / 8;
+        size_t buffer_j = (bitOffset+data_cnt) % 8;
         size_t step = MIN(bits - data_cnt, 8u - buffer_j);
         // data[step+data_cnt-1:data_cnt] = buffer[buffer_i][step+buffer_j-1:buffer_j]
-        loadBits(data, buffer[buffer_i], step, data_cnt, buffer_j);
+        getBits(&data, buffer[buffer_i], step, data_cnt, buffer_j);
         data_cnt += step;
     }
     return data;
 }
 
 bool TsiPacket_isValidMsg(TsiPacket packet) {
-
+    return (packet.type != Unknown) & (!packet.corrupt);
+    // Todo: look into the type of message and check if the size and mask makes sense.
 }
 
 
@@ -260,11 +309,19 @@ uint64_t getMask(size_t n, size_t m) {
 /* load bits: dest[N+M-1:M] = src[N+K-1:K]
  * assumes bits in dest are fully zeroed so this uses or to set
  */
-uint8_t loadBits(uint8_t dest, uint64_t src, size_t n, size_t m, size_t k) {
-    dest |= (src & getMask(n, k)) >> k << m;
+void loadBits(uint8_t* dest, uint64_t src, size_t n, size_t m, size_t k) {
+    *dest |= ((src & getMask(n, k)) >> k) << m;
+}
+
+/* get bits: dest[N+M-1:M] = src[N+K-1:K]
+ * assumes bits in dest are fully zeroed so this uses or to set
+ */
+void getBits(uint64_t* dest, uint8_t src, size_t n, size_t m, size_t k) {
+    *dest |= ((src & getMask(n, k)) >> k) << m;
 }
 
 // TSI serializes LSB first and reverses all the fields, this might come in handy...?
+// Not used for now, UART apparently is LSBit first.
 uint8_t reverseBits(uint8_t in) {
     uint8_t out = 0u;
     for (int i = 0; i < 8; i++) {
