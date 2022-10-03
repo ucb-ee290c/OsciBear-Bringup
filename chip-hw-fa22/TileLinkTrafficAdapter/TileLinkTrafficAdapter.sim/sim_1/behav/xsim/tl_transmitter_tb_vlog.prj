@@ -1,0 +1,26 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../TileLinkTrafficAdapter.gen/sources_1/ip/clk_wiz_0" \
+"../../../../TileLinkTrafficAdapter.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
+"../../../../TileLinkTrafficAdapter.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+"../../../../TileLinkTrafficAdapter.gen/sources_1/ip/ila_0/sim/ila_0.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/button_parser.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/debouncer.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/edge_detector.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/fifo.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/synchronizer.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/uart.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/uart_receiver.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/imports/io_circuits/uart_transmitter.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/top.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/tl_transmitter.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/adapter_controller.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/traffic_adapter.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/tl_receiver.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sources_1/new/artyTop.v" \
+"../../../../TileLinkTrafficAdapter.srcs/sim_1/new/tl_transmitter_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
