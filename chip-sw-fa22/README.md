@@ -81,7 +81,7 @@ MISO Data   | ___________________________________________________ ... __________
 ```
 
 
-### FESVR packet format
+### FESVR V2 packet format
 
 | Byte | 0                   | 1                                  | 2                   | 3             | 4       | 5       | 6       | 7       | 8       | 9       | 10           | 11       | 12      | 13      | 14      | 15      |
 | ---- | ------------------- | ---------------------------------- | ------------------- | ------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ | -------- | ------- | ------- | ------- | ------- |
@@ -92,6 +92,8 @@ MISO Data   | ___________________________________________________ ... __________
 | E    | control + chanid(3) | NA                                 | NA                  | sink          | NA      | NA      | NA      | NA      | NA      | NA      | NA           | NA       | NA      | NA      | NA      | NA      |
 
 rationale: 
+
+last is useless, so no need to include in FESVR frame
 
 want high speed transmission, so packing bits together.
 
