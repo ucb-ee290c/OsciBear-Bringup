@@ -28,11 +28,11 @@ module tl_transmitter_tb();
     parameter TL_PACKET_SIZE = 123;
     parameter BYTES_TO_SEND = (TL_PACKET_SIZE+8-1)/8; // Rounds up # bytes
 
-    parameter CLOCK_FREQ = 125_000_000;
+    parameter CLOCK_FREQ = 100_000_000;
     parameter CLOCK_PERIOD = 1_000_000_000 / CLOCK_FREQ;
-    parameter BAUD_RATE = 1_000_000;
+    parameter BAUD_RATE = 2_000_000;
     parameter BAUD_PERIOD = 1_000_000_000 / BAUD_RATE;
-    parameter TL_RATE = 1_000_000; 
+    parameter TL_RATE = 20_000_000; 
     parameter TL_PERIOD = 1_000_000_000 / TL_RATE;
     
     // Clocks (system and TileLink)
@@ -78,6 +78,7 @@ module tl_transmitter_tb();
 
     // Instatiate DUT
     traffic_adapter #(
+        .CLOCK_FREQ(CLOCK_FREQ),
         .BAUD_RATE(BAUD_RATE)
     ) adapter (
         .sysclk(clk),

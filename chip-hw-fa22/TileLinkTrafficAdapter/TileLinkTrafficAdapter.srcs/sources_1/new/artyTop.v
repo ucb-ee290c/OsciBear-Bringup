@@ -95,6 +95,7 @@ module artyTop (
     end
     
     traffic_adapter #(
+        .CLOCK_FREQ(CLK_FREQ),
         .BAUD_RATE(3_000_000)
     ) adapter (
         .sysclk(CLK100MHZ),

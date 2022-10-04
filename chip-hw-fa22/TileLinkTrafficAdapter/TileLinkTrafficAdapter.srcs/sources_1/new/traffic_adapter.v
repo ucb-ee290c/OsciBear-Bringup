@@ -21,6 +21,7 @@
 
 
 module traffic_adapter#(
+    parameter CLOCK_FREQ = 100_000_000,
     parameter BAUD_RATE = 115_200
 ) (
     input sysclk,
@@ -57,7 +58,7 @@ module traffic_adapter#(
     reg uart_tx_data_in_valid;
     wire uart_tx_data_in_ready;
     uart #(
-        .CLOCK_FREQ(125_000_000),
+        .CLOCK_FREQ(CLOCK_FREQ),
         .BAUD_RATE(BAUD_RATE)
     ) on_chip_uart (
         .clk(sysclk),
