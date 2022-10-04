@@ -39,8 +39,8 @@ int Fesvr::run(size_t addr) {
     write(CLINT_BASE, 0b1u);
 }
 
-FesvrFpgaUart::FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport) {
-    port = new TsiFpgaUart(z, o, a, w, comport);
+FesvrFpgaUart::FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, int brate) {
+    port = new TsiFpgaUart(z, o, a, w, comport, brate);
 
 }
 
@@ -57,9 +57,12 @@ size_t FesvrFpgaUart::read(size_t addr) {
     port->setLoopback(loopbackEn);
     printf("Read serializing, loopback: %b\n", loopbackEn);
     port->serialize(tx);
+    // disable response check, FPGA not working rn
     printf("Read deserializing\n");
     rx = port->deserialize();
     if (loopbackEn) {
+        //printf("Read deserializing\n");
+        //rx = port->deserialize();
         if (!(rx == tx)) {
             printf("Error: fesvr's driver: Loopback failed.\n");
             //printf("rx: %lx, %lx, %lx, %lx, %lx, %lx, %lx, %lx\n", rx.rawHeader, rx.size, rx.source, rx.mask, rx.corrupt, rx.last, rx.addr, rx.data);
@@ -68,6 +71,7 @@ size_t FesvrFpgaUart::read(size_t addr) {
             printf("Loopback read success.\n");
         }
     } else if (rx.type != AccessAckData) {
+        
         printf("Error: PutFullData did not respond with AccessAckData\n!");
     }
     return rx.data;
@@ -84,16 +88,19 @@ int FesvrFpgaUart::write(size_t addr, size_t content) {
     tx.addr = addr;
     tx.data = content;
     port->setLoopback(loopbackEn);
+    // disable response check, FPGA not working rn
     port->serialize(tx);
     rx = port->deserialize();
     if (loopbackEn) {
+        //port->serialize(tx);
+        //rx = port->deserialize();
         if (!(rx == tx)) {
             printf("Error: fesvr's driver: Loopback failed.\n");
         } else {
             printf("Loopback write success.\n");
         }
     } else if (rx.type != AccessAck) {
-        printf("Error: PutFullData did not respond with AccessAck");
+        printf("Error: PutFullData did not respond with AccessAck\n");
     }
     return 0;
 }

@@ -14,19 +14,19 @@ fesvr : Rs232.o fesvr.o tsi.o main.o
 uartLoopback : Rs232.o uartLoopback.o
 	$(CC) $(SRC_DIR) Rs232.o uartLoopback.o -o uartLoopback
 
-main.o : tsi.h fesvr.h
+main.o : tsi.o fesvr.o
 	$(CC) $(CFLAGS) $(SRC_DIR) -c main.cpp -o main.o
 
-fesvr.o : fesvr.cpp tsi.h
+fesvr.o : fesvr.cpp tsi.o
 	$(CC) $(CFLAGS) $(SRC_DIR) -c fesvr.cpp -o fesvr.o
 
-tsi.o : tsi.cpp tsi.h
+tsi.o : tsi.cpp Rs232.o
 	$(CC) $(CFLAGS) $(SRC_DIR) -c tsi.cpp -o tsi.o
 
-uartLoopback.o : uartLoopback.cpp ../rs232/Rs232.h
+uartLoopback.o : uartLoopback.cpp ../rs232/Rs232.o
 	$(CC) $(CFLAGS) $(SRC_DIR) -c uartLoopback.cpp -o uartLoopback.o
 
-Rs232.o : ../rs232/Rs232.h ../rs232/Rs232.cpp
+Rs232.o : ../rs232/Rs232.o ../rs232/Rs232.cpp
 	$(CC) $(CFLAGS) $(SRC_DIR) -c ../rs232/Rs232.cpp -o Rs232.o
 
 clean :
