@@ -90,3 +90,15 @@ MISO Data   | ___________________________________________________ ... __________
 | C    | control + chanid(3) | opcode(3) + 0 + param(3) + corrupt | source(4) + size(4) | NA            | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
 | D    | control + chanid(3) | opcode(3) + 0 + param(2) + corrupt | source(4) + size(4) | denied + sink | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
 | E    | control + chanid(3) | NA                                 | NA                  | sink          | NA      | NA      | NA      | NA      | NA      | NA      | NA           | NA       | NA      | NA      | NA      | NA      |
+
+rationale: 
+
+want high speed transmission, so packing bits together.
+
+want east to decode on ILA / LA, so putting chunks data together, and half-word aligned (addr, data)
+
+want to make it as aligned as possible, so moving the corrupt and mask field to the front.
+
+want to preseve the original order after appling rules above.
+
+want to reverse all bit order to correct bit order (as TSI frame bit order may be fixed in the future)
