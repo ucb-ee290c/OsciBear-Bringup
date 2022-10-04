@@ -79,3 +79,28 @@ MISO Ready  | ________/                                           ...           
 MISO Data   | ___________________________________________________ ... ______________ ... ____________________________________________________________________________________________________________________________________________________________________/     X ...
             |                                                                                                                                                                                                                                                 last | ...
 ```
+
+
+### FESVR V2 packet format
+
+| Byte | 0                   | 1                                  | 2                   | 3             | 4       | 5       | 6       | 7       | 8       | 9       | 10           | 11       | 12      | 13      | 14      | 15      |
+| ---- | ------------------- | ---------------------------------- | ------------------- | ------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ | -------- | ------- | ------- | ------- | ------- |
+| A    | control + chanid(3) | opcode(3) + 0 + param(3) + corrupt | source(4) + size(4) | mask          | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| B    | control + chanid(3) | opcode(3) + 0 + param(3) + corrupt | source(4) + size(4) | mask          | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| C    | control + chanid(3) | opcode(3) + 0 + param(3) + corrupt | source(4) + size(4) | NA            | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| D    | control + chanid(3) | opcode(3) + 0 + param(2) + corrupt | source(4) + size(4) | denied + sink | addr[3] | addr[2] | addr[1] | addr[0] | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| E    | control + chanid(3) | NA                                 | NA                  | sink          | NA      | NA      | NA      | NA      | NA      | NA      | NA           | NA       | NA      | NA      | NA      | NA      |
+
+rationale: 
+
+last is useless, so no need to include in FESVR frame
+
+want high speed transmission, so packing bits together.
+
+want east to decode on ILA / LA, so putting chunks data together, and half-word aligned (addr, data)
+
+want to make it as aligned as possible, so moving the corrupt and mask field to the front.
+
+want to preseve the original order after appling rules above.
+
+want to reverse all bit order to correct bit order (as TSI frame bit order may be fixed in the future)
