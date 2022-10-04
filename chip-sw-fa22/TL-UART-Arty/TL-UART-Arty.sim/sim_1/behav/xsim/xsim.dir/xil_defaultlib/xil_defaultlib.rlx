@@ -1,0 +1,9 @@
+0.7
+2020.2
+Apr 18 2022
+16:05:34
+C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.sim/sim_1/behav/xsim/glbl.v,1649976174,verilog,,,,glbl,,uvm,,,,,,
+C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sim_1/new/tb_basic.sv,1664921516,systemVerilog,,,,tb_basic,,uvm,,,,,,
+C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/tl_adapter.v,1664921589,verilog,,C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/top.v,,tl_adapter,,uvm,,,,,,
+C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/top.v,1664920403,verilog,,C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/uart.v,,top,,uvm,,,,,,
+C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/uart.v,1664919765,verilog,,,,uart;uart_rx;uart_tx,,uvm,,,,,,

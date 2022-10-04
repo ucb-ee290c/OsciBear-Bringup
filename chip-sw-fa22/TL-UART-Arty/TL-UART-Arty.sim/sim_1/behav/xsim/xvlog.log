@@ -1,0 +1,8 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/tl_adapter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tl_adapter
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/TK/Desktop/osci-bringup/chip-sw-fa22/TL-UART-Arty/TL-UART-Arty.srcs/sources_1/new/uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-311] analyzing module uart_tx
