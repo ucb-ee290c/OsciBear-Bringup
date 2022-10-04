@@ -83,7 +83,10 @@ MISO Data   | ___________________________________________________ ... __________
 
 ### FESVR packet format
 
-| Byte | 0       | 1                    | 2         | 3                 | 4       | 5       | 6       | 7       | 8             | 9       | 10      | 11      | 12      | 13      | 14      | 15      | 16      |
-| ---- | ------- | -------------------- | --------- | ----------------- | ------- | ------- | ------- | ------- | ------------- | ------- | ------- | ------- | ------  | ------- | ------- | ------- | ------- |
-| A    | control | opcode(3) + param(3) | source(4) | size(4) + corrupt | addr[3] | addr[2] | addr[1] | addr[0] | mask          | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
-| D    | control | opcode(3) + param(2) | source(4) | size(4) + corrupt | addr[3] | addr[2] | addr[1] | addr[0] | sink + denied | ata[7]  | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| Byte | 0                   | 1                              | 2                   | 3       | 4       | 5       | 6       | 7             | 8       | 9       | 10           | 11       | 12      | 13      | 14      | 15      |
+| ---- | ------------------- | ------------------------------ | ------------------- | ------- | ------- | ------- | ------- | ------------- | ------- | ------- | ------------ | -------- | ------- | ------- | ------- | ------- |
+| A    | control + chanid(3) | opcode(3) + param(3) + corrupt | source(4) + size(4) | addr[3] | addr[2] | addr[1] | addr[0] | mask          | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| B    | control + chanid(3) | opcode(3) + param(3) + corrupt | source(4) + size(4) | addr[3] | addr[2] | addr[1] | addr[0] | mask          | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| C    | control + chanid(3) | opcode(3) + param(3) + corrupt | source(4) + size(4) | addr[3] | addr[2] | addr[1] | addr[0] | NA            | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| D    | control + chanid(3) | opcode(3) + param(2) + corrupt | source(4) + size(4) | addr[3] | addr[2] | addr[1] | addr[0] | sink + denied | data[7] | data[6] | data[5] | data[4]  | data[3] | data[2] | data[1] | data[0] |
+| E    | control + chanid(3) | NA                             | NA                  | NA      | NA      | NA      | NA      | sink          | NA      | NA      | NA           | NA       | NA      | NA      | NA      | NA      |
