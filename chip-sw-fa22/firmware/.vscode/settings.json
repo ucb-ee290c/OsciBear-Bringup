@@ -10,6 +10,7 @@
     "oscibear_hal_uart.h": "c",
     "stdint.h": "c",
     "string.h": "c",
-    "baseband.h": "c"
+    "baseband.h": "c",
+    "main digital_loopback": "c"
   }
 }

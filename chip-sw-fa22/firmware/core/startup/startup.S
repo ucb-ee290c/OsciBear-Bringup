@@ -14,9 +14,9 @@
 */
 
 .align 4
-.section .text.isr_vector
-.globl isr_vector
-isr_vector:
+.section .text.isr_routine
+.globl isr_routine
+isr_routine:
   addi sp, sp, -32*REGBYTES
 
   SREG x1, 1*REGBYTES(sp)
@@ -123,7 +123,7 @@ _start:
   li x30, 0
   li x31, 0
 
-  la t0, isr_vector
+  la t0, isr_routine
   #addi t0, t0, 1    # vectored mode
   csrw mtvec, t0
 

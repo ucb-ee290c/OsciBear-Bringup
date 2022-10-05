@@ -33,8 +33,8 @@ void HypervisorExternal_IRQn_Handler() {}
 void MachineExternal_IRQn_Handler() {
   uint32_t m_cause;
   char str[16];
-  sprintf(str, "interrupt: %x\n", m_cause);
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  // sprintf(str, "interrupt: %x\n", m_cause);
+  // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 }
 
 
@@ -59,31 +59,31 @@ void trap_handler() {
       
     }
     
-    uint32_t irqSource = plic_claim_irq(0);
+    // uint32_t irqSource = plic_claim_irq(0);
   
-    char str[128];
+    // char str[128];
 
-    sprintf(str, "intr %d\n", irqSource);
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    // sprintf(str, "intr %d\n", irqSource);
+    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   
-    if (irqSource == 6) {
-      sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
-    }
-    if (irqSource == 7) {
-      sprintf(str, "** RX Start\n");
-    }
-    if (irqSource == 8) {
-      sprintf(str, "** Bytes Read: %u\n", baseband_rxfinish_message());
-    }
-    if (irqSource == 9) {
-      sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
-    }
-    if (irqSource == 10) {
-      sprintf(str, "TX Operation Finished. Check above for any errors.\n");
-    }
+    // if (irqSource == 6) {
+    //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
+    // }
+    // if (irqSource == 7) {
+    //   sprintf(str, "** RX Start\n");
+    // }
+    // if (irqSource == 8) {
+    //   sprintf(str, "** Bytes Read: %u\n", baseband_rxfinish_message());
+    // }
+    // if (irqSource == 9) {
+    //   sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
+    // }
+    // if (irqSource == 10) {
+    //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
+    // }
 
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    plic_complete_irq(0, irqSource);
+    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    // plic_complete_irq(0, irqSource);
 
     // HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 1);
     // sprintf(str, "mcause: %x\n", m_cause);

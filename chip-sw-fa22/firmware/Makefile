@@ -6,7 +6,7 @@ TARGET ?= firmware
 #################################
 
 # SiFive Toolchain
-#PREFIX = riscv64-unknown-elf-
+# PREFIX = riscv64-unknown-elf-
 
 # Nuclei Toolchain
 #PREFIX = riscv-nuclei-elf-
@@ -85,6 +85,7 @@ LD_SCRIPT = $(SRC_DIR)oscibear.ld
 ARCHFLAGS = -march=$(ARCH) -mabi=$(ABI) -mcmodel=$(CODEMODEL) -fno-pie
 SPECFLAGS = --specs="nano.specs"
 
+
 # compiler Flags
 CFLAGS  = -g -std=gnu11 -O0 -Wall -Wextra -Warray-bounds -Wno-unused-parameter
 CFLAGS += -fno-common -fno-builtin-printf
@@ -94,8 +95,10 @@ CFLAGS += $(INCLUDES)
 
 # linker Flags
 LFLAGS  = -static
-# LFLAGS += -nostartfiles -nostdlib
+#LFLAGS += -nostartfiles -nostdlib
 LFLAGS += -nostartfiles
+LFLAGS += -ffunction-sections
+LFLAGS += -fdata-sections
 LFLAGS += -T $(LD_SCRIPT)
 
 
