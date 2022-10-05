@@ -9,7 +9,12 @@ SECTIONS {
     . = ALIGN(4);
     /* KEEP(*(.text.isr_routine))    /* ISR routine */
     *(.text.init)                 /* Startup code */
+
+    . = ALIGN(4);
+    KEEP(*(.text.isr_routine))    /* ISR routine */
+
     *(.text .text*)               /* .text sections (code) */
+
 
     KEEP (*(.init))
     KEEP (*(.fini))

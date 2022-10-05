@@ -10,9 +10,11 @@ void SupervisorSoftware_IRQn_Handler() {}
 void HypervisorSoftware_IRQn_Handler() {}
 
 void MachineSoftware_IRQn_Handler() {
-  char str[32];
-  sprintf(str, "machine software irq\n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  {
+    char str[32];
+    sprintf(str, "machine software irq\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  }
 }
 
 void UserTimer_IRQn_Handler() {}
@@ -22,9 +24,11 @@ void SupervisorTimer_IRQn_Handler() {}
 void HypervisorTimer_IRQn_Handler() {}
 
 void MachineTimer_IRQn_Handler() {
-  char str[32];
-  sprintf(str, "machine timer irq\n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  {
+    char str[32];
+    sprintf(str, "machine timer irq\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  }
 }
 
 void UserExternal_IRQn_Handler() {}
@@ -37,11 +41,11 @@ void MachineExternal_IRQn_Handler() {
   // uint32_t irq_source = HAL_PLIC_claimIRQ(0);
   uint32_t irq_source = -1;
 
-      
-  char str[32];
-  sprintf(str, "machine external irq: %d\n", irq_source);
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-  
+  {
+    char str[32];
+    sprintf(str, "machine external irq: %d\n", irq_source);
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  }
   // switch (irq_source) {
 
   // }
@@ -79,6 +83,11 @@ void system_init(void) {
 }
 
 void trap_handler(void) {
+  {
+    char str[32];
+    sprintf(str, "traphandler\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  }
   uint32_t m_cause;
   asm volatile("csrr %0, mcause" : "=r"(m_cause));
 
@@ -105,10 +114,12 @@ void trap_handler(void) {
       break;
     case 0x80000003:      // machine software interrupt
       MachineSoftware_IRQn_Handler();
+      CLINT->MSIP = 0;
       HAL_CORE_clearIRQ(MachineSoftware_IRQn);
       break;
     case 0x80000007:      // machine timer interrupt
       MachineTimer_IRQn_Handler();
+      HAL_CLINT_setTimerInterrupt(0xFFFFFFFFFFFFFFFF);
       HAL_CORE_clearIRQ(MachineTimer_IRQn);
       break;
     case 0x8000000B:      // machine external interrupt

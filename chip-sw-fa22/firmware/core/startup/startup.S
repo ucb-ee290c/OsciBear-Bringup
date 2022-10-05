@@ -144,7 +144,7 @@ _start:
   csrr a0, mhartid
   li a1, 1
 
-  # call system_init
+  call system_init
   call main
 
 infinite_loop:
