@@ -6,15 +6,26 @@ MEMORY {
 
 SECTIONS {
   .text : {
-    KEEP(*(text..isr_vector)) /* Startup code */
     . = ALIGN(4);
-    *(.text.init)
-    *(.text)
+    /* KEEP(*(.text.isr_routine))    /* ISR routine */
+    *(.text.init)                 /* Startup code */
+    *(.text .text*)               /* .text sections (code) */
+
+    KEEP (*(.init))
+    KEEP (*(.fini))
+    
+    _etext = .;                   /* define a global symbols at end of code */
   }> SRAM
   
+  .rodata : {
+    . = ALIGN(4);
+    *(.rodata .rodata*)           /* .rodata sections (constants, strings, etc.) */
+    . = ALIGN(4);
+  }> SRAM
+
   /* data segment */
   .data : {
-    *(.data)
+    *(.data .data*)
   }> SRAM
 
   .sdata : {
@@ -31,7 +42,7 @@ SECTIONS {
     *(.scommon)
   }> SRAM
 
-  .bss : {
+  .bss (NOLOAD) : {
     *(.bss)
   }> SRAM
 

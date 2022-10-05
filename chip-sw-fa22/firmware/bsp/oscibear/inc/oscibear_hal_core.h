@@ -9,6 +9,16 @@ extern "C" {
 #include "oscibear.h"
 
 
+void HAL_CORE_disableGlobalInterrupt();
+
+void HAL_CORE_enableGlobalInterrupt();
+
+void HAL_CORE_disableIRQ(IRQn_Type IRQn);
+
+void HAL_CORE_enableIRQ(IRQn_Type IRQn);
+
+void HAL_CORE_clearIRQ(IRQn_Type IRQn);
+
 
 #ifdef __cplusplus
 }

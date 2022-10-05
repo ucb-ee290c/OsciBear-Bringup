@@ -1,7 +1,8 @@
 
 #include "main.h"
 
-char str[512];
+
+char str[128];
 
 int main() {
   HAL_init();

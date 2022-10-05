@@ -6,13 +6,13 @@ TARGET ?= firmware
 #################################
 
 # SiFive Toolchain
-#PREFIX = riscv64-unknown-elf-
+PREFIX = riscv64-unknown-elf-
 
 # Nuclei Toolchain
 #PREFIX = riscv-nuclei-elf-
 
 # xPack Toolchain
-PREFIX = riscv-none-elf-
+# PREFIX = riscv-none-elf-
 
 
 CC = $(PREFIX)gcc
@@ -46,7 +46,7 @@ C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_core.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_clint.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_gpio.c
-C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_plic.c
+# C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_plic.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_rcc.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_uart.c
 
@@ -77,7 +77,7 @@ TARGET_VERILOG = $(BUILD_DIR)$(TARGET).out
 #################################
 
 # MCU Settings
-ARCH = rv32imafc_zicsr
+ARCH = rv32imafc #_zicsr
 ABI = ilp32f
 CODEMODEL = medany
 LD_SCRIPT = $(SRC_DIR)oscibear.ld

@@ -14,9 +14,9 @@
 */
 
 .align 4
-.section .text.isr_vector
-.globl isr_vector
-isr_vector:
+.section .text.isr_routine
+.globl isr_routine
+isr_routine:
   addi sp, sp, -32*REGBYTES
 
   SREG x1, 1*REGBYTES(sp)
@@ -91,6 +91,7 @@ isr_vector:
 .section .text.init
 .globl _start
 _start:
+  # initialize registers
   li x1, 0
   li x2, 0
   li x3, 0
@@ -123,23 +124,27 @@ _start:
   li x30, 0
   li x31, 0
 
-  la t0, isr_vector
+  # set up interrupt handler
+  la t0, isr_routine
   #addi t0, t0, 1    # vectored mode
   csrw mtvec, t0
 
+  # set up global pointer
 .option push
 .option norelax
   la gp, __global_pointer$
 .option pop
   
-  li tp, 0x80005500
+  # set up stack pointers
+  li tp, 0x80005F00
 
-  li sp, 0x80005000
+  li sp, 0x80005700
 
+  # set up c runtime
   csrr a0, mhartid
   li a1, 1
 
-  call system_init
+  # call system_init
   call main
 
 infinite_loop:

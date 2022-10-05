@@ -42,8 +42,19 @@ typedef struct {
   __IO uint64_t MTIME;                          /** Timer Register */
 } CLINT_TypeDef;
 
-typedef struct {
 
+typedef struct {
+  __IO uint32_t priority_threshold;
+  __IO uint32_t claim_complete;
+} PLIC_ContextControl_TypeDef;
+
+typedef struct {
+  // uint32_t RESERVED0[1];
+  // __IO uint32_t priorities[4095];
+  // __I  uint32_t pendings[4096];
+  // __IO uint32_t enables[4096];
+  // uint32_t RESERVED1[118783];
+  // __IO PLIC_ContextControl_TypeDef context_controls[4096];
 } PLIC_TypeDef;
 
 typedef struct {
