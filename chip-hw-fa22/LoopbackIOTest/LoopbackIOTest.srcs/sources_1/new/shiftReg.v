@@ -13,7 +13,7 @@ module shiftReg #(
     output Q,
     output RESET
 );
-    localparam LOG_WIDTH = $clog2(D_WIDTH);
+    localparam LOG_WIDTH = $clog2(D_WIDTH) + 1;
     reg [D_WIDTH-1:0] data;
     wire [LOG_WIDTH-1:0] counter_Q;
     wire mode_Q;
@@ -45,8 +45,7 @@ module shiftReg #(
     );
 
     always @(posedge clk) begin
-        // this is counterintuitive: when enable is high, we want the data to be frozen for 1 cycle before
-        data[counter_Q] <= en ? data[counter_Q] : D;
+        data[counter_Q] <= en&!mode ? D : data[counter_Q];
     end
 
 endmodule

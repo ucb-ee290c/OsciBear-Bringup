@@ -144,22 +144,26 @@ int TsiFpgaUart::initDriver() {
 
 int TsiFpgaUart::pollDriver() {
     size_t expBytes = bufferByteLength();
-    if (loopbackEn) {
+    // Hardware loopback enabled
+    /*
+    if (loopbackEn) {  
         for (size_t i = 0; i < expBytes; i++) {
             pollBuffer[i] = writeBuffer[i];
         }
         return expBytes;
     } else {
+        */
         size_t rxBytes = 0u;
         while (rxBytes < expBytes) {
             rxBytes += rs232::pollComport(comport, pollBuffer+rxBytes, expBytes-rxBytes);
         }
         return rxBytes;
-    }
+    //}
 }
 
 int TsiFpgaUart::writeDriver() {
-    return loopbackEn ? bufferByteLength() : rs232::sendBuf(comport, writeBuffer, bufferByteLength());
+    //return loopbackEn ? bufferByteLength() : rs232::sendBuf(comport, writeBuffer, bufferByteLength());
+    return rs232::sendBuf(comport, writeBuffer, bufferByteLength());
 }
 
 // Helper functions generally useful for TSI

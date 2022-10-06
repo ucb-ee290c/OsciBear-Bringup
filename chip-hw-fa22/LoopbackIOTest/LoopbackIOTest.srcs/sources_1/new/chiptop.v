@@ -39,13 +39,16 @@ module chiptop (
     output tl_in_rd,
     input tl_in_data,
     // RESET is high when TSI/UART packets are all one
-    output RESET
+    output RESET,
+    output CLK20MHZ
 );
     wire tl_rising_clk;
     ila_0(  .clk(CLK100MHZ), .probe0(tl_rising_clk), .probe1(uart_rx),
             .probe2(uart_tx), .probe3(tl_clk), .probe4(tl_out_valid),
             .probe5(tl_out_rd), .probe6(tl_out_data), .probe7(tl_in_valid),
             .probe8(tl_in_rd), .probe9(tl_in_data));
+            
+    clk_wiz_0(.clk_in1(CLK100MHZ), .clk_out1(CLK20MHZ));
     /*
     assign uart_tx = tx_reg;
     always @(posedge CLK100MHZ) begin
@@ -77,10 +80,9 @@ module chiptop (
         .tl_in_valid(tl_in_valid)
     );
 
-    // WARNING: SYNCHRONOUS EDGE DETECT, IS DELAYED BY 1 CYCLE, MAY NOT WORK FOR HIGH CLOCK SPEEDS...
-    // TODO: HAVE ShiftReg BUFFER THE IN AND MOVE TO NEXT IF EN IS TRIGGERED. 
     EdgeDetector tlClkEdge (
         .clk(CLK100MHZ),
+        .rst(rst),
         .in(tl_clk),
         .rising(tl_rising_clk)
         //.falling(),

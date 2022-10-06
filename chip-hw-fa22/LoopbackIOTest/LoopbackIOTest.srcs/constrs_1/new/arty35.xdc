@@ -91,7 +91,7 @@ set_property -dict { PACKAGE_PIN T11   IOSTANDARD LVCMOS33 } [get_ports { tl_out
 set_property -dict { PACKAGE_PIN R12   IOSTANDARD LVCMOS33 } [get_ports { tl_in_valid  }]; #IO_L5P_T0_D06_14             Sch=ck_io[4]
 set_property -dict { PACKAGE_PIN T14   IOSTANDARD LVCMOS33 } [get_ports { tl_in_rd  }]; #IO_L14P_T2_SRCC_14           Sch=ck_io[5]
 set_property -dict { PACKAGE_PIN T15   IOSTANDARD LVCMOS33 } [get_ports { tl_in_data  }]; #IO_L14N_T2_SRCC_14           Sch=ck_io[6]
-#set_property -dict { PACKAGE_PIN T16   IOSTANDARD LVCMOS33 } [get_ports { ck_io7  }]; #IO_L15N_T2_DQS_DOUT_CSO_B_14 Sch=ck_io[7]
+set_property -dict { PACKAGE_PIN T16   IOSTANDARD LVCMOS33 } [get_ports { CLK20MHZ  }]; #IO_L15N_T2_DQS_DOUT_CSO_B_14 Sch=ck_io[7]
 #set_property -dict { PACKAGE_PIN N15   IOSTANDARD LVCMOS33 } [get_ports { ck_io8  }]; #IO_L11P_T1_SRCC_14           Sch=ck_io[8]
 #set_property -dict { PACKAGE_PIN M16   IOSTANDARD LVCMOS33 } [get_ports { ck_io9  }]; #IO_L10P_T1_D14_14            Sch=ck_io[9]
 #set_property -dict { PACKAGE_PIN V17   IOSTANDARD LVCMOS33 } [get_ports { ck_io10 }]; #IO_L18N_T2_A11_D27_14        Sch=ck_io[10]

@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Wed Oct  5 20:25:35 2022
-| Host         : hongyihuang-HP-Laptop-17-cn0xxx running 64-bit Ubuntu 22.04 LTS
+| Date         : Thu Oct  6 03:37:26 2022
+| Host         : hongyihuang-HP-Tower running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file chiptop_utilization_synth.rpt -pb chiptop_utilization_synth.pb
 | Design       : chiptop
 | Device       : xc7a35ticsg324-1L
@@ -31,14 +31,14 @@ Table of Contents
 +-------------------------+------+-------+------------+-----------+-------+
 |        Site Type        | Used | Fixed | Prohibited | Available | Util% |
 +-------------------------+------+-------+------------+-----------+-------+
-| Slice LUTs*             |  484 |     0 |          0 |     20800 |  2.33 |
-|   LUT as Logic          |  484 |     0 |          0 |     20800 |  2.33 |
+| Slice LUTs*             |  469 |     0 |          0 |     20800 |  2.25 |
+|   LUT as Logic          |  469 |     0 |          0 |     20800 |  2.25 |
 |   LUT as Memory         |    0 |     0 |          0 |      9600 |  0.00 |
-| Slice Registers         |  312 |     0 |          0 |     41600 |  0.75 |
-|   Register as Flip Flop |  312 |     0 |          0 |     41600 |  0.75 |
+| Slice Registers         |  313 |     0 |          0 |     41600 |  0.75 |
+|   Register as Flip Flop |  313 |     0 |          0 |     41600 |  0.75 |
 |   Register as Latch     |    0 |     0 |          0 |     41600 |  0.00 |
-| F7 Muxes                |   18 |     0 |          0 |     16300 |  0.11 |
-| F8 Muxes                |    8 |     0 |          0 |      8150 |  0.10 |
+| F7 Muxes                |    2 |     0 |          0 |     16300 |  0.01 |
+| F8 Muxes                |    0 |     0 |          0 |      8150 |  0.00 |
 +-------------------------+------+-------+------------+-----------+-------+
 * Warning! The Final LUT count, after physical optimizations and full implementation, is typically lower. Run opt_design after synthesis, if not already completed, for a more realistic count.
 
@@ -57,8 +57,8 @@ Table of Contents
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 7     |          Yes |         Set |            - |
-| 305   |          Yes |       Reset |            - |
+| 0     |          Yes |         Set |            - |
+| 313   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -91,7 +91,7 @@ Table of Contents
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |   12 |     0 |          0 |       210 |  5.71 |
+| Bonded IOB                  |   13 |     0 |          0 |       210 |  6.19 |
 | Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         5 |  0.00 |
 | PHASER_REF                  |    0 |     0 |          0 |         5 |  0.00 |
@@ -113,7 +113,7 @@ Table of Contents
 +------------+------+-------+------------+-----------+-------+
 |  Site Type | Used | Fixed | Prohibited | Available | Util% |
 +------------+------+-------+------------+-----------+-------+
-| BUFGCTRL   |    1 |     0 |          0 |        32 |  3.13 |
+| BUFGCTRL   |    0 |     0 |          0 |        32 |  0.00 |
 | BUFIO      |    0 |     0 |          0 |        20 |  0.00 |
 | MMCME2_ADV |    0 |     0 |          0 |         5 |  0.00 |
 | PLLE2_ADV  |    0 |     0 |          0 |         5 |  0.00 |
@@ -147,32 +147,31 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| LUT6     |  344 |                 LUT |
-| FDRE     |  305 |        Flop & Latch |
-| LUT3     |   45 |                 LUT |
-| LUT5     |   38 |                 LUT |
-| LUT4     |   28 |                 LUT |
-| LUT2     |   24 |                 LUT |
-| LUT1     |   21 |                 LUT |
+| LUT6     |  364 |                 LUT |
+| FDRE     |  313 |        Flop & Latch |
+| LUT3     |   47 |                 LUT |
+| LUT4     |   27 |                 LUT |
+| LUT2     |   20 |                 LUT |
 | CARRY4   |   19 |          CarryLogic |
-| MUXF7    |   18 |               MuxFx |
-| MUXF8    |    8 |               MuxFx |
+| LUT1     |    8 |                 LUT |
 | IBUF     |    7 |                  IO |
-| FDSE     |    7 |        Flop & Latch |
-| OBUF     |    5 |                  IO |
-| BUFG     |    1 |               Clock |
+| OBUF     |    6 |                  IO |
+| LUT5     |    5 |                 LUT |
+| MUXF7    |    2 |               MuxFx |
 +----------+------+---------------------+
 
 
 8. Black Boxes
 --------------
 
-+----------+------+
-| Ref Name | Used |
-+----------+------+
-| ila_1    |    2 |
-| ila_0    |    1 |
-+----------+------+
++-----------+------+
+|  Ref Name | Used |
++-----------+------+
+| ila_1     |    2 |
+| ila_3     |    1 |
+| ila_0     |    1 |
+| clk_wiz_0 |    1 |
++-----------+------+
 
 
 9. Instantiated Netlists
