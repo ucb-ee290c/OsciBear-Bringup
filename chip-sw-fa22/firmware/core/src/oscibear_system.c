@@ -3,6 +3,11 @@
 
 #include "main.h"
 
+
+__attribute__((weak)) void GPIO_IRQn_Handler() {
+
+}
+
 void UserSoftware_IRQn_Handler() {}
 
 void SupervisorSoftware_IRQn_Handler() {}
@@ -38,36 +43,36 @@ void SupervisorExternal_IRQn_Handler() {}
 void HypervisorExternal_IRQn_Handler() {}
 
 void MachineExternal_IRQn_Handler() {
-  // uint32_t irq_source = HAL_PLIC_claimIRQ(0);
-  uint32_t irq_source = -1;
+  uint32_t irq_source = HAL_PLIC_claimIRQ(0);
 
   {
     char str[32];
     sprintf(str, "machine external irq: %d\n", irq_source);
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
-  // switch (irq_source) {
-
-  // }
-
-  // if (irqSource == 6) {
-  //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
-  // }
-  // if (irqSource == 7) {
-  //   sprintf(str, "** RX Start\n");
-  // }
-  // if (irqSource == 8) {
-  //   sprintf(str, "** Bytes Read: %u\n", baseband_rxfinish_message());
-  // }
-  // if (irqSource == 9) {
-  //   sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
-  // }
-  // if (irqSource == 10) {
-  //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
-  // }
-
-  // plic_complete_irq(0, irqSource);
-  // HAL_PLIC_completeIRQ(0, irq_source);
+  switch (irq_source) {
+    case 2:                 // GPIO interrupt
+      GPIO_IRQn_Handler();
+      GPIOA->HIGH_IE = 0b0;
+      break;
+    case 6:               // baseband RX error interrupt
+      //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
+      break;
+    case 7:               // baseband RX start interrupt
+      //   sprintf(str, "** RX Start\n");
+      break;
+    case 8:               // baseband RX finish interrupt
+      //   sprintf(str, "** Bytes Read: %u\n", baseband_rxfinish_message());
+      break;
+    case 9:               // baseband RX error interrupt
+      //   sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
+      break;
+    case 10:              // baseband TX finish interrupt
+      //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
+      break;
+  }
+      
+  HAL_PLIC_completeIRQ(0, irq_source);
 }
 
 void system_init(void) {

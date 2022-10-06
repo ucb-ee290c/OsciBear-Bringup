@@ -9,6 +9,8 @@ extern "C" {
 #include "oscibear.h"
 #include "oscibear_hal.h"
 
+#define UART_FIFO_DEPTH   8
+
 typedef struct {
   uint32_t baudrate;
 } UART_InitTypeDef;

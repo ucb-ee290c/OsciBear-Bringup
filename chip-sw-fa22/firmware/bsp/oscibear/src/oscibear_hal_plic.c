@@ -1,6 +1,7 @@
 
 #include "oscibear_hal_plic.h"
 
+
 void HAL_PLIC_disable(uint32_t hart_id, uint32_t irq_id) {
   uint32_t reg_index = irq_id >> 5;
   uint32_t bit_index = irq_id & 0x1F;
@@ -18,11 +19,11 @@ void HAL_PLIC_setPriority(uint32_t irq_id, uint32_t priority) {
 }
 
 uint32_t HAL_PLIC_claimIRQ(uint32_t hart_id) {
-  return PLIC->context_controls[hart_id].claim_complete;
+  return PLIC_EXTRA->context_controls[hart_id].claim_complete;
 }
 
 void HAL_PLIC_completeIRQ(uint32_t hart_id, uint32_t irq_id) {
-  PLIC->context_controls[hart_id].claim_complete = irq_id;
+  PLIC_EXTRA->context_controls[hart_id].claim_complete = irq_id;
 }
 
 
