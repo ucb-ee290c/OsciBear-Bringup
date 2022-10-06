@@ -42,9 +42,23 @@ typedef struct {
   __IO uint64_t MTIME;                          /** Timer Register */
 } CLINT_TypeDef;
 
-typedef struct {
 
+
+typedef struct {
+  __IO uint32_t priority_threshold;
+  __IO uint32_t claim_complete;
+} PLIC_ContextControl_TypeDef;
+
+typedef struct {
+  __IO uint32_t priorities[1024];
+  __I  uint32_t pendings[1024];
+  __IO uint32_t enables[1024];
 } PLIC_TypeDef;
+
+// because the maximum struct size is 65535, we need to split PLIC content
+typedef struct {
+  PLIC_ContextControl_TypeDef context_controls[1024];
+} PLIC_Extra_TypeDef;
 
 typedef struct {
   __I  uint32_t INPUT_VAL;                      /** pin value */
@@ -54,13 +68,13 @@ typedef struct {
   __IO uint32_t PUE;                            /** Internal pull-up enable */
   __IO uint32_t DS;                             /** Pin drive strength */
   __IO uint32_t RISE_IE;                        /** Rise interrupt enable */
-  __I  uint32_t RISE_IP;                        /** Rise interrupt pending */
+  __IO uint32_t RISE_IP;                        /** Rise interrupt pending */
   __IO uint32_t FALL_IE;                        /** Fall interrupt enable */
-  __I  uint32_t FALL_IP;                        /** Fall interrupt pending */
+  __IO uint32_t FALL_IP;                        /** Fall interrupt pending */
   __IO uint32_t HIGH_IE;                        /** High interrupt pending */
-  __I  uint32_t HIGH_IP;                        /** High interrupt pending */
+  __IO uint32_t HIGH_IP;                        /** High interrupt pending */
   __IO uint32_t LOW_IE;                         /** Low interrupt pending */
-  __I  uint32_t LOW_IP;                         /** Low interrupt pending */
+  __IO uint32_t LOW_IP;                         /** Low interrupt pending */
   __IO uint32_t OUT_XOR;                        /** Output XOR (invert) */
 } GPIO_TypeDef;
 
@@ -77,10 +91,88 @@ typedef struct {
   __IO uint32_t DIV;                            /** Baud rate divisor */
 } UART_TypeDef;
 
+typedef struct {
+  __IO uint32_t INST;               // 0x8000
+  __IO uint32_t ADDITIONAL_DATA;    // 0x8004
+
+  __IO uint32_t STATUS0;            // 0x8008
+  __IO uint32_t STATUS1;            // 0x800C
+  __IO uint32_t STATUS2;            // 0x8010
+  __IO uint32_t STATUS3;            // 0x8014
+  __IO uint32_t STATUS4;            // 0x8018
+  
+  __IO uint8_t  TRIM_G0;            // 0x801C
+  __IO uint8_t  TRIM_G1;            // 0x801D
+  __IO uint8_t  TRIM_G2;            // 0x801E
+  __IO uint8_t  TRIM_G3;            // 0x801F
+  __IO uint8_t  TRIM_G4;            // 0x8020
+  __IO uint8_t  TRIM_G5;            // 0x8021
+  __IO uint8_t  TRIM_G6;            // 0x8022
+  __IO uint8_t  TRIM_G7;            // 0x8023
+  
+  __IO uint8_t  MIXER_R1_R0;        // 0x8024
+  __IO uint8_t  MIXER_R3_R2;        // 0x8025
+  
+  __IO uint16_t I_VGA_ATTEN_VALUE;          // 0x8026
+  __IO uint8_t  I_VGA_ATTEN_RESET;          // 0x8028
+  __IO uint8_t  I_VGA_ATTEN_USE_AGC;        // 0x8029
+  __IO uint8_t  I_VGA_ATTEN_SAMPLE_WINDOW;  // 0x802A
+  __IO uint8_t  I_VGA_ATTEN_IDEAL_P2P;      // 0x802B
+  __IO uint8_t  I_VGA_ATTEN_GAIN;           // 0x802C
+  __IO uint8_t  I_FILTER_R1_R0;     // 0x802D
+  __IO uint8_t  I_FILTER_R3_R2;     // 0x802E
+  __IO uint8_t  I_FILTER_R5_R4;     // 0x802F
+  __IO uint8_t  I_FILTER_R7_R6;     // 0x8030
+  __IO uint8_t  I_FILTER_R9_R8;     // 0x8031
+
+  __IO uint16_t Q_VGA_ATTEN_VALUE;          // 0x8032
+  __IO uint8_t  Q_VGA_ATTEN_RESET;          // 0x8034
+  __IO uint8_t  Q_VGA_ATTEN_USE_AGC;        // 0x8035
+  __IO uint8_t  Q_VGA_ATTEN_SAMPLE_WINDOW;  // 0x8036
+  __IO uint8_t  Q_VGA_ATTEN_IDEAL_P2P;      // 0x8037
+  __IO uint8_t  Q_VGA_ATTEN_GAIN;           // 0x8038
+  __IO uint8_t  Q_FILTER_R1_R0;     // 0x8039
+  __IO uint8_t  Q_FILTER_R3_R2;     // 0x803A
+  __IO uint8_t  Q_FILTER_R5_R4;     // 0x803B
+  __IO uint8_t  Q_FILTER_R7_R6;     // 0x803C
+  __IO uint8_t  Q_FILTER_R9_R8;     // 0x803D
+
+  __IO uint8_t  I_DCO_USE_DCO;      // 0x803E
+  __IO uint8_t  I_DCO_RESET;        // 0x803F
+  __IO uint8_t  I_DCO_GAIN;         // 0x8040
+
+  __IO uint8_t  Q_DCO_USE_DCO;      // 0x8041
+  __IO uint8_t  Q_DCO_RESET;        // 0x8042
+  __IO uint8_t  Q_DCO_GAIN;         // 0x8043
+  
+  __IO uint8_t  DAC_T0;             // 0x8044
+  __IO uint8_t  DAC_T1;             // 0x8045
+  __IO uint8_t  DAC_T2;             // 0x8046
+  __IO uint8_t  DAC_T3;             // 0x8047
+  
+  __IO uint16_t ENABLE_DEBUG;       // 0x8048
+  
+  __IO uint16_t MUX_DBG_IN;         // 0x804A
+  __IO uint16_t MUX_DBG_OUT;        // 0x804C
+  
+  __IO uint8_t  ENABLE_RX_I;        // 0x804E
+  __IO uint8_t  ENABLE_RX_Q;        // 0x804F
+  
+  // __IO uint16_t IMAGE_REJECTION_OP; // 0x8048
+  __IO uint32_t LUT_CMD;            // 0x8050
+
+  __IO uint32_t RXERROR_MESSAGE;    // 0x8054
+  __IO uint32_t RXFINISH_MESSAGE;   // 0x8058
+  __IO uint32_t TXERROR_MESSAGE;    // 0x805C
+  __IO uint32_t FIR_CMD;            // 0x8060
+} BASEBAND_TypeDef;
+
+
 /* ================ memory map ================ */
 #define DEBUG_CONTROLLER_BASE   0x00000000
 #define BOOT_SELECT_BASE        0x00002000
 #define ERROR_DEVICE_BASE       0x00003000
+#define BASEBAND_BASE           0x00008000
 #define BOOTROM_BASE            0x00010000
 #define TILE_RESET_CTRL_BASE    0x00100000
 #define CLINT_BASE              0x02000000
@@ -98,9 +190,10 @@ typedef struct {
 
 #define CLINT                   ((CLINT_TypeDef *)CLINT_BASE)
 #define PLIC                    ((PLIC_TypeDef *)PLIC_BASE)
+#define PLIC_EXTRA              ((PLIC_Extra_TypeDef *)(PLIC_BASE + 0x00200000U))
 #define GPIOA                   ((GPIO_TypeDef *)GPIOA_BASE)
 #define UART0                   ((UART_TypeDef *)UART0_BASE)
-
+#define BASEBAND                ((BASEBAND_TypeDef *)BASEBAND_BASE)
 
 
 #define UART_RXCTRL_RXEN_POS                    (0U)
