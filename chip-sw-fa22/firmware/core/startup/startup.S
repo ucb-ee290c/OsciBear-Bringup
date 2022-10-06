@@ -140,9 +140,9 @@ _start:
 .option pop
   
   # set up stack pointers
-  li tp, 0x80005F00
+  li tp, 0x80004500
 
-  li sp, 0x80005700
+  li sp, 0x80005000
 
   # set up c runtime
   csrr a0, mhartid

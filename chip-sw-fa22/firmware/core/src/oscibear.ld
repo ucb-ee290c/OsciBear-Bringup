@@ -15,7 +15,6 @@ SECTIONS {
 
     *(.text .text*)               /* .text sections (code) */
 
-
     KEEP (*(.init))
     KEEP (*(.fini))
     

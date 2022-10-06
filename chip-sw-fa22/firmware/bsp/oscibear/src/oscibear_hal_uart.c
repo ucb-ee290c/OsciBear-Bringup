@@ -33,7 +33,7 @@ Status HAL_UART_receive(UART_TypeDef *UARTx, uint8_t *data, uint16_t size, uint3
 
 Status HAL_UART_transmit(UART_TypeDef *UARTx, uint8_t *data, uint16_t size, uint32_t timeout) {
   while (size > 0) {
-    while (HAL_UART_getTXFIFODepth(UARTx) >= UART_FIFO_DEPTH) {
+    while (HAL_UART_getTXFIFODepth(UARTx)) {
       // return TIMEOUT;
     }
     UARTx->TXDATA = *data;

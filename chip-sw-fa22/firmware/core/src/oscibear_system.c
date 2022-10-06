@@ -5,22 +5,34 @@
 
 
 __attribute__((weak)) void HAL_BASEBAND_RXErrorCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
-  //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
+  char str[128];
+  sprintf(str, "RXErrorCallback: %lu\n", BASEBAND_getRXErrorMessage());
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 }
 
 __attribute__((weak)) void HAL_BASEBAND_RXStartCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
-  //   sprintf(str, "** RX Start\n");
+  char str[128];
+  sprintf(str, "RXStartCallback.\n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 }
 
 __attribute__((weak)) void HAL_BASEBAND_RXCompleteCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
-  //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
+  char str[128];
+  sprintf(str, "RXCompleteCallback: %lu\n", BASEBAND_getRXCompleteMessage());
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 }
 
 __attribute__((weak)) void HAL_BASEBAND_TXErrorCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
-  // sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
+  char str[128];
+  sprintf(str, "TXErrorCallback: %lu\n", BASEBAND_getTXErrorMessage());
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 }
 
-__attribute__((weak)) void HAL_BASEBAND_TXCompleteCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {}
+__attribute__((weak)) void HAL_BASEBAND_TXCompleteCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
+  char str[128];
+  sprintf(str, "TXCompleteCallback.\n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+}
 
 __attribute__((weak)) void HAL_GPIO_Callback() {}
 
@@ -97,6 +109,7 @@ void StoreAMOAccessFault_Exception_handler() {
   }
 }
 void EnvironmentCallUMode_Exception_handler() {
+  // TODO: implement mode transfer
   while (1) {
     { // debug message
       char str[64];
@@ -106,6 +119,7 @@ void EnvironmentCallUMode_Exception_handler() {
   }
 }
 void EnvironmentCallMMode_Exception_handler() {
+  // TODO: implement mode transfer
   while (1) {
     { // debug message
       char str[64];
@@ -145,7 +159,7 @@ void MachineExternal_IRQn_Handler() {
 
   { // debug message
     char str[32];
-    sprintf(str, "machine external irq: %d\n", irq_source);
+    sprintf(str, "machine external irq: %lu\n", irq_source);
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
   switch (irq_source) {
@@ -166,7 +180,7 @@ void MachineExternal_IRQn_Handler() {
       HAL_BASEBAND_TXErrorCallback(BASEBAND, irq_source);
       break;
     case 10:              // baseband TX finish interrupt
-      HAL_BASEBAND_RXCompleteCallback(BASEBAND, irq_source);
+      HAL_BASEBAND_TXCompleteCallback(BASEBAND, irq_source);
       break;
   }
   HAL_PLIC_completeIRQ(0, irq_source);
@@ -233,6 +247,12 @@ void trap_handler(void) {
       MachineExternal_IRQn_Handler();
       HAL_CORE_clearIRQ(MachineExternal_IRQn);
       break;
+    default:
+      { // debug message
+        char str[32];
+        sprintf(str, "mcause %lu\n", m_cause);
+        HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+      }
   }
 }
 

@@ -1,11 +1,20 @@
 
 #include "main.h"
 
-char str[512];
 
 int main() {
-  sprintf(str, "start.\n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  {
+    char str[512];
+    sprintf(str, "start.\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  }
 
-  test_interrupt();
+  // testException();
+  // testInterrupt();
+
+  // testAES_ECB_singlePoll();
+  // testAES_ECB_singleInt();
+
+  // testBasebandTX();
+  testBasebandDigitalLoopback();
 }

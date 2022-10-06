@@ -3,6 +3,7 @@
 #include "xcustom.h"
 #include <stdint.h>
 #include <stdio.h>
+#include "main.h"
 
 #define AES_BLOCKLEN 16
 #define AES_OPC 0
@@ -180,10 +181,12 @@ void AES_CTR_XCRYPT_POLL(uint8_t *IV, uint8_t *key, int keylen, uint8_t *src, ui
 }
 
 void printBytes(uint8_t* block, int bytesCount) {
+    char str[128];
   for (int i = 0; i < bytesCount; i++) {
-    printf("%.2x ", (unsigned)*(unsigned char*)(block + i));
+    sprintf(str, "%.2x ", (unsigned)*(unsigned char*)(block + i));
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
-  printf("\n");
+  HAL_UART_transmit(UART0, (uint8_t *)"\n", 1, 0);
 }
 
 void checkBytes(uint8_t* real, uint8_t* exp, int lenBytes) {
@@ -196,13 +199,18 @@ void checkBytes(uint8_t* real, uint8_t* exp, int lenBytes) {
       if (mismatch == -1) mismatch = i;
     }
   }
+    char str[256];
   if (fail) {
-    printf("FAILED TEST. %d bytes are mismatched in output. Index of first mismatch: %d\n", fail, mismatch);
-    printf("Expected output: ");
+    sprintf(str, "FAILED TEST. %d bytes are mismatched in output. Index of first mismatch: %d\n", fail, mismatch);
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    sprintf(str, "Expected output: ");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
     printBytes(exp, lenBytes);
-    printf("Actual output: ");
+    sprintf(str, "Actual output: ");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
     printBytes(real, lenBytes);
   } else {
-    printf("PASSED TEST. All real bytes match expected bytes. Bytes checked: %d\n", lenBytes);
+    sprintf(str, "PASSED TEST. All real bytes match expected bytes. Bytes checked: %d\n", lenBytes);
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
 }

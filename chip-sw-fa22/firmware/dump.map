@@ -3,51 +3,51 @@ build/firmware.elf:     file format elf32-littleriscv
 build/firmware.elf
 architecture: riscv:rv32, flags 0x00000112:
 EXEC_P, HAS_SYMS, D_PAGED
-start address 0x80000000
+start address 0x800000a8
 
 Program Header:
     LOAD off    0x00001000 vaddr 0x80000000 paddr 0x80000000 align 2**12
-         filesz 0x00001738 memsz 0x00001948 flags rwx
+         filesz 0x00003830 memsz 0x00003a80 flags rwx
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000158a  80000000  80000000  00001000  2**4
+  0 .text         00003142  80000000  80000000  00001000  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .rodata       00000144  8000158c  8000158c  0000258c  2**2
+  1 .rodata       00000594  80003144  80003144  00004144  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  2 .data         00000060  800016d0  800016d0  000026d0  2**2
+  2 .data         00000150  800036d8  800036d8  000046d8  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  3 .sdata        00000008  80001730  80001730  00002730  2**2
+  3 .sdata        00000008  80003828  80003828  00004828  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  4 .sbss         00000010  80001738  80001738  00002738  2**2
+  4 .sbss         00000010  80003830  80003830  00004830  2**2
                   ALLOC
-  5 .bss          00000200  80001748  80001748  00002738  2**2
+  5 .bss          00000240  80003840  80003840  00004830  2**2
                   ALLOC
-  6 .riscv.attributes 00000034  00000000  00000000  00002738  2**0
+  6 .riscv.attributes 00000034  00000000  00000000  00004830  2**0
                   CONTENTS, READONLY
-  7 .comment      00000030  00000000  00000000  0000276c  2**0
+  7 .comment      00000030  00000000  00000000  00004864  2**0
                   CONTENTS, READONLY
-  8 .debug_line   000013f0  00000000  00000000  0000279c  2**0
+  8 .debug_line   000033fa  00000000  00000000  00004894  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_info   0000101c  00000000  00000000  00003b8c  2**0
+  9 .debug_info   00003322  00000000  00000000  00007c8e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_abbrev 000006cd  00000000  00000000  00004ba8  2**0
+ 10 .debug_abbrev 00000e7a  00000000  00000000  0000afb0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_aranges 00000128  00000000  00000000  00005278  2**3
+ 11 .debug_aranges 00000210  00000000  00000000  0000be30  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_str    00000817  00000000  00000000  000053a0  2**0
+ 12 .debug_str    000011d3  00000000  00000000  0000c040  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_ranges 00000020  00000000  00000000  00005bb8  2**3
+ 13 .debug_ranges 00000028  00000000  00000000  0000d218  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_frame  00000598  00000000  00000000  00005bd8  2**2
+ 14 .debug_frame  00000c68  00000000  00000000  0000d240  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 SYMBOL TABLE:
 80000000 l    d  .text	00000000 .text
-8000158c l    d  .rodata	00000000 .rodata
-800016d0 l    d  .data	00000000 .data
-80001730 l    d  .sdata	00000000 .sdata
-80001738 l    d  .sbss	00000000 .sbss
-80001748 l    d  .bss	00000000 .bss
+80003144 l    d  .rodata	00000000 .rodata
+800036d8 l    d  .data	00000000 .data
+80003828 l    d  .sdata	00000000 .sdata
+80003830 l    d  .sbss	00000000 .sbss
+80003840 l    d  .bss	00000000 .bss
 00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
 00000000 l    d  .comment	00000000 .comment
 00000000 l    d  .debug_line	00000000 .debug_line
@@ -58,19 +58,28 @@ SYMBOL TABLE:
 00000000 l    d  .debug_ranges	00000000 .debug_ranges
 00000000 l    d  .debug_frame	00000000 .debug_frame
 00000000 l    df *ABS*	00000000 build/core/startup/startup.o
-8000006c l       .text	00000000 infinite_loop
+80000110 l       .text	00000000 infinite_loop
 00000000 l    df *ABS*	00000000 main.c
 00000000 l    df *ABS*	00000000 oscibear_system.c
+00000000 l    df *ABS*	00000000 test_aes.c
+80000b60 l     F .text	00000066 XOR_IV
+80000d4a l     F .text	00000054 cpy
+00000000 l    df *ABS*	00000000 test_baseband_dloopback.c
+00000000 l    df *ABS*	00000000 test_baseband_tx.c
+00000000 l    df *ABS*	00000000 test_exception.c
+00000000 l    df *ABS*	00000000 test_interrupt.c
 00000000 l    df *ABS*	00000000 oscibear_hal.c
-00000000 l    df *ABS*	00000000 oscibear_hal_core.c
+00000000 l    df *ABS*	00000000 oscibear_hal_baseband.c
 00000000 l    df *ABS*	00000000 oscibear_hal_clint.c
+00000000 l    df *ABS*	00000000 oscibear_hal_core.c
 00000000 l    df *ABS*	00000000 oscibear_hal_gpio.c
+00000000 l    df *ABS*	00000000 oscibear_hal_plic.c
 00000000 l    df *ABS*	00000000 oscibear_hal_rcc.c
 00000000 l    df *ABS*	00000000 oscibear_hal_uart.c
 00000000 l    df *ABS*	00000000 sprintf.c
 00000000 l    df *ABS*	00000000 strlen.c
 00000000 l    df *ABS*	00000000 impure.c
-800016d0 l     O .data	00000060 impure_data
+800037c8 l     O .data	00000060 impure_data
 00000000 l    df *ABS*	00000000 nano-vfprintf.c
 00000000 l    df *ABS*	00000000 nano-vfprintf_i.c
 00000000 l    df *ABS*	00000000 memchr.c
@@ -84,81 +93,131 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 nano-mallocr.c
 00000000 l    df *ABS*	00000000 reent.c
 00000000 l    df *ABS*	00000000 sys_sbrk.c
-80001744 l     O .sbss	00000004 heap_end.0
+8000383c l     O .sbss	00000004 heap_end.0
 00000000 l    df *ABS*	00000000 errno.c
-80001444 g     F .text	00000014 _malloc_usable_size_r
-80001458 g     F .text	00000020 cleanup_glue
-80000850 g     F .text	0000003a _siprintf_r
-80001f30 g       .sdata	00000000 __global_pointer$
-800001f6 g     F .text	0000000e UserTimer_IRQn_Handler
-80000262 g     F .text	0000000e UserExternal_IRQn_Handler
-80000220 g     F .text	00000042 MachineTimer_IRQn_Handler
-8000074a g     F .text	00000024 HAL_UART_getRXFIFODepth
-80000534 g     F .text	00000028 HAL_CORE_enableIRQ
-80001442 g     F .text	00000002 __malloc_unlock
-800011dc g     F .text	0000004a memmove
-800002d8 g     F .text	00000032 system_init
-80001580 g     F .text	0000000a __errno
-80001740 g     O .sbss	00000004 errno
-8000158a g       .text	00000000 _etext
-80001100 g     F .text	000000dc memcpy
-80000afa g     F .text	00000270 _svfprintf_r
-800003ea g     F .text	0000000e HAL_init
-80000204 g     F .text	0000000e SupervisorTimer_IRQn_Handler
-8000064c g     F .text	00000028 HAL_GPIO_init
-80001412 g     F .text	0000002e _sbrk_r
-80001730 g     O .sdata	00000004 _global_impure_ptr
-800013a0 g     F .text	00000072 _realloc_r
-80000212 g     F .text	0000000e HypervisorTimer_IRQn_Handler
-8000153a g     F .text	00000046 _sbrk
-800007f2 g     F .text	0000005e HAL_UART_transmit
-8000060e g     F .text	0000003e HAL_CLINT_setMTimeCmp
-80000792 g     F .text	00000060 HAL_UART_receive
-80000198 g     F .text	0000000e SupervisorSoftware_IRQn_Handler
-80001478 g     F .text	000000c2 _reclaim_reent
-80000674 g     F .text	0000002a HAL_GPIO_readPin
-8000030a g     F .text	000000e0 trap_handler
-8000055c g     F .text	00000028 HAL_CORE_clearIRQ
-800001b4 g     F .text	00000042 MachineSoftware_IRQn_Handler
-800008e2 g     F .text	000000ec __ssputs_r
-800010e6 g     F .text	0000001a memchr
-80000850 g     F .text	0000003a _sprintf_r
-80001226 g     F .text	000000a2 _free_r
-80000000 g       .text	00000000 _start
-80000270 g     F .text	0000000e SupervisorExternal_IRQn_Handler
-800009ce g     F .text	0000012c __ssprint_r
-8000028c g     F .text	0000004c MachineExternal_IRQn_Handler
-800006ea g     F .text	0000000e HAL_RCC_InitSystemClock
-8000027e g     F .text	0000000e HypervisorExternal_IRQn_Handler
-80001440 g     F .text	00000002 __malloc_lock
-80000102 g     F .text	00000088 main
-8000018a g     F .text	0000000e UserSoftware_IRQn_Handler
-800012c8 g     F .text	000000d8 _malloc_r
-800004d4 g     F .text	0000001c HAL_CORE_disableGlobalInterrupt
-800006f8 g     F .text	00000052 HAL_UART_init
-800003f8 g     F .text	0000001a HAL_getTick
-8000088a g     F .text	00000046 sprintf
-80000584 g     F .text	0000002a HAL_CLINT_triggerInterrupt
-8000050c g     F .text	00000028 HAL_CORE_disableIRQ
-8000069e g     F .text	0000004c HAL_GPIO_writePin
-80000d6a g     F .text	0000010c _printf_common
-80001734 g     O .sdata	00000004 _impure_ptr
-80000afa g     F .text	00000270 _svfiprintf_r
-80001948 g       .riscv.attributes	00000000 _tdata_end
-80001948 g       .bss	00000000 _end
-80001948 g       .riscv.attributes	00000000 _tdata_begin
-80001748 g     O .bss	00000200 str
-80000412 g     F .text	000000c2 HAL_delay
-8000076e g     F .text	00000024 HAL_UART_getTXFIFODepth
-800005ae g     F .text	00000060 HAL_CLINT_getMTime
-8000088a g     F .text	00000046 siprintf
-80000070 g       .text	00000000 isr_routine
-80001948 g       .riscv.attributes	00000000 _tbss_end
-800001a6 g     F .text	0000000e HypervisorSoftware_IRQn_Handler
-800008d0 g     F .text	00000012 strlen
-80000e76 g     F .text	00000270 _printf_i
-800004f0 g     F .text	0000001c HAL_CORE_enableGlobalInterrupt
-8000173c g     O .sbss	00000004 __malloc_sbrk_start
-80001738 g     O .sbss	00000004 __malloc_free_list
+80002fe6 g     F .text	00000014 _malloc_usable_size_r
+80002ffa g     F .text	00000020 cleanup_glue
+800036e8 g     O .data	00000020 keytwo
+800023f0 g     F .text	0000003a _siprintf_r
+80004028 g       .sdata	00000000 __global_pointer$
+80000624 g     F .text	0000000e UserTimer_IRQn_Handler
+80000696 g     F .text	0000000e UserExternal_IRQn_Handler
+8000064e g     F .text	00000048 MachineTimer_IRQn_Handler
+800022ea g     F .text	00000024 HAL_UART_getRXFIFODepth
+80002050 g     F .text	00000028 HAL_CORE_enableIRQ
+80001cca g     F .text	00000110 testInterrupt
+80002fe4 g     F .text	00000002 __malloc_unlock
+800008e8 g     F .text	00000080 AES_ECB_ENC_POLL
+80002d7c g     F .text	0000004a memmove
+8000219a g     F .text	00000058 HAL_PLIC_enable
+80000968 g     F .text	00000080 AES_ECB_DEC_POLL
+80000788 g     F .text	00000038 system_init
+8000027c  w    F .text	00000058 HAL_BASEBAND_TXErrorCallback
+80000a94 g     F .text	00000066 AES_ECB_ENC_INT
+80003788 g     O .data	00000040 ciphertexttwo
+80003138 g     F .text	0000000a __errno
+80003838 g     O .sbss	00000004 errno
+80003142 g       .text	00000000 _etext
+800004b2 g     F .text	00000040 StoreAMOAddressMisalign_Exception_handler
+80002ca0 g     F .text	000000dc memcpy
+8000269a g     F .text	00000270 _svfprintf_r
+80001c96 g     F .text	00000020 testLoadAccessFault
+80001dda g     F .text	0000000e HAL_init
+80002262 g     F .text	00000028 HAL_PLIC_completeIRQ
+80000632 g     F .text	0000000e SupervisorTimer_IRQn_Handler
+800020a0 g     F .text	00000028 HAL_GPIO_init
+80000f80 g     F .text	00000188 checkBytes
+80001f28 g     F .text	0000002a HAL_CLINT_triggerSoftwareInterrupt
+80002242 g     F .text	00000020 HAL_PLIC_claimIRQ
+8000213e g     F .text	0000005c HAL_PLIC_disable
+80002fb4 g     F .text	0000002e _sbrk_r
+800003f2 g     F .text	00000040 Breakpoint_Exception_Handler
+800001d4  w    F .text	00000050 HAL_BASEBAND_RXStartCallback
+80003828 g     O .sdata	00000004 _global_impure_ptr
+80002f40 g     F .text	00000074 _realloc_r
+80000640 g     F .text	0000000e HypervisorTimer_IRQn_Handler
+800030f2 g     F .text	00000046 _sbrk
+800009e8 g     F .text	00000056 AES_ECB_NO_KEY_ENC_POLL
+80002392 g     F .text	0000005e HAL_UART_transmit
+80002332 g     F .text	00000060 HAL_UART_receive
+800005c0 g     F .text	0000000e SupervisorSoftware_IRQn_Handler
+80000432 g     F .text	00000040 LoadAddressMisaligne_Exception_handler
+80001f16 g     F .text	00000012 BASEBAND_getRXCompleteMessage
+80000372 g     F .text	00000040 InstructionAccessFault_Exception_Handler
+8000301a g     F .text	000000d8 _reclaim_reent
+800020c8 g     F .text	0000002a HAL_GPIO_readPin
+800007c0 g     F .text	00000128 trap_handler
+80003708 g     O .data	00000040 plaintext
+80002078 g     F .text	00000028 HAL_CORE_clearIRQ
+8000017c  w    F .text	00000058 HAL_BASEBAND_RXErrorCallback
+80000572 g     F .text	00000040 EnvironmentCallMMode_Exception_handler
+80000a3e g     F .text	00000056 AES_ECB_NO_KEY_DEC_POLL
+800005dc g     F .text	00000048 MachineSoftware_IRQn_Handler
+80002482 g     F .text	000000ec __ssputs_r
+8000221a g     F .text	00000028 HAL_PLIC_setPriorityThreshold
+80002c86 g     F .text	0000001a memchr
+800023f0 g     F .text	0000003a _sprintf_r
+80002dc6 g     F .text	000000a2 _free_r
+80000d9e g     F .text	00000150 AES_CTR_XCRYPT_POLL
+800000a8 g       .text	00000000 _start
+800006a4 g     F .text	0000000e SupervisorExternal_IRQn_Handler
+8000256e g     F .text	0000012c __ssprint_r
+80001fb2 g     F .text	0000003e HAL_CLINT_setTimerInterrupt
+800004f2 g     F .text	00000040 StoreAMOAccessFault_Exception_handler
+800002d4  w    F .text	00000050 HAL_BASEBAND_TXCompleteCallback
+80003748 g     O .data	00000040 ciphertextone
+80001866 g     F .text	0000036e testBasebandDigitalLoopback
+800006c0 g     F .text	000000c8 MachineExternal_IRQn_Handler
+800003b2 g     F .text	00000040 IllegalInstruction_Exception_Handler
+80000532 g     F .text	00000040 EnvironmentCallUMode_Exception_handler
+8000228a g     F .text	0000000e HAL_RCC_InitSystemClock
+800006b2 g     F .text	0000000e HypervisorExternal_IRQn_Handler
+80000472 g     F .text	00000040 LoadAccessFault_Exception_handler
+80002fe2 g     F .text	00000002 __malloc_lock
+80001f52 g     F .text	00000060 HAL_CLINT_getTime
+80001bd4 g     F .text	000000c2 testBasebandTX
+80000122 g     F .text	0000005a main
+800036d8 g     O .data	00000010 keyone
+800005b2 g     F .text	0000000e UserSoftware_IRQn_Handler
+80002e68 g     F .text	000000d8 _malloc_r
+80001ff0 g     F .text	0000001c HAL_CORE_disableGlobalInterrupt
+80002298 g     F .text	00000052 HAL_UART_init
+80001ef2 g     F .text	00000012 BASEBAND_getRXErrorMessage
+80001de8 g     F .text	0000001a HAL_getTick
+8000242a g     F .text	00000046 sprintf
+80002028 g     F .text	00000028 HAL_CORE_disableIRQ
+80001f04 g     F .text	00000012 BASEBAND_getTXErrorMessage
+80001108 g     F .text	000003a2 testAES_ECB_singlePoll
+800020f2 g     F .text	0000004c HAL_GPIO_writePin
+8000290a g     F .text	0000010c _printf_common
+8000382c g     O .sdata	00000004 _impure_ptr
+8000269a g     F .text	00000270 _svfiprintf_r
+80000c88 g     F .text	000000c2 AES_CBC_DEC_POLL
+80000224  w    F .text	00000058 HAL_BASEBAND_RXCompleteCallback
+80001ec4 g     F .text	0000002e BLE_send
+80003a80 g       .riscv.attributes	00000000 _tdata_end
+80000afa g     F .text	00000066 AES_ECB_DEC_INT
+80003a80 g       .bss	00000000 _end
+80003a80 g       .riscv.attributes	00000000 _tdata_begin
+80001cb6 g     F .text	00000014 testException
+80003840 g     O .bss	00000200 str
+80001e02 g     F .text	000000c2 HAL_delay
+80000324  w    F .text	0000000e HAL_GPIO_Callback
+8000230e g     F .text	00000024 HAL_UART_getTXFIFODepth
+80003a40 g     O .bss	00000040 fillerspace
+800014aa g     F .text	000003bc testAES_ECB_singleInt
+8000242a g     F .text	00000046 siprintf
+80000020 g       .text	00000000 isr_routine
+80003a80 g       .riscv.attributes	00000000 _tbss_end
+800021f2 g     F .text	00000028 HAL_PLIC_setPriority
+80000332 g     F .text	00000040 InstructionAddressMisalign_Exception_Handler
+800005ce g     F .text	0000000e HypervisorSoftware_IRQn_Handler
+80002470 g     F .text	00000012 strlen
+80002a16 g     F .text	00000270 _printf_i
+8000200c g     F .text	0000001c HAL_CORE_enableGlobalInterrupt
+80003834 g     O .sbss	00000004 __malloc_sbrk_start
+80003830 g     O .sbss	00000004 __malloc_free_list
+80000eee g     F .text	00000092 printBytes
+80000bc6 g     F .text	000000c2 AES_CBC_ENC_POLL
 
 

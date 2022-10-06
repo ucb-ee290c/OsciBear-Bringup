@@ -12,7 +12,8 @@ PREFIX = riscv64-unknown-elf-
 #PREFIX = riscv-nuclei-elf-
 
 # xPack Toolchain
-# PREFIX = riscv-none-elf-
+# when using this, MCU arch should be `ARCH = rv32imafc_zicsr`
+#PREFIX = riscv-none-elf-
 
 
 CC = $(PREFIX)gcc
@@ -43,8 +44,9 @@ C_SOURCES  = $(wildcard $(SRC_DIR)*.c) $(wildcard $(SRC_DIR)*/*.c)
 A_SOURCES += $(USR_DIR)startup/startup.S
 
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal.c
-C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_core.c
+C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_baseband.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_clint.c
+C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_core.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_gpio.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_plic.c
 C_SOURCES += $(VENDOR_ROOT)oscibear/src/oscibear_hal_rcc.c
@@ -77,7 +79,7 @@ TARGET_VERILOG = $(BUILD_DIR)$(TARGET).out
 #################################
 
 # MCU Settings
-ARCH = rv32imafc #_zicsr
+ARCH = rv32imafc
 ABI = ilp32f
 CODEMODEL = medany
 LD_SCRIPT = $(SRC_DIR)oscibear.ld
@@ -86,7 +88,7 @@ ARCHFLAGS = -march=$(ARCH) -mabi=$(ABI) -mcmodel=$(CODEMODEL) -fno-pie
 SPECFLAGS = --specs="nano.specs"
 
 # compiler Flags
-CFLAGS  = -g -std=gnu11 -O0 -Wall -Wextra -Warray-bounds -Wno-unused-parameter
+CFLAGS  = -g -std=gnu11 -Os -Wall -Wextra -Warray-bounds -Wno-unused-parameter
 CFLAGS += -fno-common -fno-builtin-printf
 CFLAGS += $(ARCHFLAGS)
 CFLAGS += $(SPECFLAGS)
@@ -143,10 +145,3 @@ bin: $(TARGET_BIN)
 hex: $(TARGET_HEX)
 
 verilog: $(TARGET_VERILOG)
-
-# for debugging Makefile
-list:
-	@echo "A_SOURCES: $(A_SOURCES)"
-	@echo "C_SOURCES: $(C_SOURCES)"
-	@echo "A_OBJECTS: $(A_OBJECTS)"
-	@echo "C_OBJECTS: $(C_OBJECTS)"
