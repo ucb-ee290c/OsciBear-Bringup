@@ -1,7 +1,7 @@
 module tsiToUart #(
     parameter SYSCLK = 100_000_000,
     parameter WIDTH = 123,
-    parameter BAUD = 2_000_000,
+    parameter BAUD = 2_000_000
 ) (
     input clk,
     input rst,
@@ -20,24 +20,28 @@ module tsiToUart #(
     assign uart_fire = (countdown_Q == 0);
     assign tl_in_rd = !sreg_isOut;
 
-    RegInit uart_idle #(.WIDTH(1), .INIT(1)) (
+    RegInit #(.WIDTH(1), .INIT(1)) 
+    uart_idle(
         .clk(clk), .rst(rst), .en(1),
         .D((packet_counter_Q == 0) ? sreg_isOut : (packet_counter_Q == 9)),
         .Q(uart_idle_Q)
     );
-    RegInit packet_counter #(.WIDTH(3), .INIT(0)) (
+    RegInit #(.WIDTH(3), .INIT(0)) 
+    packet_counter(
         .clk(clk), .rst(rst || sreg_isOut), .en(uart_fire),
         .D(packet_counter_Q + 1'b1),
         .Q(packet_counter_Q)
     );
-    RegInit countdown #(.WIDTH(16), .INIT(BAUD_CYCLE)) (
+    RegInit #(.WIDTH(16), .INIT(BAUD_CYCLE)) 
+    countdown(
         .clk(clk), .rst(rst || sreg_isOut), .en(1),
         .D(countdown_Q - 1'b1),
         .Q(countdown_Q)
     );
-    shiftReg sreg0 #(.IN_WIDTH(WIDTH), .OUT_WIDTH(BYTE_WIDTH*8), .D_WIDTH(BYTE_WIDTH*8)) (
+    shiftReg #(.IN_WIDTH(WIDTH), .OUT_WIDTH(BYTE_WIDTH*8), .D_WIDTH(BYTE_WIDTH*8)) 
+    sreg0(
         .clk(clk), .rst(rst), 
-        .en(sreg_isOut ? not((packet_counter_Q == 0) || (packet_counter_Q == 9)) : (tl_rising_clk & tl_in_valid)), 
+        .en(sreg_isOut ? !((packet_counter_Q == 0) || (packet_counter_Q == 9)) : (tl_rising_clk & tl_in_valid)), 
         .D(tl_in_data),
 
         .mode(sreg_isOut), // 0: shifting in, 1: shifting out

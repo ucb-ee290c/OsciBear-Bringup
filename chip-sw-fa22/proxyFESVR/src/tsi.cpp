@@ -25,7 +25,7 @@ size_t TsiFpgaUart::bufferBitLength() {
 
 size_t TsiFpgaUart::bufferByteLength() {
     size_t bitlen = bufferBitLength();
-    return 1u + bitlen/8u + (((bitlen % 8u) == 0u) ? 0u : 1u);
+    return bitlen/8u + (((bitlen % 8u) == 0u) ? 0u : 1u);
 }
 
 /** 
@@ -44,9 +44,6 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     packet.rawHeader = TsiMsg_getHeader(packet.type);
     
     size_t bitOffset = 0u;
-    // this is the header on top of UART to tell FPGA how big of a TSI packet to expect and transfer, max size 255.
-    put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, bufferBitLength(), 8u);
-    bitOffset += 8u;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.last? 0b1u : 0b0u, 1u);
     bitOffset += 1u;
     put_uint64_into_buffer((uint8_t*)writeBuffer, bitOffset, packet.mask, w);
@@ -68,7 +65,7 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     if (bytes != bufferByteLength()) {
         throw "Internal Tsi error, assembled packet byte length is not expected";
     }
-    if (bufferBitLength() != (bitOffset - 8u)) {
+    if (bufferBitLength() != (bitOffset)) {
         throw "Internal Tsi error, assembled packet bit length is not expected";
     }
     /*
@@ -99,15 +96,6 @@ TsiPacket TsiFpgaUart::deserialize() {
     pollDriver();
 
     size_t bitOffset = 0u;
-    // this is the header on top of UART to tell FPGA how big of a TSI packet to expect and transfer, max size 255.
-    /*
-    // skipping first byte because fpga doesn't send length for now
-    size_t expectedBits = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 8u);
-    if (expectedBits != bufferBitLength()) {
-        throw "Internal Tsi error, got unexpected packet header length";
-    }
-    bitOffset += 8u;
-    */
 
     packet.last = get_uint64_from_buffer((uint8_t*)pollBuffer, bitOffset, 1u) != 0;
     bitOffset += 1u;
@@ -157,11 +145,10 @@ int TsiFpgaUart::initDriver() {
 int TsiFpgaUart::pollDriver() {
     size_t expBytes = bufferByteLength();
     if (loopbackEn) {
-        // skipping first byte because fpga doesn't send length for now
-        for (size_t i = 0; i < expBytes-1; i++) {
-            pollBuffer[i] = writeBuffer[i+1];
+        for (size_t i = 0; i < expBytes; i++) {
+            pollBuffer[i] = writeBuffer[i];
         }
-        return expBytes-1;
+        return expBytes;
     } else {
         size_t rxBytes = 0u;
         while (rxBytes < expBytes) {
