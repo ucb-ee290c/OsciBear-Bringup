@@ -7,11 +7,11 @@ MEMORY {
 SECTIONS {
   .text : {
     . = ALIGN(4);
-    /* KEEP(*(.text.isr_routine))    /* ISR routine */
-    *(.text.init)                 /* Startup code */
-
+    KEEP(*(.text.reset))          /* Reset routine */
+    
     . = ALIGN(4);
     KEEP(*(.text.isr_routine))    /* ISR routine */
+    *(.text.init)                 /* Startup code */
 
     *(.text .text*)               /* .text sections (code) */
 

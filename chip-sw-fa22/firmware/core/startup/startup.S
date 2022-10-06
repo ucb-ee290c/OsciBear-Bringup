@@ -14,6 +14,10 @@
 */
 
 .align 4
+.section .text.reset
+j _start
+
+.align 4
 .section .text.isr_routine
 .globl isr_routine
 isr_routine:

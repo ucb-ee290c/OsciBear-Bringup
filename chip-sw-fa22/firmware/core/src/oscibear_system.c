@@ -4,18 +4,122 @@
 #include "main.h"
 
 
-__attribute__((weak)) void GPIO_IRQn_Handler() {
+__attribute__((weak)) void HAL_BASEBAND_RXErrorCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
+  //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
+}
 
+__attribute__((weak)) void HAL_BASEBAND_RXStartCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
+  //   sprintf(str, "** RX Start\n");
+}
+
+__attribute__((weak)) void HAL_BASEBAND_RXCompleteCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
+  //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
+}
+
+__attribute__((weak)) void HAL_BASEBAND_TXErrorCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {
+  // sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
+}
+
+__attribute__((weak)) void HAL_BASEBAND_TXCompleteCallback(BASEBAND_TypeDef *BASEBANDx, uint32_t interrupt_id) {}
+
+__attribute__((weak)) void HAL_GPIO_Callback() {}
+
+void InstructionAddressMisalign_Exception_Handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "instruction address misalign exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void InstructionAccessFault_Exception_Handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "instruction access fault exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void IllegalInstruction_Exception_Handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "illegal instruction exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void Breakpoint_Exception_Handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "breakpoint exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void LoadAddressMisaligne_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "load address misaligned exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void LoadAccessFault_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "load access fault exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void StoreAMOAddressMisalign_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "store/AMO address misaligned exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void StoreAMOAccessFault_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "store/AMO access fault exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void EnvironmentCallUMode_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "environment call from U-mode exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
+}
+void EnvironmentCallMMode_Exception_handler() {
+  while (1) {
+    { // debug message
+      char str[64];
+      sprintf(str, "environment call from M-mode exception\n");
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    }
+  }
 }
 
 void UserSoftware_IRQn_Handler() {}
-
 void SupervisorSoftware_IRQn_Handler() {}
-
 void HypervisorSoftware_IRQn_Handler() {}
-
 void MachineSoftware_IRQn_Handler() {
-  {
+  { // debug message
     char str[32];
     sprintf(str, "machine software irq\n");
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
@@ -23,13 +127,10 @@ void MachineSoftware_IRQn_Handler() {
 }
 
 void UserTimer_IRQn_Handler() {}
-
 void SupervisorTimer_IRQn_Handler() {}
-
 void HypervisorTimer_IRQn_Handler() {}
-
 void MachineTimer_IRQn_Handler() {
-  {
+  { // debug message
     char str[32];
     sprintf(str, "machine timer irq\n");
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
@@ -37,41 +138,37 @@ void MachineTimer_IRQn_Handler() {
 }
 
 void UserExternal_IRQn_Handler() {}
-
 void SupervisorExternal_IRQn_Handler() {}
-
 void HypervisorExternal_IRQn_Handler() {}
-
 void MachineExternal_IRQn_Handler() {
   uint32_t irq_source = HAL_PLIC_claimIRQ(0);
 
-  {
+  { // debug message
     char str[32];
     sprintf(str, "machine external irq: %d\n", irq_source);
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
   switch (irq_source) {
     case 2:                 // GPIO interrupt
-      GPIO_IRQn_Handler();
+      HAL_GPIO_Callback();
       GPIOA->HIGH_IE = 0b0;
       break;
     case 6:               // baseband RX error interrupt
-      //   sprintf(str, "** RX Error Message: %u\n", baseband_rxerror_message());
+      HAL_BASEBAND_RXErrorCallback(BASEBAND, irq_source);
       break;
     case 7:               // baseband RX start interrupt
-      //   sprintf(str, "** RX Start\n");
+      HAL_BASEBAND_RXStartCallback(BASEBAND, irq_source);
       break;
     case 8:               // baseband RX finish interrupt
-      //   sprintf(str, "** Bytes Read: %u\n", baseband_rxfinish_message());
+      HAL_BASEBAND_RXCompleteCallback(BASEBAND, irq_source);
       break;
-    case 9:               // baseband RX error interrupt
-      //   sprintf(str, "TX Operation Failed. Error message: %u\n", baseband_txerror_message());
+    case 9:               // baseband TX error interrupt
+      HAL_BASEBAND_TXErrorCallback(BASEBAND, irq_source);
       break;
     case 10:              // baseband TX finish interrupt
-      //   sprintf(str, "TX Operation Finished. Check above for any errors.\n");
+      HAL_BASEBAND_RXCompleteCallback(BASEBAND, irq_source);
       break;
   }
-      
   HAL_PLIC_completeIRQ(0, irq_source);
 }
 
@@ -88,34 +185,39 @@ void system_init(void) {
 }
 
 void trap_handler(void) {
-  {
-    char str[32];
-    sprintf(str, "traphandler\n");
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-  }
   uint32_t m_cause;
   asm volatile("csrr %0, mcause" : "=r"(m_cause));
 
   switch (m_cause) {
     case 0x00000000:      // instruction address misaligned
+      InstructionAddressMisalign_Exception_Handler();
       break;
     case 0x00000001:      // instruction access fault
+      InstructionAccessFault_Exception_Handler();
       break;
     case 0x00000002:      // illegal instruction
+      IllegalInstruction_Exception_Handler();
       break;
     case 0x00000003:      // breakpoint
+      Breakpoint_Exception_Handler();
       break;
     case 0x00000004:      // load address misaligned
+      LoadAddressMisaligne_Exception_handler();
       break;
     case 0x00000005:      // load access fault
+      LoadAccessFault_Exception_handler();
       break;
     case 0x00000006:      // store/AMO address misaligned
+      StoreAMOAddressMisalign_Exception_handler();
       break;
     case 0x00000007:      // store/AMO access fault
+      StoreAMOAccessFault_Exception_handler();
       break;
     case 0x00000008:      // environment call from U-mode
+      EnvironmentCallUMode_Exception_handler();
       break;
     case 0x00000011:      // environment call from M-mode
+      EnvironmentCallMMode_Exception_handler();
       break;
     case 0x80000003:      // machine software interrupt
       MachineSoftware_IRQn_Handler();
