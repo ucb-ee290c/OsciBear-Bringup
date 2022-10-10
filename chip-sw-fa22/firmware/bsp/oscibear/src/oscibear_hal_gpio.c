@@ -1,8 +1,30 @@
 
 #include "oscibear_hal_gpio.h"
 
-void HAL_GPIO_init(GPIO_TypeDef *GPIOx, GPIO_PIN pin) {
-  SET_BITS(GPIOx->OUTPUT_EN, (uint32_t)pin);
+void HAL_GPIO_init(GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_init, GPIO_PIN pin) {
+  if (GPIO_init->mode == GPIO_MODE_INPUT || GPIO_init->mode == GPIO_MODE_OUTPUT) {
+    SET_BITS(GPIOx->INPUT_EN, (uint32_t)pin);
+  }
+  if (GPIO_init->mode == GPIO_MODE_OUTPUT || GPIO_init->mode == GPIO_MODE_OUTPUT) {
+    SET_BITS(GPIOx->OUTPUT_EN, (uint32_t)pin);
+  }
+  if (GPIO_init->mode == GPIO_MODE_ALTERNATE_FUNCTION) {
+    // alternate function not implemented
+  }
+
+  if (GPIO_init->pull == GPIO_PULL_UP) {
+    SET_BITS(GPIOx->PUE, (uint32_t)pin);
+  }
+  else {
+    CLEAR_BITS(GPIOx->PUE, (uint32_t)pin);
+  }
+
+  if (GPIO_init->drive_strength == GPIO_DS_STRONG) {
+    SET_BITS(GPIOx->DS, (uint32_t)pin);
+  }
+  else {
+    CLEAR_BITS(GPIOx->DS, (uint32_t)pin);
+  }  
 }
 
 uint8_t HAL_GPIO_readPin(GPIO_TypeDef *GPIOx, GPIO_PIN pin) {
