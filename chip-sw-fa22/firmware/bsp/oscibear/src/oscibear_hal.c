@@ -6,7 +6,7 @@ void HAL_init() {
 }
 
 uint64_t HAL_getTick() {
-  return HAL_CLINT_getMTime();
+  return HAL_CLINT_getTime();
 }
 
 void HAL_delay(uint64_t time) {

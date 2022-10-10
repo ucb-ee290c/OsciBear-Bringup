@@ -8,9 +8,11 @@ extern "C" {
 
 #include "oscibear.h"
 
-uint64_t HAL_CLINT_getMTime();
+void HAL_CLINT_triggerSoftwareInterrupt(uint32_t hartid);
 
-void HAL_CLINT_setMTimeCmp(uint64_t time);
+uint64_t HAL_CLINT_getTime();
+
+void HAL_CLINT_setTimerInterrupt(uint64_t time);
 
 #ifdef __cplusplus
 }

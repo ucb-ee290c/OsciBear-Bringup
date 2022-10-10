@@ -21,18 +21,19 @@
 // D, 0, 0
 #define TSI_HEADER_ACCESSACK 0b011000000u
 #define TSI_HEADER_LEN 9u
-#define TSI_UART_BDRATE 3000000 /* 3000000 baud */
+#define TSI_UART_BDRATE 2000000 /* 2000000 baud */
 
 enum TsiMsg {Get, AccessAckData, PutFullData, PutPartialData, AccessAck, Unknown};
+//enum TestMode {swLoopback, hwLoopback, oneWay};
 
-/* Hoping that vcu118 core is 64 bits (oof it is not)... because Bearly is 64 bits...
+/* TsiPacket is the packet that is not serialized, should max size in 64 bit RISC-V cores. 
  */
 struct TsiPacket {
     TsiMsg type;
     // rawHeader is only used for deserialization debug if TsiMsg is Unk.
     uint16_t rawHeader;
     uint8_t size;
-    uint8_t source;
+    uint16_t source;
     uint8_t mask;
     bool corrupt;
     bool last;
@@ -80,7 +81,7 @@ class Tsi {
 class TsiFpgaUart : public Tsi {
     public:
         // Constructor configures TSI properly.
-        TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport);
+        TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport, int brate);
 
         // Returns actual packet length in # of bits.
         size_t bufferBitLength();
@@ -91,7 +92,7 @@ class TsiFpgaUart : public Tsi {
         TsiPacket deserialize();
         /** 
          * If loopback test is enabled, drivers wil use internal buffers to simulate. 
-         * This is accomplished by having the poll driver read the writeBuffer. 
+         * This is accomplished by having the driver write to readBuffer. 
          */
         void setLoopback(bool en) {loopbackEn = en;}
 
@@ -100,11 +101,13 @@ class TsiFpgaUart : public Tsi {
         unsigned char pollBuffer[128];
         char writeBuffer[128];
         // Ignore locks for now, all driver functions should be locked later. 
-        //std::mutex driverMutex;
+        // std::mutex driverMutex;
+        // 
         unsigned comport;
+        int baudrate;
         bool loopbackEn;
 
-        int initDriver(unsigned comport);
+        int initDriver();
         int pollDriver();
         int writeDriver();
 };

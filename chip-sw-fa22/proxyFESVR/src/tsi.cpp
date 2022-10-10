@@ -3,17 +3,19 @@
 
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
 
-TsiFpgaUart::TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport) {
+TsiFpgaUart::TsiFpgaUart(uint8_t zi, uint8_t oi, uint8_t ai, uint8_t wi, unsigned comport, int brate) {
     z = zi;
     o = oi;
     a = ai;
     w = wi;
     TsiFpgaUart::comport = comport;
-    if (initDriver(TsiFpgaUart::comport) == -1) {
+    TsiFpgaUart::baudrate = brate;
+    if (initDriver() == -1) {
         printf("Fatal error: unable to initialize comport");
         throw "Cannot initialize comport";
     }
     loopbackEn = false;
+    baudrate = brate;
 }
 
 /* To understand why, see https://github.com/ucberkeley-ee290c/fa22/tree/main/labs/lab2-tsi-flow */
@@ -78,40 +80,7 @@ int TsiFpgaUart::serialize(TsiPacket packet) {
     */
     // Defined arguments: size, source, address, data, mask, corrupt(0), last(1);
     // tsimsg msgtype; uint8_t size; uint8_t source; uint32_t address; uint64_t data; uint8_t mask; 
-    /*
-    // Pack the buffer in reverse byte order
-    // buffer[0][1:0] = {corrupt, last}; buffer[0][6+2-1:2] = mask[6-1:0];
-    buffer[0] = loadBits(corrupt ? 0b00000011 : 0b00000001, Tsi::mask, 6u, 2u, 0u);
-    // buffer[1][2+0-1:0] = mask[2+6-1:6]; buffer[1][6+2-1:2] = data[6-1:0]
-    buffer[1] = loadBits(loadBits(buffer[1], Tsi::mask, 2u, 0u, 6u), Tsi::data, 6u, 2u, 0u);
-    for (size_t i = 0; i < 7; i++) {
-        // buffer[2+i][8+0-1:0] = data[((i+1)*8+6)-1 : i*8+6]
-        buffer[2u+i] = loadBits(buffer[2u+i], Tsi::data, 8u, 0u, i*8u+6u);
-    }
-    // buffer[9][2+0-1:0] = data[(7*8+6)+2-1 : 7*8+6]; buffer[9][6+2-1:2] = addr[6-1:0]
-    buffer[9] = loadBits(loadBits(buffer[9], Tsi::data, 2u, 0u, 7*8u+6u), Tsi::address, 6u, 2u, 0u);
-    
-    // ====WARNING: LOADS 32 BIT ADDRESS ONLY, DOES NOT WORK FOR 64 bit addr busses====
-    for (size_t i = 0; i < 3; i++) {
-        // buffer[10+i][8+0-1:0] = addr[((i+1)*8+6)-1 : i*8+6]
-        buffer[10u+i] = loadBits(buffer[10u+i], Tsi::address, 8u, 0u, i*8u+6u);
-    }
-    
-    // buffer[13][2+0-1:0] = addr[(3*8+6)+2-1 : 7*8+6]; 
-    buffer[13] = loadBits(buffer[14], Tsi::address, 2u, 0u, 3*8u+6u);
-    // buffer[13][4+2-1:2] = source[4-1:0]
-    buffer[13] = loadBits(buffer[14], Tsi::source, 4u, 2u, 0u);
-    // buffer[13][2+6-1:6] = size[2-1:0]
-    buffer[13] = loadBits(buffer[14], Tsi::size, 2u, 2u, 0u);
 
-    // buffer[14][2+0-1:0] = size[2+2-1:2]
-    buffer[14] = loadBits(buffer[15], Tsi::size, 2u, 0u, 2u);
-    // buffer[14][6+2-1:2] = header[6-1:0]
-    buffer[14] = loadBits(buffer[15], header, 6u, 2u, 0u);
-
-    // buffer[15][3+0-1:0] = header[3+6-1:6]
-    buffer[15] = loadBits(buffer[15], header, 3u, 0u, 6u);
-    */
     writeDriver(); 
     return 0;
 }
@@ -174,9 +143,9 @@ TsiPacket TsiFpgaUart::deserialize() {
     return packet;
 }
 
-int TsiFpgaUart::initDriver(unsigned comport) {
+int TsiFpgaUart::initDriver() {
     char mode[] = {'8', 'N', '1', 0};
-    if (rs232::openComport(comport, TSI_UART_BDRATE, mode, 0)) {
+    if (rs232::openComport(comport, baudrate, mode, 0)) {
         printf("Can not open comport %i\n", comport);
         throw "Cannot open comport";
         return -1;

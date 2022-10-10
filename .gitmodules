@@ -4,6 +4,6 @@
 [submodule "chip-sw/env"]
 	path = chip-sw-sp21/env
 	url = https://github.com/riscv/riscv-test-env.git
-[submodule "chip-sw-fa22/unifiedFESVR/rs232"]
-	path = chip-sw-fa22/unifiedFESVR/rs232
-	url = https://github.com/FlorianBauer/rs232.git
+[submodule "chip-sw-fa22/proxyFESVR/rs232"]
+	path = chip-sw-fa22/proxyFESVR/rs232
+	url = https://github.com/FlorianBauer/rs232

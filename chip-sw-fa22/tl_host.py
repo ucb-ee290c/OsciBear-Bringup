@@ -37,7 +37,7 @@ TL_OPCODE_D_ACCESSACKDATA = 1
 
 # print(prog_hex)
 
-ser = serial.Serial("COM22", baudrate=2000000)
+ser = serial.Serial("COM10", baudrate=2000000)
 
 
 def TL_Get(addr, verbal=True):
@@ -131,7 +131,7 @@ def trigSoftwareInterrupt():
     
 def main():
     flash_prog()
-    ##time.sleep(0.02)
+    #time.sleep(0.02)
     #trigSoftwareInterrupt()
 
     #time.sleep(3)

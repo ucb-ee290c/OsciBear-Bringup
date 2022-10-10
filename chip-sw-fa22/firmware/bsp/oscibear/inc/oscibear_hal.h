@@ -8,6 +8,7 @@ extern "C" {
 #endif
 
 #include "oscibear.h"
+#include "oscibear_hal_baseband.h"
 #include "oscibear_hal_core.h"
 #include "oscibear_hal_clint.h"
 #include "oscibear_hal_gpio.h"
