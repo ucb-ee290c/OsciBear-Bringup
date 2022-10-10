@@ -1,0 +1,1 @@
+Firmware moved [here](https://github.com/ucberkeley-ee290c/HAL/tree/main/firmware)
