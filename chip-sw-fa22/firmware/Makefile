@@ -6,11 +6,7 @@ TARGET ?= firmware
 #################################
 
 # SiFive Toolchain
-<<<<<<< HEAD
-# PREFIX = riscv64-unknown-elf-
-=======
 PREFIX = riscv64-unknown-elf-
->>>>>>> 927018c49c2a3766d0318d5c2995e626e6492bcd
 
 # Nuclei Toolchain
 #PREFIX = riscv-nuclei-elf-
