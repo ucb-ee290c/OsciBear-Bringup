@@ -9,7 +9,9 @@ int main() {
     // Comport designation see: https://github.com/FlorianBauer/rs232
     FesvrFpgaUart fesvr(4, 4, 32, 8, 17, 2000000);
     uint32_t content;
-    
+    printf("Resetting adapter and flushing RXTX\n");
+    fesvr.reset();
+
     // Start by testing the internal logic of driver. 
     printf("fesvr setup complete, testing loopbacks\n");
     fesvr.setLoopback(true);

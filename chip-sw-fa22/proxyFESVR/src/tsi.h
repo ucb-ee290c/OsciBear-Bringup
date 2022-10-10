@@ -4,6 +4,12 @@
 #include <cstdint>
 #include <mutex>
 
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+
 /** 
  * TSI Header for the all the known valid TSI messages. 
  * Header is always 9 bits in TSI implementing TL 1.8.0
@@ -95,6 +101,7 @@ class TsiFpgaUart : public Tsi {
          * This is accomplished by having the driver write to readBuffer. 
          */
         void setLoopback(bool en) {loopbackEn = en;}
+        void reset();
 
     private:
         uint8_t z, o, a, w;

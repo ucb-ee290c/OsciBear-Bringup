@@ -28,6 +28,26 @@ size_t TsiFpgaUart::bufferByteLength() {
     return bitlen/8u + (((bitlen % 8u) == 0u) ? 0u : 1u);
 }
 
+void TsiFpgaUart::reset() {
+    // Set full
+    rs232::flushRxTx(comport);
+    size_t bytes = TsiFpgaUart::bufferByteLength();
+    for (size_t i = 0; i < bytes; i++) {
+        writeBuffer[i] = 0xFFu;
+    }
+    // Send it twice in case fpga buffer is in unstable state, guarenteeing reset.
+    writeDriver(); writeDriver(); writeDriver(); writeDriver(); 
+    writeDriver(); writeDriver(); writeDriver(); writeDriver(); 
+    /* sleep for 2 seconds, ensure write is written, then flush all buffers */
+    #ifdef _WIN32
+        Sleep(2000);
+    #else
+        usleep(2000000); 
+    #endif
+    rs232::flushRxTx(comport);
+    return;
+}
+
 /** 
  * Serializes message given paremeters.
  * Reminder: signal orders and all the actual bits are reversed (as in the whole packet is LSBit).

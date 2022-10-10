@@ -104,3 +104,7 @@ int FesvrFpgaUart::write(size_t addr, size_t content) {
     }
     return 0;
 }
+
+void FesvrFpgaUart::reset() {
+    port->reset();
+}

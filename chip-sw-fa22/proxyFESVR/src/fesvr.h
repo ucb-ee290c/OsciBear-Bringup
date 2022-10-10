@@ -38,7 +38,8 @@ class FesvrFpgaUart {
         size_t read(size_t addr);
         int write(size_t addr, size_t content);
         void setLoopback(bool en) {loopbackEn = en;};
-
+        void reset();
+        
     private:
         TsiFpgaUart* port;
         bool loopbackEn;
