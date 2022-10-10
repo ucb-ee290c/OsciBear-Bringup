@@ -4,7 +4,7 @@ import time
 import serial
 
 
-BINARY_LOCATION = r".\firmware\build\firmware.bin"
+BINARY_LOCATION = r"\\wsl$\Ubuntu\home\tk\Desktop\osci-bringup\chip-sw-fa22\firmware\build\firmware.bin"
 
 
 DEBUG_CONTROLLER_BASE   =0x00000000
@@ -130,8 +130,8 @@ def trigSoftwareInterrupt():
     TL_Get(CLINT_BASE)
     
 def main():
-    #flash_prog()
-    #time.sleep(0.02)
+    flash_prog()
+    ##time.sleep(0.02)
     #trigSoftwareInterrupt()
 
     #time.sleep(3)
@@ -148,7 +148,7 @@ def main():
 
     #TL_Get(0x80000000)
 
-    TL_PutPartialData(GPIO_BASE, 0x1, True)
+    #TL_PutPartialData(GPIO_BASE, 0x1, True)
     #TL_PutFullData(GPIO_BASE, 0x1, True)
 
 
