@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7a35ticsg324-1L" LaunchTime="1667426172" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/chiptop.dcp">
+  <File Type="PA-TCL" Name="chiptop.tcl"/>
+  <File Type="REPORTS-TCL" Name="chiptop_reports.tcl"/>
+  <File Type="RDS-RDS" Name="chiptop.vds"/>
+  <File Type="RDS-UTIL" Name="chiptop_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="chiptop_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="chiptop.dcp"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/imports/new/EdgeDetector.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/EdgeDetector.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/RegInit.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/RegInit.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/resetTop.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/resetTop.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/shiftReg.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/shiftReg.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/tsiToUart.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/tsiToUart.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/uartToTsi.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/uartToTsi.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/chiptop.v">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/chiptop.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/traffic_adapter.v">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/sources_1/new/traffic_adapter.v"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="chiptop"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/imports/new/cmod35.xdc">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../TinyAdapter/TinyAdapter.srcs/constrs_1/new/cmod35.xdc"/>
+        <Attr Name="ImportTime" Val="1666830002"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <File Path="$PSRCDIR/utils_1/imports/synth_1/chiptop.dcp">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedInSteps" Val="synth_1"/>
+        <Attr Name="AutoDcp" Val="1"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="ila_2"/>
+  <BlockFileSet Type="BlockSrcs" Name="ila_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="ila_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="clk_wiz_0"/>
+</GenRun>

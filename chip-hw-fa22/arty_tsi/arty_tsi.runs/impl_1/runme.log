@@ -1,0 +1,1391 @@
+
+*** Running vivado
+    with args -log chiptop.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source chiptop.tcl -notrace
+
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source chiptop.tcl -notrace
+create_project: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 393.047 ; gain = 68.902
+Command: link_design -top chiptop -part xc7a35ticsg324-1L
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Device 21-403] Loading part xc7a35ticsg324-1L
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_0.dcp' for cell 'nolabel_line49'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.dcp' for cell 'nolabel_line54'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_1.dcp' for cell 'rx/sreg0/nolabel_line25'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_2.dcp' for cell 'tlClkEdge/nolabel_line35'
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.155 . Memory (MB): peak = 906.863 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 431 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2022.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Chipscope 16-324] Core: nolabel_line49 UUID: 99698be4-1fd7-5c30-81d2-09073d719342 
+INFO: [Chipscope 16-324] Core: rx/sreg0/nolabel_line25 UUID: 568c53aa-f98d-57ee-91d1-1b343be7e151 
+INFO: [Chipscope 16-324] Core: tlClkEdge/nolabel_line35 UUID: daf9ad52-c976-5b36-9fc6-f8b933872c20 
+INFO: [Chipscope 16-324] Core: tx/sreg0/nolabel_line25 UUID: efaac333-0c55-569d-9ede-b3c6d9295d73 
+INFO: [Chipscope 16-324] Core: tx/uartEdge/nolabel_line35 UUID: 468e4e81-024e-51a6-b247-aac105a66641 
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'nolabel_line49/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'nolabel_line49/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila.xdc] for cell 'nolabel_line49/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila.xdc] for cell 'nolabel_line49/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0_board.xdc] for cell 'nolabel_line54/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0_board.xdc] for cell 'nolabel_line54/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc] for cell 'nolabel_line54/inst'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc:57]
+INFO: [Timing 38-2] Deriving generated clocks [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc:57]
+get_clocks: Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 1613.484 ; gain = 575.969
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc] for cell 'nolabel_line54/inst'
+Parsing XDC File [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc]
+CRITICAL WARNING: [Common 17-69] Command failed: 'L17' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:7]
+CRITICAL WARNING: [Common 17-69] Command failed: 'A17' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:12]
+CRITICAL WARNING: [Common 17-69] Command failed: 'G19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:27]
+CRITICAL WARNING: [Common 17-69] Command failed: 'N18' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:28]
+CRITICAL WARNING: [Common 17-69] Command failed: 'H19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:31]
+CRITICAL WARNING: [Common 17-69] Command failed: 'J19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:32]
+Finished Parsing XDC File [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1613.484 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 272 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 272 instances
+
+18 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:22 . Memory (MB): peak = 1613.484 ; gain = 1150.355
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 1613.484 ; gain = 0.000
+
+Starting Cache Timing Information Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-2] Deriving generated clocks
+Ending Cache Timing Information Task | Checksum: e3a9bcdb
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.504 . Memory (MB): peak = 1630.395 ; gain = 16.910
+
+Starting Logic Optimization Task
+
+Phase 1 Generate And Synthesize Debug Cores
+INFO: [Chipscope 16-329] Generating Script for core instance : dbg_hub 
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:xsdbm:3.0 for cell dbg_hub_CV.
+INFO: [Chipscope 16-469] Using cached IP synthesis design for IP xilinx.com:ip:xsdbm:3.0, cache-ID = 94cdaa598fc58359.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.038 . Memory (MB): peak = 1990.207 ; gain = 0.000
+Phase 1 Generate And Synthesize Debug Cores | Checksum: fd5017ab
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:20 . Memory (MB): peak = 1990.207 ; gain = 19.984
+
+Phase 2 Retarget
+INFO: [Opt 31-138] Pushed 5 inverter(s) to 5 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 2 Retarget | Checksum: c9bd73c3
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:21 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-389] Phase Retarget created 31 cells and removed 42 cells
+INFO: [Opt 31-1021] In phase Retarget, 162 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 3 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 3 Constant propagation | Checksum: ea53db7f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:21 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 80 cells
+INFO: [Opt 31-1021] In phase Constant propagation, 67 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 4 Sweep
+Phase 4 Sweep | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:21 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 329 cells
+INFO: [Opt 31-1021] In phase Sweep, 2587 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 5 BUFG optimization
+Phase 5 BUFG optimization | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:22 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
+
+Phase 6 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 6 Shift Register Optimization | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:22 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 7 Post Processing Netlist
+Phase 7 Post Processing Netlist | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:22 . Memory (MB): peak = 1990.207 ; gain = 19.984
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+INFO: [Opt 31-1021] In phase Post Processing Netlist, 75 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |              31  |              42  |                                            162  |
+|  Constant propagation         |               0  |              80  |                                             67  |
+|  Sweep                        |               0  |             329  |                                           2587  |
+|  BUFG optimization            |               0  |               0  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                             75  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.020 . Memory (MB): peak = 1990.207 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 56e338cb
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:22 . Memory (MB): peak = 1990.207 ; gain = 19.984
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 5 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 5 newly gated: 0 Total Ports: 10
+Ending PowerOpt Patch Enables Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.060 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:03 . Memory (MB): peak = 2061.191 ; gain = 70.984
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Ending Netlist Obfuscation Task | Checksum: 52cecc86
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2061.191 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+51 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:12 ; elapsed = 00:00:29 . Memory (MB): peak = 2061.191 ; gain = 447.707
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.055 . Memory (MB): peak = 2061.191 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file chiptop_drc_opted.rpt -pb chiptop_drc_opted.pb -rpx chiptop_drc_opted.rpx
+Command: report_drc -file chiptop_drc_opted.rpt -pb chiptop_drc_opted.pb -rpx chiptop_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_drc_opted.rpt.
+report_drc completed successfully
+INFO: [Chipscope 16-240] Debug cores have already been implemented
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 25099a4b
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: ea6e2efb
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.769 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 2 Global Placement
+
+Phase 2.1 Floorplanning
+Phase 2.1 Floorplanning | Checksum: 1cd39e4e7
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 2.2 Update Timing before SLR Path Opt
+Phase 2.2 Update Timing before SLR Path Opt | Checksum: f6793ce3
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 2.3 Post-Processing in Floorplanning
+Phase 2.3 Post-Processing in Floorplanning | Checksum: f6793ce3
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 2.4 Global Placement Core
+
+Phase 2.4.1 UpdateTiming Before Physical Synthesis
+Phase 2.4.1 UpdateTiming Before Physical Synthesis | Checksum: 197c94320
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:17 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 2.4.2 Physical Synthesis In Placer
+INFO: [Physopt 32-1035] Found 229 LUTNM shape to break, 64 LUT instances to create LUTNM shape
+INFO: [Physopt 32-1044] Break lutnm for timing: one critical 2, two critical 227, total 229, new lutff created 0
+INFO: [Physopt 32-1138] End 1 Pass. Optimized 259 nets or LUTs. Breaked 229 LUTs, combined 30 existing LUTs and moved 0 existing LUT
+INFO: [Physopt 32-65] No nets found for high-fanout optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-1123] No candidate cells found for Shift Register to Pipeline optimization
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-775] End 1 Pass. Optimized 47 nets or cells. Created 70 new cells, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.044 . Memory (MB): peak = 2061.191 ; gain = 0.000
+INFO: [Physopt 32-527] Pass 1: Identified 5 candidate cells for BRAM register optimization
+INFO: [Physopt 32-666] Processed cell nolabel_line49/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tx/sreg0/nolabel_line25/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell rx/sreg0/nolabel_line25/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tx/uartEdge/nolabel_line35/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tlClkEdge/nolabel_line35/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 2061.191 ; gain = 0.000
+INFO: [Physopt 32-846] No candidate cells for URAM register optimization found in the design
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  LUT Combining                                    |          229  |             30  |                   259  |           0  |           1  |  00:00:00  |
+|  Retime                                           |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  DSP Register                                     |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register                                   |           70  |              0  |                    47  |           0  |           1  |  00:00:00  |
+|  BRAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  URAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total                                            |          299  |             30  |                   306  |           0  |           9  |  00:00:01  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Phase 2.4.2 Physical Synthesis In Placer | Checksum: 1fd3b28ca
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Phase 2.4 Global Placement Core | Checksum: 1b6d61415
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2061.191 ; gain = 0.000
+Phase 2 Global Placement | Checksum: 1b6d61415
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:19 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1fd2698f6
+
+Time (s): cpu = 00:00:16 ; elapsed = 00:00:20 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 24cafe763
+
+Time (s): cpu = 00:00:17 ; elapsed = 00:00:21 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 2bfe2b6c4
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:21 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 2ba9f16d2
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:21 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.5 Fast Optimization
+Phase 3.5 Fast Optimization | Checksum: 27e81d32b
+
+Time (s): cpu = 00:00:23 ; elapsed = 00:00:34 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 201aa8665
+
+Time (s): cpu = 00:00:25 ; elapsed = 00:00:38 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 19cc95fe3
+
+Time (s): cpu = 00:00:26 ; elapsed = 00:00:39 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 1ef007c19
+
+Time (s): cpu = 00:00:26 ; elapsed = 00:00:39 . Memory (MB): peak = 2061.191 ; gain = 0.000
+
+Phase 3.9 Fast Optimization
+
+*** Running vivado
+    with args -log chiptop.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source chiptop.tcl -notrace
+
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source chiptop.tcl -notrace
+create_project: Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 393.402 ; gain = 60.387
+Command: link_design -top chiptop -part xc7a35ticsg324-1L
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Device 21-403] Loading part xc7a35ticsg324-1L
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_0.dcp' for cell 'nolabel_line49'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.dcp' for cell 'nolabel_line54'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_1.dcp' for cell 'rx/sreg0/nolabel_line25'
+INFO: [Project 1-454] Reading design checkpoint 'c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_2.dcp' for cell 'tlClkEdge/nolabel_line35'
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.146 . Memory (MB): peak = 906.742 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 431 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2022.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Chipscope 16-324] Core: nolabel_line49 UUID: 99698be4-1fd7-5c30-81d2-09073d719342 
+INFO: [Chipscope 16-324] Core: rx/sreg0/nolabel_line25 UUID: 568c53aa-f98d-57ee-91d1-1b343be7e151 
+INFO: [Chipscope 16-324] Core: tlClkEdge/nolabel_line35 UUID: daf9ad52-c976-5b36-9fc6-f8b933872c20 
+INFO: [Chipscope 16-324] Core: tx/sreg0/nolabel_line25 UUID: efaac333-0c55-569d-9ede-b3c6d9295d73 
+INFO: [Chipscope 16-324] Core: tx/uartEdge/nolabel_line35 UUID: 468e4e81-024e-51a6-b247-aac105a66641 
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tlClkEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_2/ila_v6_2/constraints/ila.xdc] for cell 'tx/uartEdge/nolabel_line35/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila_impl.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'rx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_1_1/ila_v6_2/constraints/ila.xdc] for cell 'tx/sreg0/nolabel_line25/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'nolabel_line49/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila_impl.xdc] for cell 'nolabel_line49/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila.xdc] for cell 'nolabel_line49/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/ila_0_2/ila_v6_2/constraints/ila.xdc] for cell 'nolabel_line49/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0_board.xdc] for cell 'nolabel_line54/inst'
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0_board.xdc] for cell 'nolabel_line54/inst'
+Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc] for cell 'nolabel_line54/inst'
+INFO: [Timing 38-35] Done setting XDC timing constraints. [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc:57]
+INFO: [Timing 38-2] Deriving generated clocks [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc:57]
+get_clocks: Time (s): cpu = 00:00:04 ; elapsed = 00:00:08 . Memory (MB): peak = 1613.316 ; gain = 575.559
+Finished Parsing XDC File [c:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.gen/sources_1/ip/clk_wiz_0_2/clk_wiz_0.xdc] for cell 'nolabel_line54/inst'
+Parsing XDC File [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc]
+CRITICAL WARNING: [Common 17-69] Command failed: 'L17' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:7]
+CRITICAL WARNING: [Common 17-69] Command failed: 'A17' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:12]
+CRITICAL WARNING: [Common 17-69] Command failed: 'G19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:27]
+CRITICAL WARNING: [Common 17-69] Command failed: 'N18' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:28]
+CRITICAL WARNING: [Common 17-69] Command failed: 'H19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:31]
+CRITICAL WARNING: [Common 17-69] Command failed: 'J19' is not a valid site or package pin name. [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc:32]
+Finished Parsing XDC File [C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.srcs/constrs_1/imports/new/cmod35.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1613.316 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 272 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 272 instances
+
+18 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:11 ; elapsed = 00:00:27 . Memory (MB): peak = 1613.316 ; gain = 1149.191
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1613.316 ; gain = 0.000
+
+Starting Cache Timing Information Task
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-2] Deriving generated clocks
+Ending Cache Timing Information Task | Checksum: e3a9bcdb
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.537 . Memory (MB): peak = 1631.207 ; gain = 17.891
+
+Starting Logic Optimization Task
+
+Phase 1 Generate And Synthesize Debug Cores
+INFO: [Chipscope 16-329] Generating Script for core instance : dbg_hub 
+INFO: [IP_Flow 19-3806] Processing IP xilinx.com:ip:xsdbm:3.0 for cell dbg_hub_CV.
+INFO: [Chipscope 16-469] Using cached IP synthesis design for IP xilinx.com:ip:xsdbm:3.0, cache-ID = 94cdaa598fc58359.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.047 . Memory (MB): peak = 1990.727 ; gain = 0.000
+Phase 1 Generate And Synthesize Debug Cores | Checksum: fd5017ab
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:23 . Memory (MB): peak = 1990.727 ; gain = 19.891
+
+Phase 2 Retarget
+INFO: [Opt 31-138] Pushed 5 inverter(s) to 5 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 2 Retarget | Checksum: c9bd73c3
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-389] Phase Retarget created 31 cells and removed 42 cells
+INFO: [Opt 31-1021] In phase Retarget, 162 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 3 Constant propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Phase 3 Constant propagation | Checksum: ea53db7f
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-389] Phase Constant propagation created 0 cells and removed 80 cells
+INFO: [Opt 31-1021] In phase Constant propagation, 67 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 4 Sweep
+Phase 4 Sweep | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-389] Phase Sweep created 0 cells and removed 329 cells
+INFO: [Opt 31-1021] In phase Sweep, 2587 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+
+Phase 5 BUFG optimization
+Phase 5 BUFG optimization | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-662] Phase BUFG optimization created 0 cells of which 0 are BUFGs and removed 0 cells.
+
+Phase 6 Shift Register Optimization
+INFO: [Opt 31-1064] SRL Remap converted 0 SRLs to 0 registers and converted 0 registers of register chains to 0 SRLs
+Phase 6 Shift Register Optimization | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-389] Phase Shift Register Optimization created 0 cells and removed 0 cells
+
+Phase 7 Post Processing Netlist
+Phase 7 Post Processing Netlist | Checksum: fb0f5c7e
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+INFO: [Opt 31-389] Phase Post Processing Netlist created 0 cells and removed 0 cells
+INFO: [Opt 31-1021] In phase Post Processing Netlist, 75 netlist objects are constrained preventing optimization. Please run opt_design with -debug_log to get more detail. 
+Opt_design Change Summary
+=========================
+
+
+-------------------------------------------------------------------------------------------------------------------------
+|  Phase                        |  #Cells created  |  #Cells Removed  |  #Constrained objects preventing optimizations  |
+-------------------------------------------------------------------------------------------------------------------------
+|  Retarget                     |              31  |              42  |                                            162  |
+|  Constant propagation         |               0  |              80  |                                             67  |
+|  Sweep                        |               0  |             329  |                                           2587  |
+|  BUFG optimization            |               0  |               0  |                                              0  |
+|  Shift Register Optimization  |               0  |               0  |                                              0  |
+|  Post Processing Netlist      |               0  |               0  |                                             75  |
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 1990.727 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: 56e338cb
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:24 . Memory (MB): peak = 1990.727 ; gain = 19.891
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 2.00 ns.
+INFO: [Pwropt 34-9] Applying IDT optimizations ...
+INFO: [Pwropt 34-10] Applying ODC optimizations ...
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+
+
+Starting PowerOpt Patch Enables Task
+INFO: [Pwropt 34-162] WRITE_MODE attribute of 0 BRAM(s) out of a total of 5 has been updated to save power. Run report_power_opt to get a complete listing of the BRAMs updated.
+INFO: [Pwropt 34-201] Structural ODC has moved 0 WE to EN ports
+Number of BRAM Ports augmented: 5 newly gated: 0 Total Ports: 10
+Ending PowerOpt Patch Enables Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.065 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Ending Power Optimization Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2063.812 ; gain = 73.086
+
+Starting Final Cleanup Task
+Ending Final Cleanup Task | Checksum: 49d0ac34
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Starting Netlist Obfuscation Task
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Ending Netlist Obfuscation Task | Checksum: 52cecc86
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+51 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:08 ; elapsed = 00:00:32 . Memory (MB): peak = 2063.812 ; gain = 450.496
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.065 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_opt.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_drc -file chiptop_drc_opted.rpt -pb chiptop_drc_opted.pb -rpx chiptop_drc_opted.rpx
+Command: report_drc -file chiptop_drc_opted.rpt -pb chiptop_drc_opted.pb -rpx chiptop_drc_opted.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_drc_opted.rpt.
+report_drc completed successfully
+INFO: [Chipscope 16-240] Debug cores have already been implemented
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Initialization
+
+Phase 1.1 Placer Initialization Netlist Sorting
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 1.1 Placer Initialization Netlist Sorting | Checksum: 25099a4b
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.039 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device
+Phase 1.2 IO Placement/ Clock Placement/ Build Placer Device | Checksum: ea6e2efb
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 1.3 Build Placer Netlist Model
+Phase 1.3 Build Placer Netlist Model | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 1.4 Constrain Clocks/Macros
+Phase 1.4 Constrain Clocks/Macros | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 1 Placer Initialization | Checksum: ec94fc24
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 2 Global Placement
+
+Phase 2.1 Floorplanning
+Phase 2.1 Floorplanning | Checksum: 1cd39e4e7
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 2.2 Update Timing before SLR Path Opt
+Phase 2.2 Update Timing before SLR Path Opt | Checksum: f6793ce3
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 2.3 Post-Processing in Floorplanning
+Phase 2.3 Post-Processing in Floorplanning | Checksum: f6793ce3
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 2.4 Global Placement Core
+
+Phase 2.4.1 UpdateTiming Before Physical Synthesis
+Phase 2.4.1 UpdateTiming Before Physical Synthesis | Checksum: 197c94320
+
+Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 2.4.2 Physical Synthesis In Placer
+INFO: [Physopt 32-1035] Found 229 LUTNM shape to break, 64 LUT instances to create LUTNM shape
+INFO: [Physopt 32-1044] Break lutnm for timing: one critical 2, two critical 227, total 229, new lutff created 0
+INFO: [Physopt 32-1138] End 1 Pass. Optimized 259 nets or LUTs. Breaked 229 LUTs, combined 30 existing LUTs and moved 0 existing LUT
+INFO: [Physopt 32-65] No nets found for high-fanout optimization.
+INFO: [Physopt 32-232] Optimized 0 net. Created 0 new instance.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-1123] No candidate cells found for Shift Register to Pipeline optimization
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-775] End 1 Pass. Optimized 47 nets or cells. Created 70 new cells, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Physopt 32-527] Pass 1: Identified 5 candidate cells for BRAM register optimization
+INFO: [Physopt 32-666] Processed cell nolabel_line49/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tx/sreg0/nolabel_line25/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell rx/sreg0/nolabel_line25/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tx/uartEdge/nolabel_line35/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-666] Processed cell tlClkEdge/nolabel_line35/inst/ila_core_inst/ila_trace_memory_inst/SUBCORE_RAM_BLK_MEM_1.trace_block_memory/inst_blk_mem_gen/gnbram.gnativebmg.native_blk_mem_gen/valid.cstr/ramloop[0].ram.r/prim_noinit.ram/DEVICE_7SERIES.NO_BMM_INFO.SDP.SIMPLE_PRIM18.ram. No change.
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Physopt 32-846] No candidate cells for URAM register optimization found in the design
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+INFO: [Physopt 32-949] No candidate nets found for dynamic/static region interface net replication
+INFO: [Physopt 32-775] End 1 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization                                     |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+|  LUT Combining                                    |          229  |             30  |                   259  |           0  |           1  |  00:00:00  |
+|  Retime                                           |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Very High Fanout                                 |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  DSP Register                                     |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register to Pipeline                       |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Shift Register                                   |           70  |              0  |                    47  |           0  |           1  |  00:00:00  |
+|  BRAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  URAM Register                                    |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Dynamic/Static Region Interface Net Replication  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Total                                            |          299  |             30  |                   306  |           0  |           9  |  00:00:01  |
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Phase 2.4.2 Physical Synthesis In Placer | Checksum: 1fd3b28ca
+
+Time (s): cpu = 00:00:20 ; elapsed = 00:00:23 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 2.4 Global Placement Core | Checksum: 1b6d61415
+
+Time (s): cpu = 00:00:20 ; elapsed = 00:00:23 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 2 Global Placement | Checksum: 1b6d61415
+
+Time (s): cpu = 00:00:20 ; elapsed = 00:00:23 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3 Detail Placement
+
+Phase 3.1 Commit Multi Column Macros
+Phase 3.1 Commit Multi Column Macros | Checksum: 1fd2698f6
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:24 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.2 Commit Most Macros & LUTRAMs
+Phase 3.2 Commit Most Macros & LUTRAMs | Checksum: 24cafe763
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.3 Area Swap Optimization
+Phase 3.3 Area Swap Optimization | Checksum: 2bfe2b6c4
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.4 Pipeline Register Optimization
+Phase 3.4 Pipeline Register Optimization | Checksum: 2ba9f16d2
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:25 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.5 Fast Optimization
+Phase 3.5 Fast Optimization | Checksum: 27e81d32b
+
+Time (s): cpu = 00:00:26 ; elapsed = 00:00:37 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.6 Small Shape Detail Placement
+Phase 3.6 Small Shape Detail Placement | Checksum: 201aa8665
+
+Time (s): cpu = 00:00:28 ; elapsed = 00:00:43 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.7 Re-assign LUT pins
+Phase 3.7 Re-assign LUT pins | Checksum: 19cc95fe3
+
+Time (s): cpu = 00:00:28 ; elapsed = 00:00:43 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.8 Pipeline Register Optimization
+Phase 3.8 Pipeline Register Optimization | Checksum: 1ef007c19
+
+Time (s): cpu = 00:00:28 ; elapsed = 00:00:43 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3.9 Fast Optimization
+Phase 3.9 Fast Optimization | Checksum: 2519b4a23
+
+Time (s): cpu = 00:00:39 ; elapsed = 00:01:09 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 3 Detail Placement | Checksum: 2519b4a23
+
+Time (s): cpu = 00:00:39 ; elapsed = 00:01:09 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4 Post Placement Optimization and Clean-Up
+
+Phase 4.1 Post Commit Optimization
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 4.1.1 Post Placement Optimization
+Post Placement Optimization Initialization | Checksum: 212da4f23
+
+Phase 4.1.1.1 BUFG Insertion
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 2 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-5.786 | TNS=-27067.856 |
+Phase 1 Physical Synthesis Initialization | Checksum: 17eb9a7e8
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.683 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Place 46-56] BUFG insertion identified 0 candidate nets. Inserted BUFG: 0, Replicated BUFG Driver: 0, Skipped due to Placement/Routing Conflicts: 0, Skipped due to Timing Degradation: 0, Skipped due to Illegal Netlist: 0.
+Ending Physical Synthesis Task | Checksum: 1aa052409
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.778 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 4.1.1.1 BUFG Insertion | Checksum: 212da4f23
+
+Time (s): cpu = 00:00:41 ; elapsed = 00:01:13 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4.1.1.2 Post Placement Timing Optimization
+INFO: [Place 30-746] Post Placement Timing Summary WNS=-5.020. For the most accurate timing information please run report_timing.
+Phase 4.1.1.2 Post Placement Timing Optimization | Checksum: 13f6358c0
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:41 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:41 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 4.1 Post Commit Optimization | Checksum: 13f6358c0
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:41 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4.2 Post Placement Cleanup
+Phase 4.2 Post Placement Cleanup | Checksum: 13f6358c0
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4.3 Placer Reporting
+
+Phase 4.3.1 Print Estimated Congestion
+INFO: [Place 30-612] Post-Placement Estimated Congestion 
+ ____________________________________________________
+|           | Global Congestion | Short Congestion  |
+| Direction | Region Size       | Region Size       |
+|___________|___________________|___________________|
+|      North|                1x1|                2x2|
+|___________|___________________|___________________|
+|      South|                1x1|                2x2|
+|___________|___________________|___________________|
+|       East|                1x1|                1x1|
+|___________|___________________|___________________|
+|       West|                2x2|                2x2|
+|___________|___________________|___________________|
+
+Phase 4.3.1 Print Estimated Congestion | Checksum: 13f6358c0
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 4.3 Placer Reporting | Checksum: 13f6358c0
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4.4 Final Placement Cleanup
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Phase 4 Post Placement Optimization and Clean-Up | Checksum: 18fdd099b
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Ending Placer Task | Checksum: 13aa3882a
+
+Time (s): cpu = 00:00:54 ; elapsed = 00:01:42 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+96 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:00:55 ; elapsed = 00:01:43 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:04 ; elapsed = 00:00:02 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_placed.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_io -file chiptop_io_placed.rpt
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_utilization -file chiptop_utilization_placed.rpt -pb chiptop_utilization_placed.pb
+INFO: [runtcl-4] Executing : report_control_sets -verbose -file chiptop_control_sets_placed.rpt
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Command: phys_opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+
+Starting Initial Update Timing Task
+
+Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Vivado_Tcl 4-1435] PhysOpt_Tcl_Interface Runtime Before Starting Physical Synthesis Task | CPU: 2.00s |  WALL: 2.16s
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Starting Physical Synthesis Task
+
+Phase 1 Physical Synthesis Initialization
+INFO: [Physopt 32-721] Multithreading enabled for phys_opt_design using a maximum of 2 CPUs
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-5.020 | TNS=-26914.320 |
+Phase 1 Physical Synthesis Initialization | Checksum: 1030b5fcd
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-5.020 | TNS=-26914.320 |
+
+Phase 2 DSP Register Optimization
+INFO: [Physopt 32-456] No candidate cells for DSP register optimization found in the design.
+INFO: [Physopt 32-775] End 2 Pass. Optimized 0 net or cell. Created 0 new cell, deleted 0 existing cell and moved 0 existing cell
+Phase 2 DSP Register Optimization | Checksum: 1030b5fcd
+
+Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 3 Critical Path Optimization
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-5.020 | TNS=-26914.320 |
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net nolabel_line54/inst/clk_out2_clk_wiz_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 24 pins.
+INFO: [Physopt 32-735] Processed net tx/sreg0/data_reg1. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.994 | TNS=-26910.993 |
+INFO: [Physopt 32-702] Processed net tx/sreg0/data_reg1. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_11_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net tx/sreg0/counter/Q[0].  Re-placed instance tx/sreg0/counter/data_reg[0]
+INFO: [Physopt 32-735] Processed net tx/sreg0/counter/Q[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.985 | TNS=-26910.835 |
+INFO: [Physopt 32-608] Optimized 1 net.  Swapped 18 pins.
+INFO: [Physopt 32-735] Processed net tx/sreg0/Q_INST_0_i_12_n_0. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.973 | TNS=-26911.477 |
+INFO: [Physopt 32-702] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/u_wcnt_hcmp_q_0[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/u_wcnt_hcmp/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/DUT/I_WHOLE_SLICE.G_SLICE_IDX[1].U_ALL_SRL_SLICE/DOUT_O. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_regs/wcnt_hcmp_temp. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/u_wcnt_hcmp/allx_typeA_match_detection.ltlib_v1_0_0_allx_typeA_inst/DUT/I_WHOLE_SLICE.G_SLICE_IDX[1].U_ALL_SRL_SLICE/u_srlA/O5. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/Q[9].  Re-placed instance tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/iwcnt_reg[9]
+INFO: [Physopt 32-735] Processed net tlClkEdge/nolabel_line35/inst/ila_core_inst/u_ila_cap_ctrl/u_cap_addrgen/u_cap_window_counter/Q[9]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26911.050 |
+INFO: [Physopt 32-702] Processed net tx/sreg0/counter/Q[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gcx.clkx/gnxpm_cdc.gsync_stage[2].wr_stg_inst/Q_reg[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[0].  Re-placed instance dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[0]
+INFO: [Physopt 32-735] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26907.848 |
+INFO: [Physopt 32-663] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[0].  Re-placed instance dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_reg[0]
+INFO: [Physopt 32-735] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[0]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.539 |
+INFO: [Physopt 32-663] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[2].  Re-placed instance dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_reg[2]
+INFO: [Physopt 32-735] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[2]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.923 |
+INFO: [Physopt 32-663] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[3].  Re-placed instance dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_reg[3]
+INFO: [Physopt 32-735] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/Q[3]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26909.242 |
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[3]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-663] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1].  Re-placed instance dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.wr_rst_reg_reg[1]
+INFO: [Physopt 32-735] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1]. Optimization improves timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.701 |
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net nolabel_line54/inst/clk_out2_clk_wiz_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data_reg1. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_11_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/counter/Q[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[3]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.701 |
+Phase 3 Critical Path Optimization | Checksum: 1030b5fcd
+
+Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2063.812 ; gain = 0.000
+
+Phase 4 Critical Path Optimization
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.701 |
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-712] Optimization is not feasible on net data[23] due to MARK_DEBUG attribute.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net nolabel_line54/inst/clk_out2_clk_wiz_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data_reg1. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_11_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/counter/Q[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[3]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net nolabel_line54/inst/clk_out2_clk_wiz_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data_reg1. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_3_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/Q_INST_0_i_11_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/data[23]_i_1_n_0. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net tx/sreg0/counter/Q[0]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/wpntr/gic0.gc0.count_d1_reg[3]_0[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-702] Processed net dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[1]. Optimizations did not improve timing on the net.
+INFO: [Physopt 32-619] Estimated Timing Summary | WNS=-4.960 | TNS=-26908.701 |
+Phase 4 Critical Path Optimization | Checksum: 1030b5fcd
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.010 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Physopt 32-603] Post Physical Optimization Timing Summary | WNS=-4.960 | TNS=-26908.701 |
+
+Summary of Physical Synthesis Optimizations
+============================================
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  Optimization   |  WNS Gain (ns)  |  TNS Gain (ns)  |  Added Cells  |  Removed Cells  |  Optimized Cells/Nets  |  Dont Touch  |  Iterations  |  Elapsed   |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+|  DSP Register   |          0.000  |          0.000  |            0  |              0  |                     0  |           0  |           1  |  00:00:00  |
+|  Critical Path  |          0.060  |          5.619  |            0  |              0  |                     9  |           0  |           2  |  00:00:05  |
+|  Total          |          0.060  |          5.619  |            0  |              0  |                     9  |           0  |           3  |  00:00:05  |
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.011 . Memory (MB): peak = 2063.812 ; gain = 0.000
+Ending Physical Synthesis Task | Checksum: 7a8a1cb5
+
+Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+202 Infos, 0 Warnings, 6 Critical Warnings and 0 Errors encountered.
+phys_opt_design completed successfully
+phys_opt_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:04 ; elapsed = 00:00:02 . Memory (MB): peak = 2063.812 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_physopt.dcp' has been generated.
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+
+Phase 1 Build RT Design
+Checksum: PlaceDB: 23a6cfd0 ConstDB: 0 ShapeSum: 158c25ca RouteDB: 0
+Post Restoration Checksum: NetGraph: 6db1752d NumContArr: a00287a Constraints: 0 Timing: 0
+Phase 1 Build RT Design | Checksum: 77b19da7
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:23 . Memory (MB): peak = 2112.258 ; gain = 48.445
+
+Phase 2 Router Initialization
+
+Phase 2.1 Fix Topology Constraints
+Phase 2.1 Fix Topology Constraints | Checksum: 77b19da7
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:23 . Memory (MB): peak = 2118.266 ; gain = 54.453
+
+Phase 2.2 Pre Route Cleanup
+Phase 2.2 Pre Route Cleanup | Checksum: 77b19da7
+
+Time (s): cpu = 00:00:12 ; elapsed = 00:00:23 . Memory (MB): peak = 2118.266 ; gain = 54.453
+ Number of Nodes with overlaps = 0
+
+Phase 2.3 Update Timing
+Phase 2.3 Update Timing | Checksum: 1b83aac04
+
+Time (s): cpu = 00:00:14 ; elapsed = 00:00:27 . Memory (MB): peak = 2138.023 ; gain = 74.211
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-4.990 | TNS=-26962.060| WHS=-0.263 | THS=-546.836|
+
+
+Phase 2.4 Update Timing for Bus Skew
+
+Phase 2.4.1 Update Timing
+Phase 2.4.1 Update Timing | Checksum: 21f0e8151
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:31 . Memory (MB): peak = 2148.059 ; gain = 84.246
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-4.990 | TNS=-26087.502| WHS=N/A    | THS=N/A    |
+
+Phase 2.4 Update Timing for Bus Skew | Checksum: 16f5bcdc0
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:31 . Memory (MB): peak = 2162.398 ; gain = 98.586
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0 %
+  Global Horizontal Routing Utilization  = 0 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 10670
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 10670
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Phase 2 Router Initialization | Checksum: 2280f3481
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:31 . Memory (MB): peak = 2162.398 ; gain = 98.586
+
+Phase 3 Initial Routing
+
+Phase 3.1 Global Routing
+Phase 3.1 Global Routing | Checksum: 2280f3481
+
+Time (s): cpu = 00:00:18 ; elapsed = 00:00:31 . Memory (MB): peak = 2162.398 ; gain = 98.586
+Phase 3 Initial Routing | Checksum: 1d0e9208a
+
+Time (s): cpu = 00:00:21 ; elapsed = 00:00:35 . Memory (MB): peak = 2174.023 ; gain = 110.211
+INFO: [Route 35-580] Design has 440 pins with tight setup and hold constraints.
+
+The top 5 pins with tight setup and hold constraints:
+
++======================+======================+=========================+
+| Launch Setup Clock   | Launch Hold Clock    | Pin                     |
++======================+======================+=========================+
+| clk_out2_clk_wiz_0_1 | clk_out2_clk_wiz_0_1 | rx/sreg0/data_reg[87]/D |
+| clk_out2_clk_wiz_0_1 | clk_out2_clk_wiz_0   | tx/sreg0/data_reg[23]/D |
+| clk_out2_clk_wiz_0_1 | clk_out2_clk_wiz_0   | tx/sreg0/data_reg[95]/D |
+| clk_out2_clk_wiz_0_1 | clk_out2_clk_wiz_0   | tx/sreg0/data_reg[8]/D  |
+| clk_out2_clk_wiz_0_1 | clk_out2_clk_wiz_0   | tx/sreg0/data_reg[27]/D |
++----------------------+----------------------+-------------------------+
+
+File with complete list of pins: tight_setup_hold_pins.txt
+
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+ Number of Nodes with overlaps = 1619
+ Number of Nodes with overlaps = 231
+ Number of Nodes with overlaps = 90
+ Number of Nodes with overlaps = 40
+ Number of Nodes with overlaps = 14
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.570 | TNS=-30027.928| WHS=N/A    | THS=N/A    |
+
+Phase 4.1 Global Iteration 0 | Checksum: 2e3a2127f
+
+Time (s): cpu = 00:01:23 ; elapsed = 00:02:58 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 4.2 Global Iteration 1
+ Number of Nodes with overlaps = 15
+ Number of Nodes with overlaps = 9
+ Number of Nodes with overlaps = 5
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.306 | TNS=-29988.927| WHS=N/A    | THS=N/A    |
+
+Phase 4.2 Global Iteration 1 | Checksum: 2cc824bed
+
+Time (s): cpu = 00:01:24 ; elapsed = 00:03:01 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 4.3 Global Iteration 2
+ Number of Nodes with overlaps = 3
+ Number of Nodes with overlaps = 2
+ Number of Nodes with overlaps = 1
+ Number of Nodes with overlaps = 0
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.485 | TNS=-30013.432| WHS=N/A    | THS=N/A    |
+
+Phase 4.3 Global Iteration 2 | Checksum: 16b58a1a5
+
+Time (s): cpu = 00:01:25 ; elapsed = 00:03:02 . Memory (MB): peak = 2235.270 ; gain = 171.457
+Phase 4 Rip-up And Reroute | Checksum: 16b58a1a5
+
+Time (s): cpu = 00:01:25 ; elapsed = 00:03:02 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 5 Delay and Skew Optimization
+
+Phase 5.1 Delay CleanUp
+
+Phase 5.1.1 Update Timing
+Phase 5.1.1 Update Timing | Checksum: 139f68211
+
+Time (s): cpu = 00:01:25 ; elapsed = 00:03:03 . Memory (MB): peak = 2235.270 ; gain = 171.457
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.229 | TNS=-29136.039| WHS=N/A    | THS=N/A    |
+
+ Number of Nodes with overlaps = 0
+Phase 5.1 Delay CleanUp | Checksum: 11a3d2f0f
+
+Time (s): cpu = 00:01:26 ; elapsed = 00:03:04 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 5.2 Clock Skew Optimization
+Phase 5.2 Clock Skew Optimization | Checksum: 11a3d2f0f
+
+Time (s): cpu = 00:01:26 ; elapsed = 00:03:04 . Memory (MB): peak = 2235.270 ; gain = 171.457
+Phase 5 Delay and Skew Optimization | Checksum: 11a3d2f0f
+
+Time (s): cpu = 00:01:26 ; elapsed = 00:03:04 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 6 Post Hold Fix
+
+Phase 6.1 Hold Fix Iter
+
+Phase 6.1.1 Update Timing
+Phase 6.1.1 Update Timing | Checksum: 16eeb5e34
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:05 . Memory (MB): peak = 2235.270 ; gain = 171.457
+INFO: [Route 35-416] Intermediate Timing Summary | WNS=-5.229 | TNS=-29124.134| WHS=0.019  | THS=0.000  |
+
+Phase 6.1 Hold Fix Iter | Checksum: 15a5d33df
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:05 . Memory (MB): peak = 2235.270 ; gain = 171.457
+Phase 6 Post Hold Fix | Checksum: 15a5d33df
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:05 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 3.90983 %
+  Global Horizontal Routing Utilization  = 4.70953 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+    (Failed Nets is the sum of unrouted and partially routed nets)
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Congestion Report
+North Dir 1x1 Area, Max Cong = 60.3604%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 63.0631%, No Congested Regions.
+East Dir 1x1 Area, Max Cong = 75%, No Congested Regions.
+West Dir 1x1 Area, Max Cong = 66.1765%, No Congested Regions.
+
+------------------------------
+Reporting congestion hotspots
+------------------------------
+Direction: North
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: South
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: East
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+Direction: West
+----------------
+Congested clusters found at Level 0
+Effective congestion level: 0 Aspect Ratio: 1 Sparse Ratio: 0
+
+Phase 7 Route finalize | Checksum: 12289b158
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:05 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 12289b158
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:06 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: ef9afea1
+
+Time (s): cpu = 00:01:27 ; elapsed = 00:03:07 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Phase 10 Post Router Timing
+INFO: [Route 35-57] Estimated Timing Summary | WNS=-5.229 | TNS=-29124.134| WHS=0.019  | THS=0.000  |
+
+WARNING: [Route 35-328] Router estimated timing not met.
+Resolution: For a complete and accurate timing signoff, report_timing_summary must be run after route_design. Alternatively, route_design can be run with the -timing_summary option to enable a complete timing signoff at the end of route_design.
+Phase 10 Post Router Timing | Checksum: ef9afea1
+
+Time (s): cpu = 00:01:28 ; elapsed = 00:03:08 . Memory (MB): peak = 2235.270 ; gain = 171.457
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:01:28 ; elapsed = 00:03:08 . Memory (MB): peak = 2235.270 ; gain = 171.457
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+220 Infos, 1 Warnings, 6 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:01:30 ; elapsed = 00:03:10 . Memory (MB): peak = 2235.270 ; gain = 171.457
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:05 ; elapsed = 00:00:02 . Memory (MB): peak = 2235.270 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_routed.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 2235.270 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_drc -file chiptop_drc_routed.rpt -pb chiptop_drc_routed.pb -rpx chiptop_drc_routed.rpx
+Command: report_drc -file chiptop_drc_routed.rpt -pb chiptop_drc_routed.pb -rpx chiptop_drc_routed.rpx
+INFO: [IP_Flow 19-1839] IP Catalog is up to date.
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_drc_routed.rpt.
+report_drc completed successfully
+INFO: [runtcl-4] Executing : report_methodology -file chiptop_methodology_drc_routed.rpt -pb chiptop_methodology_drc_routed.pb -rpx chiptop_methodology_drc_routed.rpx
+Command: report_methodology -file chiptop_methodology_drc_routed.rpt -pb chiptop_methodology_drc_routed.pb -rpx chiptop_methodology_drc_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [DRC 23-133] Running Methodology with 2 threads
+INFO: [Vivado_Tcl 2-1520] The results of Report Methodology are in file C:/Users/DangL/school/osci-bringup/chip-hw-fa22/arty_tsi/arty_tsi.runs/impl_1/chiptop_methodology_drc_routed.rpt.
+report_methodology completed successfully
+report_methodology: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2235.270 ; gain = 0.000
+INFO: [runtcl-4] Executing : report_power -file chiptop_power_routed.rpt -pb chiptop_power_summary_routed.pb -rpx chiptop_power_routed.rpx
+Command: report_power -file chiptop_power_routed.rpt -pb chiptop_power_summary_routed.pb -rpx chiptop_power_routed.rpx
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+232 Infos, 1 Warnings, 6 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+INFO: [runtcl-4] Executing : report_route_status -file chiptop_route_status.rpt -pb chiptop_route_status.pb
+INFO: [runtcl-4] Executing : report_timing_summary -max_paths 10 -report_unconstrained -file chiptop_timing_summary_routed.rpt -pb chiptop_timing_summary_routed.pb -rpx chiptop_timing_summary_routed.rpx -warn_on_violation 
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1L, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+WARNING: [Timing 38-436] There are set_bus_skew constraint(s) in this design. Please run report_bus_skew to ensure that bus skew requirements are met.
+INFO: [runtcl-4] Executing : report_incremental_reuse -file chiptop_incremental_reuse_routed.rpt
+INFO: [Vivado_Tcl 4-1062] Incremental flow is disabled. No incremental reuse Info to report.
+INFO: [runtcl-4] Executing : report_clock_utilization -file chiptop_clock_utilization_routed.rpt
+INFO: [runtcl-4] Executing : report_bus_skew -warn_on_violation -file chiptop_bus_skew_routed.rpt -pb chiptop_bus_skew_routed.pb -rpx chiptop_bus_skew_routed.rpx
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1L, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Common 17-206] Exiting Vivado at Thu Nov  3 16:12:25 2022...
+
+*** Running vivado
+    with args -log chiptop.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source chiptop.tcl -notrace
+
+
+
+****** Vivado v2022.2 (64-bit)
+  **** SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+  **** IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+source chiptop.tcl -notrace
+Command: open_checkpoint chiptop_routed.dcp
+INFO: [Device 21-403] Loading part xc7a35ticsg324-1L
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.178 . Memory (MB): peak = 841.875 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 449 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2022.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1564.812 ; gain = 3.945
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:01 . Memory (MB): peak = 1564.812 ; gain = 3.945
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1564.812 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 278 instances were transformed.
+  CFGLUT5 => CFGLUT5 (SRL16E, SRLC32E): 272 instances
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 6 instances
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2022.2 (64-bit) build 3671981
+OpenCheckpoint Checksum | Checksum: 137027d11
+----- Checksum: PlaceDB: 79cbbd1f ShapeSum: 158c25ca RouteDB: a7aa9a28 
+open_checkpoint: Time (s): cpu = 00:00:10 ; elapsed = 00:00:28 . Memory (MB): peak = 1564.812 ; gain = 1240.730
+Command: write_bitstream -force chiptop.bit
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command write_bitstream
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.2/data/ip'.
+INFO: [DRC 23-27] Running DRC with 2 threads
+ERROR: [DRC NSTD-1] Unspecified I/O Standard: 6 out of 14 logical ports use I/O standard (IOSTANDARD) value 'DEFAULT', instead of a user assigned specific value. This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all I/O standards. This design will fail to generate a bitstream unless all logical ports have a user specified I/O standard value defined. To allow bitstream creation with unspecified I/O standard values (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks NSTD-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. Problem ports: led[0], CLK12MHZ, tl_in_data, tl_in_rd, tl_out_rd, and tl_out_valid.
+ERROR: [DRC UCIO-1] Unconstrained Logical Port: 6 out of 14 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: led[0], CLK12MHZ, tl_in_data, tl_in_rd, tl_out_rd, and tl_out_valid.
+WARNING: [DRC CFGBVS-1] Missing CFGBVS and CONFIG_VOLTAGE Design Properties: Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+WARNING: [DRC PDCN-1569] LUT equation term check: Used physical LUT pin 'A2' of cell dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.id_state[0]_i_1 (pin dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.id_state[0]_i_1/I0) is not included in the LUT equation: 'O6=(A6+~A6)*((A4))'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+WARNING: [DRC PDCN-1569] LUT equation term check: Used physical LUT pin 'A3' of cell dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/temp_curid[31]_i_1 (pin dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/temp_curid[31]_i_1/I0) is not included in the LUT equation: 'O6=(A6+~A6)*((A1*A2)+(A1*(~A2)*(~A5))+((~A1)))'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+WARNING: [DRC PDCN-1569] LUT equation term check: Used physical LUT pin 'A4' of cell dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/temp_curid[31]_i_1 (pin dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/temp_curid[31]_i_1/I1) is not included in the LUT equation: 'O6=(A6+~A6)*((A1*A2)+(A1*(~A2)*(~A5))+((~A1)))'. If this cell is a user instantiated LUT in the design, please remove connectivity to the pin or change the equation and/or INIT string of the LUT to prevent this issue. If the cell is inferred or IP created LUT, please regenerate the IP and/or resynthesize the design to attempt to correct the issue.
+WARNING: [DRC RTSTAT-10] No routable loads: 49 net(s) have no routable loads. The problem bus(es) and/or net(s) are dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/TMS, dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gr1.gr1_int.rfwft/aempty_fwft_i, dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD7_CTL/ctl_reg[2:0], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD7_CTL/ctl_reg_en_2[1], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD1/ctl_reg_en_2[1], dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/m_bscan_capture[0], dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/m_bscan_drck[0], dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_switch/m_bscan_runtest[0], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.rd_rst_reg[0], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[2], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.wr_rst_reg[2], dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwhf.whf/overflow, dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwhf.whf/overflow, dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_RD/U_RD_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_rdfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/gras.rsts/ram_empty_i, dbg_hub/inst/BSCANID.u_xsdbm_id/CORE_XSDB.UUT_MASTER/U_ICON_INTERFACE/U_CMD6_WR/U_WR_FIFO/SUBCORE_FIFO.xsdbm_v3_0_0_wrfifo_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.wr/gwas.wsts/ram_full_i... and (the first 15 of 47 listed).
+INFO: [Vivado 12-3199] DRC finished with 2 Errors, 5 Warnings
+INFO: [Vivado 12-3200] Please refer to the DRC report (report_drc) for more information.
+ERROR: [Vivado 12-1345] Error(s) found during DRC. Bitgen not run.
+INFO: [Common 17-83] Releasing license: Implementation
+19 Infos, 5 Warnings, 0 Critical Warnings and 3 Errors encountered.
+write_bitstream failed
+ERROR: [Common 17-39] 'write_bitstream' failed due to earlier errors.
+
+INFO: [Common 17-206] Exiting Vivado at Thu Nov  3 16:13:29 2022...
