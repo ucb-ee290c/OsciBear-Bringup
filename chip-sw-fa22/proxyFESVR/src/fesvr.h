@@ -16,33 +16,41 @@
 #define FLASH_BASE              0x20000000
 #define UART_BASE               0x54000000
 #define DTIM_BASE               0x80000000
+#define DTIM_RET                0x80004000
 
 /* Memory pool virtualization is currently not supported, meaning only host can initiate requests via channel A.
  * Support will be added later by adding a response function that polls and respond. 
  */
 class Fesvr {
     public:
-        int read(size_t addr, size_t *content, size_t size);
-        int write(size_t addr, size_t *content, size_t size);
-        virtual size_t read(size_t addr);
-        virtual int write(size_t addr, size_t content);
-        int loadElf(char* file, size_t addr);
-        int run(size_t addr);
+        //int read(size_t addr, size_t *content, size_t size);
+        //int write(size_t addr, size_t *content, size_t size);
+        virtual size_t read(size_t addr) {return 0;};
+        virtual int write(size_t addr, size_t content) {return 0;};
+        //int loadElf(char* file, size_t addr);
+        //int run();
         //int memoryPoll();
 
 };
 
-class FesvrFpgaUart {
+class FesvrFpgaUart : public Fesvr {
     public:
         FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, int brate);
         size_t read(size_t addr);
         int write(size_t addr, size_t content);
         void setLoopback(bool en) {loopbackEn = en;};
         void reset();
+        //int loadElf(char* file, size_t addr);
+        //int run();
         
     private:
         TsiFpgaUart* port;
         bool loopbackEn;
 };
+
+int read(FesvrFpgaUart *svr, size_t addr, uint32_t *content, size_t size);
+int write(FesvrFpgaUart *svr, size_t addr, uint32_t *content, size_t size);
+int loadElf(FesvrFpgaUart *svr, char* file, size_t addr);
+int run(FesvrFpgaUart *svr);
 
 #endif

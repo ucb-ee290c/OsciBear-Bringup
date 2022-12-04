@@ -19,7 +19,7 @@ module tsiToUart #(
     wire uart_fire, uart_idle, sreg_isOut, sreg_out;
     assign uart_tx = (packet_counter_Q == 0) ? uart_idle : ((packet_counter_Q == 9) ? 1'b1 : sreg_out);
     assign uart_fire = (countdown_Q == BAUD_CYCLE);
-    assign tl_in_rd = !sreg_isOut;
+    assign tl_in_rd = !sreg_isOut || (sreg_isOut && tl_in_valid);
     assign uart_idle = (packet_counter_Q == 0) && !sreg_isOut && (countdown_Q == 16'd0);
 
     RegInit #(.WIDTH(4), .INIT(0)) 

@@ -18,6 +18,11 @@ module uartToTsi #(
     wire [3-1:0] packet_counter_D, packet_counter_Q;
     wire [16-1:0] countdown_Q;
     wire uart_fire, uart_fall, uart_idle;
+    reg reg_tl_out_rd;
+    always @(posedge clk) begin
+        reg_tl_out_rd <= tl_out_rd;
+    end
+    
     assign uart_fire = (packet_counter_Q == 0) ? (countdown_Q == BAUD_CYCLE*3/2) : (countdown_Q == BAUD_CYCLE);
 
     assign uart_idle = (packet_counter_Q == 3'd0) & (!uart_fall && (countdown_Q == 16'd0));
@@ -45,7 +50,7 @@ module uartToTsi #(
     shiftReg #(.IN_WIDTH(BYTE_WIDTH*8), .OUT_WIDTH(WIDTH), .D_WIDTH(BYTE_WIDTH*8)) 
     sreg0(
         .clk(clk), .rst(rst), 
-        .en(tl_out_valid ? (tl_rising_clk & tl_out_rd) : uart_fire), 
+        .en(tl_out_valid ? (tl_rising_clk & reg_tl_out_rd) : uart_fire), 
         .D(uart_rx),
 
         .mode(tl_out_valid), // 0: shifting in, 1: shifting out

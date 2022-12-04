@@ -1,10 +1,10 @@
 -- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
--- Date        : Sat Oct  8 04:48:22 2022
+-- Date        : Thu Dec  1 21:47:36 2022
 -- Host        : hongyihuang-HP-Tower running 64-bit Ubuntu 22.04.1 LTS
 -- Command     : write_vhdl -force -mode funcsim
---               /home/hongyihuang/Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.vhdl
+--               /home/hongyihuang/Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.vhdl
 -- Design      : clk_wiz_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -88,7 +88,7 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 83.333000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 30.000000,
+      CLKOUT0_DIVIDE_F => 60.000000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,

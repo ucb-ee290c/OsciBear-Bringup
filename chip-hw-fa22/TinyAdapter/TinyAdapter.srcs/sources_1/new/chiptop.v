@@ -29,7 +29,7 @@ module chiptop (
     
     // TileLink
     // Clock signal
-    input tl_clk,
+    //input tl_clk,
     // FPGA to testchip link
     output tl_out_valid,
     input tl_out_rd,
@@ -40,18 +40,18 @@ module chiptop (
     input tl_in_data,
     // RESET is high when TSI/UART packets are all one
     output dutReset,
-    output CLK20MHZ,
+    output CLKSRC,
     output [0:0] led
 );
     wire tl_rising_clk, rst, triggerReset, CLK100MHZ;
     assign rst = rstBtn || dutReset;
     assign led[0] = rst;
-    ila_0(  .clk(CLK100MHZ), .probe0(tl_rising_clk), .probe1(uart_rx),
+    ila_0(  .clk(CLK100MHZ), .probe0(CLKSRC), .probe1(uart_rx),
             .probe2(uart_tx), .probe3(tl_clk), .probe4(tl_out_valid),
             .probe5(tl_out_rd), .probe6(tl_out_data), .probe7(tl_in_valid),
             .probe8(tl_in_rd), .probe9(tl_in_data));
             
-    clk_wiz_0(.clk_in1(CLK12MHZ), .clk_out1(CLK20MHZ), .clk_out2(CLK100MHZ));
+    clk_wiz_0(.clk_in1(CLK12MHZ), .clk_out1(CLKSRC), .clk_out2(CLK100MHZ));
     /*
     assign uart_tx = tx_reg;
     always @(posedge CLK100MHZ) begin
@@ -86,7 +86,7 @@ module chiptop (
     EdgeDetector tlClkEdge (
         .clk(CLK100MHZ),
         .rst(rst),
-        .in(tl_clk),
+        .in(CLKSRC),
         .rising(tl_rising_clk)
         //.falling(),
     );
