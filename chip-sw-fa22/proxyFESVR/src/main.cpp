@@ -5,15 +5,15 @@
 
 int main() {
     /* Configure with OsciBear Memory Parameters & comport
-     * FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, baurrate);
+     * FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, int brate);
      * Comport designation see: https://github.com/FlorianBauer/rs232
      */
-    FesvrFpgaUart fesvr(4, 4, 32, 8, 17, 2000000);
+    FesvrFpgaUart osci(4, 4, 35, 8, 17, 2000000);
     uint32_t content;
     printf("Resetting adapter and flushing RXTX\n");
     // Disable test mode, this is for internal FPGA logic testing. 
-    fesvr.setLoopback(false);
-    fesvr.reset();
+    osci.setLoopback(false);
+    osci.reset();
 
     printf("Begin program...\n");
     // This is useful if you want to halt to debug a specific TSI command on the FPGA
@@ -30,38 +30,43 @@ int main() {
     */
     
     /* Exercise 1 */
-    /*
     for (size_t i = 0; i < 4; i++) {
-        content = fesvr.read(BOOTROM_BASE + 4*i);
+        content = osci.read(BOOTROM_BASE + 4*i);
         printf("Read at BOOTROM_BASE + %lX complete, recieved 0x%X \n", i*4, content);
     }
-    */
+    for (size_t i = 0; i < 4; i++) {
+        content = osci.read(DTIM_BASE + 4*i);
+        printf("Read at DTIM_BASE + %lX complete, recieved 0x%X \n", i*4, content);
+    }
+    
 
     /* Excecise 2: replace the following code with a visual bell. */
     printf("Toggling GPIO 0 pin high \n");
-    fesvr.write(GPIO_BASE + 0xC, 1);
-    fesvr.write(GPIO_BASE + 0x8, 1);
-
+    osci.write(GPIO_BASE + 0xC, 1);
+    osci.write(GPIO_BASE + 0x8, 1);
 
     /* Excercise 3: Running program */
     printf("Setting flag at DTIM_RET \n");
-    fesvr.write(DTIM_RET, 0);
+    osci.write(DTIM_RET, 0);
     printf("Trying to read back to confirm results \n");
-    content = fesvr.read(DTIM_RET);
+    content = osci.read(DTIM_RET);
     printf("Read %X from DTIM_RET \n", content);
 
     printf("Loading and running... \n");
-    loadElf(&fesvr, "../osci/firmware.bin", DTIM_BASE);
-    run(&fesvr);
+    loadElf(&osci, "../osci/firmware.bin", DTIM_BASE);
+    run(&osci);
 
     content = 0;
     while (content == 0) {
         sleep(1);
-        content = fesvr.read(DTIM_RET);
+        content = osci.read(DTIM_RET);
         printf("Poll got %X\n", content);
     }
 
     printf("Finished running, got %X \n", content);
-    //printf("%X \n", fesvr.read(DTIM_RET + 4));
+    //printf("%X \n", osci.read(DTIM_RET + 4));
     // When multithreading, these ret pointers are at the next word.
+
+    //FesvrFpgaUart bearly(4, 4, 35, 8, 18, 2000000);
+    
 }

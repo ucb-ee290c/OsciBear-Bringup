@@ -17,7 +17,10 @@ module uartToTsi #(
     localparam BYTE_WIDTH = (WIDTH-1)/8 + 1;
     wire [3-1:0] packet_counter_D, packet_counter_Q;
     wire [16-1:0] countdown_Q;
-    wire uart_fire, uart_fall, uart_idle;
+    wire uart_fire, uart_fall, uart_idle, mode;
+    assign tl_out_valid = mode || (!mode && tl_out_rd);
+
+    // Delay input ready signal by one edge so it looks like a clocked signal. 
     reg reg_tl_out_rd;
     always @(posedge clk) begin
         reg_tl_out_rd <= tl_out_rd;
@@ -50,10 +53,10 @@ module uartToTsi #(
     shiftReg #(.IN_WIDTH(BYTE_WIDTH*8), .OUT_WIDTH(WIDTH), .D_WIDTH(BYTE_WIDTH*8)) 
     sreg0(
         .clk(clk), .rst(rst), 
-        .en(tl_out_valid ? (tl_rising_clk & reg_tl_out_rd) : uart_fire), 
+        .en(mode ? (tl_rising_clk & reg_tl_out_rd) : uart_fire), 
         .D(uart_rx),
 
-        .mode(tl_out_valid), // 0: shifting in, 1: shifting out
+        .mode(mode), // 0: shifting in, 1: shifting out
         .Q(tl_out_data),
         .RESET(RESET)
     );

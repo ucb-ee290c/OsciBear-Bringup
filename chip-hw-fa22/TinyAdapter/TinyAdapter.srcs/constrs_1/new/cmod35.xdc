@@ -23,14 +23,14 @@ set_property -dict { PACKAGE_PIN A18   IOSTANDARD LVCMOS33 } [get_ports { rstBtn
 
 
 ## Pmod Header JA
-set_property -dict { PACKAGE_PIN G17   IOSTANDARD LVCMOS33 } [get_ports { CLKSRC }]; #IO_L5N_T0_D07_14 Sch=ja[1]
-set_property -dict { PACKAGE_PIN G19   IOSTANDARD LVCMOS33 } [get_ports { tl_out_rd }]; #IO_L4N_T0_D05_14 Sch=ja[2]
-set_property -dict { PACKAGE_PIN N18   IOSTANDARD LVCMOS33 } [get_ports { tl_out_valid }]; #IO_L9P_T1_DQS_14 Sch=ja[3]
-set_property -dict { PACKAGE_PIN L18   IOSTANDARD LVCMOS33 } [get_ports { tl_out_data }]; #IO_L8P_T1_D11_14 Sch=ja[4]
-set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { tl_in_rd }]; #IO_L5P_T0_D06_14 Sch=ja[7]
-set_property -dict { PACKAGE_PIN H19   IOSTANDARD LVCMOS33 } [get_ports { tl_in_valid }]; #IO_L4P_T0_D04_14 Sch=ja[8]
-set_property -dict { PACKAGE_PIN J19   IOSTANDARD LVCMOS33 } [get_ports { tl_in_data }]; #IO_L6N_T0_D08_VREF_14 Sch=ja[9]
-set_property -dict { PACKAGE_PIN K18   IOSTANDARD LVCMOS33 } [get_ports { dutReset }]; #IO_L8N_T1_D12_14 Sch=ja[10]
+set_property -dict { PACKAGE_PIN G17   IOSTANDARD LVCMOS33 } [get_ports { tl_in_rd }]; #IO_L5N_T0_D07_14 Sch=ja[1]
+set_property -dict { PACKAGE_PIN G19   IOSTANDARD LVCMOS33 } [get_ports { tl_in_valid }]; #IO_L4N_T0_D05_14 Sch=ja[2]
+set_property -dict { PACKAGE_PIN N18   IOSTANDARD LVCMOS33 } [get_ports { tl_in_data }]; #IO_L9P_T1_DQS_14 Sch=ja[3]
+set_property -dict { PACKAGE_PIN L18   IOSTANDARD LVCMOS33 } [get_ports { dutReset }]; #IO_L8P_T1_D11_14 Sch=ja[4]
+set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { tl_out_rd }]; #IO_L5P_T0_D06_14 Sch=ja[7]
+set_property -dict { PACKAGE_PIN H19   IOSTANDARD LVCMOS33 } [get_ports { tl_out_valid }]; #IO_L4P_T0_D04_14 Sch=ja[8]
+set_property -dict { PACKAGE_PIN J19   IOSTANDARD LVCMOS33 } [get_ports { tl_out_data }]; #IO_L6N_T0_D08_VREF_14 Sch=ja[9]
+set_property -dict { PACKAGE_PIN K18   IOSTANDARD LVCMOS33 } [get_ports { CLKSRC }]; #IO_L8N_T1_D12_14 Sch=ja[10]
 
 
 # Analog XADC Pins

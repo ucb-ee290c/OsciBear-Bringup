@@ -112,7 +112,7 @@ size_t FesvrFpgaUart::read(size_t addr) {
 
 int FesvrFpgaUart::write(size_t addr, size_t content) {
     struct TsiPacket tx, rx;
-    tx.type = PutFullData;
+    tx.type = PutPartialData;
     tx.size = 2u;
     tx.source = 0u;
     tx.mask = 0b00001111u;

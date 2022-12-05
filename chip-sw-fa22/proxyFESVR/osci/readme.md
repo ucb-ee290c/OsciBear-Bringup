@@ -46,7 +46,7 @@ In your host code
 
 ## 4: "Not for the faint of heart"
 ### Part 1
-Writing your own campanile program using the HAL library, this time, flash both `GPIO_0` and `GPIO_1` pins high or low in the same second. 
+Writing your own campanile program using the [HAL](https://github.com/ucberkeley-ee290c/HAL/blob/main/firmware/README.md) library, this time, flash both `GPIO_0` and `GPIO_1` pins high or low in the same second. 
 
 ### Part 2
 Test both UART_TX and SPI functionality through whatever means you think is best. Are both working? If any of it is not working, is it fixable? How do we not mess up again? 
