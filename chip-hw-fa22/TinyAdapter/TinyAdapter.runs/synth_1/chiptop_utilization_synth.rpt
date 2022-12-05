@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.1 (lin64) Build 3526262 Mon Apr 18 15:47:01 MDT 2022
-| Date         : Sat Dec  3 17:21:16 2022
+| Date         : Sun Dec  4 23:21:57 2022
 | Host         : hongyihuang-HP-Tower running 64-bit Ubuntu 22.04.1 LTS
 | Command      : report_utilization -file chiptop_utilization_synth.rpt -pb chiptop_utilization_synth.pb
 | Design       : chiptop
