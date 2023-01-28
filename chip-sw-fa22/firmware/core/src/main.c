@@ -187,11 +187,14 @@ int main() {
 
   //  baseband_set_lut(uint8_t lut, uint8_t address, uint32_t value)
   // Initialize all the LO LUT entries with a linspace of values
-  //baseband_set_lut(LUT_LOCT, 0, 0xFF);
-  //baseband_set_lut(LUT_LOCT, 63, 0x00);
+  baseband_set_lut(LUT_LOCT, 0, (uint8_t)128);
+  // Set the LUT_LOFSK values to a linear ramp
+  for (int i = 0; i < 64; i++) {
+    baseband_set_lut(LUT_LOFSK, i, (uint8_t)255);
+  }
 
   //void ble_configure(uint8_t target, uint32_t value)
-  //ble_configure(BASEBAND_CONFIG_CHANNEL_INDEX, 0);
+  ble_configure(BASEBAND_CONFIG_CHANNEL_INDEX, 0);
   /*
   for(int i = 0; i < 63; i++) {
     baseband_set_lut(LUT_LOCT, i, 0x00);
@@ -209,6 +212,10 @@ int main() {
 
   //uint32_t timer = 0;
   //  uint16_t cur_channel = 1;
+
+  sprintf(str, "I'm alive!\n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
   while (1) {
 
 /*
