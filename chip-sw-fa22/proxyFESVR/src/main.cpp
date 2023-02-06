@@ -8,7 +8,7 @@ int main() {
      * FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, int brate);
      * Comport designation see: https://github.com/FlorianBauer/rs232
      */
-    FesvrFpgaUart osci(4, 4, 35, 8, 17, 2000000);
+    FesvrFpgaUart osci(4, 4, 32, 8, 17, 2000000);
     uint32_t content;
     printf("Resetting adapter and flushing RXTX\n");
     // Disable test mode, this is for internal FPGA logic testing. 

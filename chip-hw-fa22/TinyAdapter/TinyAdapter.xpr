@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="60" Path="/home/hongyihuang/Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.xpr">
+<Project Version="7" Minor="60" Path="/home/hongyihuang/Documents/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="281f7c6027d3447cbbdcf7f41625474d"/>
@@ -46,7 +46,7 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
-    <Option Name="IPOutputRepo" Val="/home/hongyihuang/Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.cache/ip"/>
+    <Option Name="IPOutputRepo" Val="$PPRDIR/ip"/>
     <Option Name="IPDefaultOutputPath" Val="$PGENDIR/sources_1"/>
     <Option Name="IPCachePermission" Val="read"/>
     <Option Name="IPCachePermission" Val="write"/>
@@ -130,14 +130,14 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/bearlyTop.v">
+      <File Path="$PSRCDIR/sources_1/new/osciTop.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/osciTop.v">
+      <File Path="$PSRCDIR/sources_1/new/bearlyTop.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -155,7 +155,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="bearlyTop"/>
+        <Option Name="TopModule" Val="osciTop"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -210,7 +210,6 @@
     <FileSet Name="clk_wiz_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clk_wiz_0" RelGenDir="$PGENDIR/clk_wiz_0">
       <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -263,6 +262,7 @@
     <FileSet Name="clk_wiz_1" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clk_wiz_1" RelGenDir="$PGENDIR/clk_wiz_1">
       <File Path="$PSRCDIR/sources_1/ip/clk_wiz_1/clk_wiz_1.xci">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -296,7 +296,7 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="19">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a35ticsg324-1L" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1/chiptop.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7a35ticsg324-1L" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="true" IncrementalCheckpoint="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1/chiptop.dcp" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -308,7 +308,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_synth_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_synth_1">
+    <Run Id="clk_wiz_0_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
@@ -317,68 +317,43 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_0_synth_1" Type="Ft3:Synth" SrcSet="ila_0" Part="xc7a35ticsg324-1L" ConstrsSet="ila_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ila_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_synth_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_synth_1">
+    <Run Id="ila_0_synth_1" Type="Ft3:Synth" SrcSet="ila_0" Part="xc7a35ticsg324-1L" ConstrsSet="ila_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_1_synth_1" Type="Ft3:Synth" SrcSet="ila_1" Part="xc7a35ticsg324-1L" ConstrsSet="ila_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ila_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_synth_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_synth_1">
+    <Run Id="ila_1_synth_1" Type="Ft3:Synth" SrcSet="ila_1" Part="xc7a35ticsg324-1L" ConstrsSet="ila_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_2_synth_1" Type="Ft3:Synth" SrcSet="ila_2" Part="xc7a35ticsg324-1L" ConstrsSet="ila_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ila_2_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_synth_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_synth_1">
+    <Run Id="ila_2_synth_1" Type="Ft3:Synth" SrcSet="ila_2" Part="xc7a35ticsg324-1L" ConstrsSet="ila_2" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="clk_wiz_1_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_1" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/clk_wiz_1_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_1_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_1_synth_1">
+    <Run Id="clk_wiz_1_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_1" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_1" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_1_synth_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_1_synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a35tcpg236-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1">
-      <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
-        <Step Id="init_design"/>
-        <Step Id="opt_design"/>
-        <Step Id="power_opt_design"/>
-        <Step Id="place_design"/>
-        <Step Id="post_place_power_opt_design"/>
-        <Step Id="phys_opt_design"/>
-        <Step Id="route_design"/>
-        <Step Id="post_route_phys_opt_design"/>
-        <Step Id="write_bitstream"/>
-      </Strategy>
-      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2022"/>
-      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
-      <RQSFiles/>
-    </Run>
-    <Run Id="clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_impl_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_impl_1">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7a35tcpg236-1" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
@@ -395,7 +370,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_impl_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_impl_1">
+    <Run Id="clk_wiz_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_0_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
@@ -412,7 +387,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_1_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_impl_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_impl_1">
+    <Run Id="ila_0_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_0_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
@@ -429,7 +404,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="ila_2_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_impl_1" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_impl_1">
+    <Run Id="ila_1_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_1_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
@@ -446,7 +421,24 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="impl_bearly" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_bearly" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1/impl_bearly" AutoRQSDir="$PPRDIR/../../../../osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1/impl_bearly">
+    <Run Id="ila_2_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="ila_2" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ila_2_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/ila_2_impl_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2022"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="impl_bearly" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="constrs_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" State="current" Dir="$PRUNDIR/impl_bearly" SynthRun="synth_1" IncludeInArchive="true" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1/impl_bearly" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/impl_1/impl_bearly">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
           <Desc>Default settings for Implementation.</Desc>
@@ -471,8 +463,8 @@
         </ReportConfig>
         <ReportConfig DisplayName="DRC - Opt Design" Name="impl_bearly_opt_report_drc_0" Spec="report_drc" RunStep="opt_design" ReportFile="bearlyTop_drc_opted.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_drc_opted.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_drc_opted.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Timing Summary - Opt Design" Name="impl_bearly_opt_report_timing_summary_0" Spec="report_timing_summary" RunStep="opt_design" Version="1" Minor="0" IsDisabled="true">
           <ReportConfigOption Name="max_paths" Type="" Value="10"/>
@@ -525,28 +517,28 @@
         </ReportConfig>
         <ReportConfig DisplayName="DRC - Route Design" Name="impl_bearly_route_report_drc_0" Spec="report_drc" RunStep="route_design" ReportFile="bearlyTop_drc_routed.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_drc_routed.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_drc_routed.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Methodology - Route Design" Name="impl_bearly_route_report_methodology_0" Spec="report_methodology" RunStep="route_design" ReportFile="bearlyTop_methodology_drc_routed.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_methodology_drc_routed.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_methodology_drc_routed.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Power - Route Design" Name="impl_bearly_route_report_power_0" Spec="report_power" RunStep="route_design" ReportFile="bearlyTop_power_routed.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_power_summary_routed.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_power_routed.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Route Status - Route Design" Name="impl_bearly_route_report_route_status_0" Spec="report_route_status" RunStep="route_design" ReportFile="bearlyTop_route_status.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_route_status.pb"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Timing Summary - Route Design" Name="impl_bearly_route_report_timing_summary_0" Spec="report_timing_summary" RunStep="route_design" ReportFile="bearlyTop_timing_summary_routed.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="max_paths" Type="" Value="10"/>
           <ReportConfigOption Name="report_unconstrained" Type="" Value="true"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_timing_summary_routed.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_timing_summary_routed.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Incremental Reuse - Route Design" Name="impl_bearly_route_report_incremental_reuse_0" Spec="report_incremental_reuse" RunStep="route_design" ReportFile="bearlyTop_incremental_reuse_routed.rpt" Version="1" Minor="0">
           <ReportConfigOption Name="dummy_option" Type="string"/>
@@ -556,8 +548,8 @@
         </ReportConfig>
         <ReportConfig DisplayName="Bus Skew - Route Design" Name="impl_bearly_route_report_bus_skew_0" Spec="report_bus_skew" RunStep="route_design" ReportFile="bearlyTop_bus_skew_routed.rpt" Version="1" Minor="1">
           <ReportConfigOption Name="warn_on_violation" Type="" Value="true"/>
-          <ReportConfigOutputOption Name="pb" Type="string" Value="bearlyTop_bus_skew_routed.pb"/>
-          <ReportConfigOutputOption Name="rpx" Type="string" Value="bearlyTop_bus_skew_routed.rpx"/>
+          <ReportConfigOutputOption Name="pb" Type="string" Value=""/>
+          <ReportConfigOutputOption Name="rpx" Type="string" Value=""/>
         </ReportConfig>
         <ReportConfig DisplayName="Timing Summary - Post-Route Phys Opt Design" Name="impl_bearly_post_route_phys_opt_report_timing_summary_0" Spec="report_timing_summary" RunStep="post_route_phys_opt_design" Version="1" Minor="0">
           <ReportConfigOption Name="max_paths" Type="" Value="10"/>
@@ -581,11 +573,9 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="clk_wiz_1_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_1_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_1_impl_1">
+    <Run Id="clk_wiz_1_impl_1" Type="Ft2:EntireDesign" Part="xc7a35ticsg324-1L" ConstrsSet="clk_wiz_1" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_1_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_1_impl_1" AutoRQSDir="$PPRDIR/../../../../Desktop/Berkeley/bringup/osci-bringup-tl3/osci-bringup/chip-hw-fa22/TinyAdapter/TinyAdapter.srcs/utils_1/imports/clk_wiz_1_impl_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>

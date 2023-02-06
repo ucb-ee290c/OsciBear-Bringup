@@ -29,7 +29,7 @@ module osciTop (
     
     // TileLink
     // Clock signal
-    //input tl_clk,
+    // input tl_clk,
     // FPGA to testchip link
     output tl_out_valid,
     input tl_out_rd,
