@@ -3,11 +3,11 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("proxyFESVR")
+project ("fesvr")
 
 # Add source to this project's executable.
 add_executable (
-	proxyFESVR 
+	fesvr
 	"main.cpp" 
 	"fesvr.cpp"
 	"fesvr.h"
@@ -19,7 +19,5 @@ add_executable (
 )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET proxyFESVR PROPERTY CXX_STANDARD 11)
+  set_property(TARGET fesvr PROPERTY CXX_STANDARD 11)
 endif()
-
-# TODO: Add tests and install targets if needed.
