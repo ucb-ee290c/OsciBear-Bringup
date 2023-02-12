@@ -29,7 +29,7 @@
 #define TSI_HEADER_LEN 9u
 #define TSI_UART_BDRATE 2000000 /* 2000000 baud */
 
-enum TsiMsg {Get, AccessAckData, PutFullData, PutPartialData, AccessAck, Unknown};
+enum class TsiMsg {Get, AccessAckData, PutFullData, PutPartialData, AccessAck, Unknown};
 //enum TestMode {swLoopback, hwLoopback, oneWay};
 
 /* TsiPacket is the packet that is not serialized, should max size in 64 bit RISC-V cores. 
@@ -77,7 +77,7 @@ class Tsi {
         virtual size_t bufferByteLength() = 0;
 
         virtual int serialize(TsiPacket packet) = 0;
-        virtual TsiPacket deserialize() {};
+        virtual TsiPacket deserialize() { return TsiPacket(); };
 };
 
 /**

@@ -8,8 +8,34 @@ Current structure is main -> fesvr -> tsi -> driver lib, where fesvr and tsi cla
 
 ## General Notes
  - After cloning, use `git submodule update --init --recursive` to init the rs232 submodule.
- - `make clean` and then `make all` under `./src` after modifying `main.cpp`, then run `./fesvr`. 
- - USB ports may change if you've connected to multiple USB devices, to map to the correct comport when initializing fesvr, see `readme.md` in `./rs232`.
+
+ ### Linux / MacOS
+
+- To build the project make sure you have cmake installed.
+    ```
+    sudo apt-get install cmake
+    ```
+- Make a folder to contain the build artifacts (CMake-generated Makefile, binaries, etc)
+    ```
+    mkdir out
+    ```
+- Generate build artifacts
+    ```
+    cd out && cmake ..
+    ```
+- From now on, to build the project all you need is to run `make` and run the app
+    ```
+    make
+    ./fesvr
+    ```
+
+### Windows
+
+Visual Studio 2017+ supports CMake, where you can simply open the `src/` folder in Visual Studio and it will recognize and setup the CMake project.
+
+A full guide to Visual Studio's CMake functionality can be found here: https://learn.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-170
+
+However, it's generally as simple as opening the folder, waiting a moment for the cache to generate, then  under the green play button "Select Startup Item" select "fesvr.exe" and then click the green play button to run the project.
 
 ## Hardware Implementations
 Different hardware implementations require different driver code, and may have different capabilities. Currently we have an TLAdapter on FPGA and microcontroller. 

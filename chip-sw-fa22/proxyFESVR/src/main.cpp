@@ -58,7 +58,11 @@ int main() {
 
     content = 0;
     while (content == 0) {
+        #ifdef _WIN64
+        Sleep(1);
+        #else
         sleep(1);
+        #endif
         content = osci.read(DTIM_RET);
         printf("Poll got %X\n", content);
     }

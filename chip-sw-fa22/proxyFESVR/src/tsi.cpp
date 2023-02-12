@@ -190,22 +190,22 @@ int TsiFpgaUart::writeDriver() {
 uint16_t TsiMsg_getHeader(TsiMsg type) {
     uint16_t header;
     switch(type) {
-        case Get:
+        case TsiMsg::Get:
             header = TSI_HEADER_GET;
             break;
-        case AccessAckData:
+        case TsiMsg::AccessAckData:
             header = TSI_HEADER_ACCESSACKDATA;
             break;
-        case PutFullData:
+        case TsiMsg::PutFullData:
             header = TSI_HEADER_PUTFULLDATA;
             break;
-        case PutPartialData:
+        case TsiMsg::PutPartialData:
             header = TSI_HEADER_PUTPARTIALDATA;
             break;
-        case AccessAck:
+        case TsiMsg::AccessAck:
             header = TSI_HEADER_ACCESSACK;
             break;
-        case Unknown:
+        case TsiMsg::Unknown:
             throw "Cannot get header of TsiMsg: Unknown";
             break;
     }
@@ -216,21 +216,21 @@ TsiMsg TsiMsg_getType(uint16_t header) {
     TsiMsg type;
     switch(header) {
         case TSI_HEADER_GET:
-            type = Get;
+            type = TsiMsg::Get;
             break;
         case TSI_HEADER_ACCESSACKDATA:
-            type = AccessAckData;
+            type = TsiMsg::AccessAckData;
             break;
         case TSI_HEADER_PUTFULLDATA:
-            type = PutFullData;
+            type = TsiMsg::PutFullData;
             break;
         case TSI_HEADER_PUTPARTIALDATA:
-            type = PutPartialData;
+            type = TsiMsg::PutPartialData;
             break;
         case TSI_HEADER_ACCESSACK:
-            type = AccessAck;
+            type = TsiMsg::AccessAck;
             break;
-        type = Unknown;
+        type = TsiMsg::Unknown;
     }
     return type;
 }
@@ -276,7 +276,7 @@ uint64_t get_uint64_from_buffer(uint8_t *buffer, size_t bitOffset, size_t bits) 
 }
 
 bool TsiPacket_isValidMsg(TsiPacket packet) {
-    return (packet.type != Unknown) & (!packet.corrupt);
+    return (packet.type != TsiMsg::Unknown) & (!packet.corrupt);
     // Todo: look into the type of message and check if the size and mask makes sense.
 }
 
