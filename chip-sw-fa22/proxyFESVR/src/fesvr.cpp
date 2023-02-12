@@ -9,12 +9,14 @@ int read(FesvrFpgaUart *svr, size_t addr, uint32_t *content, size_t size) {
     for (size_t i = 0; i < size; i++) {
         content[i] = svr->read(addr + (i*4));
     }
+    return 0;
 }
 
 int write(FesvrFpgaUart *svr, size_t addr, uint32_t *content, size_t size) {
     for (size_t i = 0; i < size; i++) {
         svr->write(addr + (i*4), content[i]);
     }
+    return 0;
 }
 
 int loadElf(FesvrFpgaUart *svr, char* filename, size_t addr) {
@@ -70,6 +72,7 @@ int run(FesvrFpgaUart *svr) {
     printf("WRITING INTO CLINT_BASE... ");
     svr->write(CLINT_BASE, 0xFFFF);
     printf("If the program has begin running, this should be 0:  0x%X \n", svr->read(CLINT_BASE));
+    return 0;
 }
 
 FesvrFpgaUart::FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigned comport, int brate) {
@@ -79,7 +82,7 @@ FesvrFpgaUart::FesvrFpgaUart(uint8_t z, uint8_t o, uint8_t a, uint8_t w, unsigne
 
 size_t FesvrFpgaUart::read(size_t addr) {
     struct TsiPacket tx, rx;
-    tx.type = Get;
+    tx.type = TsiMsg::Get;
     tx.size = 2u;
     tx.source = 0u;
     tx.mask = 0b00001111u;
@@ -103,7 +106,7 @@ size_t FesvrFpgaUart::read(size_t addr) {
         } else {
             printf("Loopback read success.\n");
         }
-    } else if (rx.type != AccessAckData) {
+    } else if (rx.type != TsiMsg::AccessAckData) {
         
         printf("Error: Get did not respond with AccessAckData\n!");
     }
@@ -114,7 +117,7 @@ int FesvrFpgaUart::write(size_t addr, size_t content) {
     struct TsiPacket tx, rx;
     // For Osci use PutPartialData
     // Unknown for Bearly & SCUM
-    tx.type = PutPartialData;
+    tx.type = TsiMsg::PutPartialData;
     tx.size = 2u;
     tx.source = 0u;
     tx.mask = 0b00001111u;
@@ -135,7 +138,7 @@ int FesvrFpgaUart::write(size_t addr, size_t content) {
         } else {
             printf("Loopback write success.\n");
         }
-    } else if (rx.type != AccessAck) {
+    } else if (rx.type != TsiMsg::AccessAck) {
         printf("Error: PutFullData did not respond with AccessAck\n");
     }
     return 0;
