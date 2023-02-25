@@ -174,13 +174,13 @@ int main() {
 
   HAL_UART_init(UART0, &UART_init_config);
   HAL_GPIO_init(GPIOA, GPIO_PIN_0);
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 1);
 
   // HAL_delay(2000);
 
   // set tuning trim G0 0th bit 1
-  CLEAR_BITS(*(uint8_t *)BASEBAND_TRIM_G0, 0b1);
-  sprintf(str, "TRIM G0 value: %x\n", *(uint8_t *)BASEBAND_TRIM_G0);
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+ 
+  
 
   // Payload is <header><data>, where data is "TEST DATA FOR BASEBAND!"
   uint8_t payload[]  = {0x1, 0x17, 0x54, 0x45, 0x53, 0x54, 0x20, 0x44, 0x41, 0x54, 0x41, 0x20, 0x46, 0x4f, 0x52, 0x20, 0x42, 0x41, 0x53, 0x45, 0x42, 0x41, 0x4e, 0x44, 0x21};
@@ -195,6 +195,61 @@ int main() {
 
   //void ble_configure(uint8_t target, uint32_t value)
   ble_configure(BASEBAND_CONFIG_CHANNEL_INDEX, 0);
+
+  CLEAR_BITS(*(uint8_t *)BASEBAND_TRIM_G0, 0b1);
+
+  // set bit 0 of BASEBAND_TRIM_G7 to 1
+  // this is the bit that enables the mux_dbg_out
+  *(uint8_t *)BASEBAND_TRIM_G7 = 0b1;
+  
+  
+  uint32_t mux_dbg_out = (0b1 << 2) | (0b11111 << 16) | (0b11111 << 24);
+  *(uint32_t *)BASEBAND_MUX_DBG_OUT = mux_dbg_out;
+  *(uint8_t *)BASEBAND_MIXER_R1_R0 = 0x0;
+  *(uint8_t *)BASEBAND_MIXER_R3_R2 = 0x0;
+  *(uint16_t *)BASEBAND_I_VGA_ATTEN_VALUE = (1 << 9);
+  ble_receive(0x80004000);
+  
+  uint8_t mixer_r0_r1 = 0;
+  uint8_t mixer_r2_r3 = 0;
+  // sweep mixer r0 r1 through 0b0000 to 0b1111
+  /*
+  while(1) {
+    for(int i = 0; i < 16; i++) {
+      mixer_r0_r1 = i | (i << 4);
+      *(uint8_t *)BASEBAND_MIXER_R1_R0 = mixer_r0_r1;
+      mixer_r2_r3 = i | (i << 4);
+      *(uint8_t *)BASEBAND_MIXER_R3_R2 = mixer_r2_r3;;
+      sprintf(str, "current iteration: %d\n", i);
+      HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+      HAL_delay(1000);
+    }
+  }
+  */
+
+  // For the BPF there are 5 unique sets of resistor trim values
+  // r0 r1 - High pass filter zero
+  // r2 r3 - High pass filter zero
+  // r4 r5 - 
+  // r6 r9
+  // r7 r8
+  
+
+  // switch back and forth between 0 and 1 in bit 9
+  //#define BASEBAND_I_VGA_ATTEN_VALUE 0x8026
+  
+  uint8_t state = 0;
+  while(1) {
+    sprintf(str, "%d\n", state);
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    HAL_delay(2000);
+  }
+  
+  
+  *(uint32_t *)BASEBAND_MUX_DBG_OUT = mux_dbg_out;
+
+  // print out mux_dbg_out
+  sprintf(str, "mux_dbg_out (0x4C): %.8x\n", mux_dbg_out);
   /*
   for(int i = 0; i < 63; i++) {
     baseband_set_lut(LUT_LOCT, i, 0x00);
@@ -231,7 +286,7 @@ int main() {
 
     // sprintf(str, "Sending payload to baseband...\n");
     // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    ble_send((uint32_t) payload, sizeof(payload));
+    //ble_send((uint32_t) payload, sizeof(payload));
     /*
     // Channel switching 
     if(timer > 200000) {
