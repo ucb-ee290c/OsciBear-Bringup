@@ -164,17 +164,25 @@ void plic_complete_irq(uint32_t hart_id, uint32_t irq_id){
   plic_ctx_controls[hart_id].claim_complete = irq_id;
 }
 
+#define ADC_BUF_SIZE 2048
+//uint8_t adc_i_buf[ADC_BUF_SIZE];
+uint8_t adc_q_buf[ADC_BUF_SIZE];
 
 int main() {
   HAL_init();
 
   UART_InitTypeDef UART_init_config;
-  UART_init_config.baudrate = 10000;
-
+  UART_init_config.baudrate = 100000;
+  
 
   HAL_UART_init(UART0, &UART_init_config);
   HAL_GPIO_init(GPIOA, GPIO_PIN_0);
-  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 1);
+  HAL_GPIO_init(GPIOA, GPIO_PIN_1);
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
+
+  sprintf(str, "Hi :) \n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 
   // HAL_delay(2000);
 
@@ -201,17 +209,54 @@ int main() {
   // set bit 0 of BASEBAND_TRIM_G7 to 1
   // this is the bit that enables the mux_dbg_out
   *(uint8_t *)BASEBAND_TRIM_G7 = 0b1;
+
+  // Definitively turns off the Analog Test 2 as an input
+  uint8_t analog_test_2_input_en = 0b0;
+  uint8_t rfclock_sel = 0b0;
+  *(uint8_t *)BASEBAND_TRIM_G0 = (rfclock_sel << 5) | (analog_test_2_input_en << 4);
+
+  // Enable the DCOC
+  *(uint8_t *)BASEBAND_I_DCO_USE_DCO = 0b0;
+  *(uint8_t *)BASEBAND_Q_DCO_USE_DCO = 0b0;
+  // Set the current DACS T0 T1 T2 and T3
+  // Current DACs are used to tune a DC offset
+  *(uint8_t *)BASEBAND_DAC_T0 = 0b0;
+  *(uint8_t *)BASEBAND_DAC_T1 = 0b0; 
+  *(uint8_t *)BASEBAND_DAC_T2 = 0b0;
+  *(uint8_t *)BASEBAND_DAC_T3 = 0b0;
   
-  
-  uint32_t mux_dbg_out = (0b1 << 2) | (0b11111 << 16) | (0b11111 << 24);
+  uint32_t mux_dbg_out = (0b0 << 0) | (0b00000 << 16) | (0b00000 << 24);
   *(uint32_t *)BASEBAND_MUX_DBG_OUT = mux_dbg_out;
-  *(uint8_t *)BASEBAND_MIXER_R1_R0 = 0x0;
-  *(uint8_t *)BASEBAND_MIXER_R3_R2 = 0x0;
-  *(uint16_t *)BASEBAND_I_VGA_ATTEN_VALUE = (1 << 9);
+  // mux_dbg_in 10 bits
+  // mux_dbg_in[0] - Into 1st VGA I
+  // mux_dbg_in[1] - Into BPF I
+  // mux_dbg_in[2] - Into 2nd VGA I
+  // mux_dbg_in[3] - Into ADC I
+  // mux_dbg_in[4] - Into 1st VGA Q
+  // mux_dbg_in[5] - Into BPF Q
+  // mux_dbg_in[6] - Into 2nd VGA Q
+  // mux_dbg_in[7] - Into ADC Q
+  uint16_t mux_dbg_in = (0b1 << 7);
+  *(uint16_t*)BASEBAND_MUX_DBG_IN = mux_dbg_in;
+
+  uint8_t mixer_r0 = 0b11; // 4 bits r0 IN
+  uint8_t mixer_r1 = 0b11; // 4 bits r1 IP
+  *(uint8_t *)BASEBAND_MIXER_R1_R0 = (mixer_r1 << 4) | mixer_r0 ; // gain for mixer
+  uint8_t mixer_r2 = 0b11; // 4 bits r2 QN
+  uint8_t mixer_r3 = 0b11; // 4 bits r3 QP 
+  *(uint8_t *)BASEBAND_MIXER_R3_R2 = (mixer_r3 << 4) | mixer_r2; // gain for mixer
+  *(uint16_t *)BASEBAND_I_VGA_ATTEN_VALUE = (0b1001111100);  // Set 1st stage VGA tuning bit to 1, otherwise nothing works
+  *(uint16_t *)BASEBAND_Q_VGA_ATTEN_VALUE = (0b1001111100);  // Set 1st stage VGA tuning bit to 1, otherwise nothing works
+
+  // Reset the DCOC
+  /*
+  *(uint8_t *)BASEBAND_I_DCO_RESET = 0b1;
+  *(uint8_t *)BASEBAND_I_DCO_RESET = 0b0;
+  *(uint8_t *)BASEBAND_Q_DCO_RESET = 0b1;
+  *(uint8_t *)BASEBAND_Q_DCO_RESET = 0b0;
+  */
   ble_receive(0x80004000);
   
-  uint8_t mixer_r0_r1 = 0;
-  uint8_t mixer_r2_r3 = 0;
   // sweep mixer r0 r1 through 0b0000 to 0b1111
   /*
   while(1) {
@@ -239,10 +284,37 @@ int main() {
   //#define BASEBAND_I_VGA_ATTEN_VALUE 0x8026
   
   uint8_t state = 0;
+  uint32_t adc_i_data = 0;
+  uint32_t adc_q_data = 0;
+  uint16_t i;
+  uint16_t img_reject_out = 0; // 11 bits
   while(1) {
-    sprintf(str, "%d\n", state);
+    
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 1);
+    for(i = 0; i<ADC_BUF_SIZE;i++)
+    {
+      //adc_i_data = (uint8_t)(((*(uint32_t *)BASEBAND_STATUS1) >> 24) & 0xFF);
+      adc_q_data = (uint8_t)(((*(uint32_t *)BASEBAND_STATUS3) >> 24) & 0xFF);
+      //adc_i_buf[i] = adc_i_data;
+      adc_q_buf[i] = adc_q_data;
+      //HAL_delay(1);
+    }
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
+    //sprintf(str, "\nI:\n");
+    //HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 1);
+    HAL_UART_transmit(UART0, adc_q_buf, ADC_BUF_SIZE, 0);
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
+    //HAL_delay(200);
+    /*
+    sprintf(str, "\nQ:\n"); 
     HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    HAL_delay(2000);
+    HAL_UART_transmit(UART0, adc_q_buf, ADC_BUF_SIZE, 0);
+    HAL_delay(200);
+    */
+    //img_reject_out = (uint16_t)(((*(uint32_t *)BASEBAND_STATUS0) >> 16) & 0x7FF);
+    //sprintf(str, "\nimg_rjct_out: %d\n", img_reject_out);
+    //HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
   
   
