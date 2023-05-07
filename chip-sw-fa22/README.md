@@ -58,7 +58,7 @@
 | AccessAckData   | Ch. D   | 0x1    | 0x0   |                                |
 
 
-### A Standard TSI Frame
+### A Standard Serialized TileLink Frame
 
 ```
             |    __    __    __    __           __    __    __           __    __           __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __    __   
@@ -81,7 +81,7 @@ MISO Data   | ___________________________________________________ ... __________
 ```
 
 
-### FESVR V2 packet format
+### Serialized-TL-over-UART packet format
 
 | Byte | 0                   | 1                                  | 2                   | 3             | 4       | 5       | 6       | 7       | 8       | 9       | 10           | 11       | 12      | 13      | 14      | 15      |
 | ---- | ------------------- | ---------------------------------- | ------------------- | ------------- | ------- | ------- | ------- | ------- | ------- | ------- | ------------ | -------- | ------- | ------- | ------- | ------- |
@@ -93,7 +93,7 @@ MISO Data   | ___________________________________________________ ... __________
 
 rationale: 
 
-last is useless, so no need to include in FESVR frame
+last is useless, so no need to include in frame
 
 want high speed transmission, so packing bits together.
 
@@ -103,4 +103,4 @@ want to make it as aligned as possible, so moving the corrupt and mask field to 
 
 want to preseve the original order after appling rules above.
 
-want to reverse all bit order to correct bit order (as TSI frame bit order may be fixed in the future)
+want to reverse all bit order to correct bit order (as Serialized TL frame bit order may be fixed in the future)
