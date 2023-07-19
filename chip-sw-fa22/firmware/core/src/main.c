@@ -168,52 +168,23 @@ void plic_complete_irq(uint32_t hart_id, uint32_t irq_id){
 //uint8_t adc_i_buf[ADC_BUF_SIZE];
 uint8_t adc_q_buf[ADC_BUF_SIZE];
 
-int main() {
-  HAL_init();
-
-  UART_InitTypeDef UART_init_config;
-  UART_init_config.baudrate = 100000;
-  
-
-  HAL_UART_init(UART0, &UART_init_config);
-  HAL_GPIO_init(GPIOA, GPIO_PIN_0);
-  HAL_GPIO_init(GPIOA, GPIO_PIN_1);
-  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
-  HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 0);
-
-  sprintf(str, "Hi :) \n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-  // HAL_delay(2000);
-
-  // set tuning trim G0 0th bit 1
- 
-  
-
-  // Payload is <header><data>, where data is "TEST DATA FOR BASEBAND!"
-  uint8_t payload[]  = {0x1, 0x17, 0x54, 0x45, 0x53, 0x54, 0x20, 0x44, 0x41, 0x54, 0x41, 0x20, 0x46, 0x4f, 0x52, 0x20, 0x42, 0x41, 0x53, 0x45, 0x42, 0x41, 0x4e, 0x44, 0x21};
-
-  //  baseband_set_lut(uint8_t lut, uint8_t address, uint32_t value)
-  // Initialize all the LO LUT entries with a linspace of values
-  baseband_set_lut(LUT_LOCT, 0, (uint8_t)128);
-  // Set the LUT_LOFSK values to a linear ramp
-  for (int i = 0; i < 64; i++) {
-    baseband_set_lut(LUT_LOFSK, i, (uint8_t)255);
-  }
-
-  //void ble_configure(uint8_t target, uint32_t value)
-  ble_configure(BASEBAND_CONFIG_CHANNEL_INDEX, 0);
-
-  CLEAR_BITS(*(uint8_t *)BASEBAND_TRIM_G0, 0b1);
-
+void configure_rx_chain() 
+{
   // set bit 0 of BASEBAND_TRIM_G7 to 1
   // this is the bit that enables the mux_dbg_out
   *(uint8_t *)BASEBAND_TRIM_G7 = 0b1;
 
   // Definitively turns off the Analog Test 2 as an input
   uint8_t analog_test_2_input_en = 0b0;
-  uint8_t rfclock_sel = 0b0;
-  *(uint8_t *)BASEBAND_TRIM_G0 = (rfclock_sel << 5) | (analog_test_2_input_en << 4);
+  uint8_t rfclock_sel = 0b1;
+  uint8_t pll_sign = 0b1;
+  uint8_t lo_enb = 0b1; // Active low 
+  uint8_t cc_enable = 0b0;
+  uint8_t ref_sel = 0b0;
+  uint8_t bb_trim_g0 = *(uint8_t *)BASEBAND_TRIM_G0;
+
+  uint8_t set_trim_g0 =  (rfclock_sel << 5) | (analog_test_2_input_en << 4) | (pll_sign << 3) | (lo_enb << 0);
+  *(uint8_t *)BASEBAND_TRIM_G0 = set_trim_g0;
 
   // Enable the DCOC
   *(uint8_t *)BASEBAND_I_DCO_USE_DCO = 0b0;
@@ -225,7 +196,7 @@ int main() {
   *(uint8_t *)BASEBAND_DAC_T2 = 0b0;
   *(uint8_t *)BASEBAND_DAC_T3 = 0b0;
   
-  uint32_t mux_dbg_out = (0b0 << 0) | (0b00000 << 16) | (0b00000 << 24);
+  uint32_t mux_dbg_out = (0b1 << 3) | (0b11111 << 16) | (0b11111 << 24);
   *(uint32_t *)BASEBAND_MUX_DBG_OUT = mux_dbg_out;
   // mux_dbg_in 10 bits
   // mux_dbg_in[0] - Into 1st VGA I
@@ -236,7 +207,7 @@ int main() {
   // mux_dbg_in[5] - Into BPF Q
   // mux_dbg_in[6] - Into 2nd VGA Q
   // mux_dbg_in[7] - Into ADC Q
-  uint16_t mux_dbg_in = (0b1 << 7);
+  uint16_t mux_dbg_in = (0b1 << 0);
   *(uint16_t*)BASEBAND_MUX_DBG_IN = mux_dbg_in;
 
   uint8_t mixer_r0 = 0b11; // 4 bits r0 IN
@@ -248,15 +219,19 @@ int main() {
   *(uint16_t *)BASEBAND_I_VGA_ATTEN_VALUE = (0b1001111100);  // Set 1st stage VGA tuning bit to 1, otherwise nothing works
   *(uint16_t *)BASEBAND_Q_VGA_ATTEN_VALUE = (0b1001111100);  // Set 1st stage VGA tuning bit to 1, otherwise nothing works
 
-  // Reset the DCOC
-  /*
-  *(uint8_t *)BASEBAND_I_DCO_RESET = 0b1;
-  *(uint8_t *)BASEBAND_I_DCO_RESET = 0b0;
-  *(uint8_t *)BASEBAND_Q_DCO_RESET = 0b1;
-  *(uint8_t *)BASEBAND_Q_DCO_RESET = 0b0;
-  */
-  ble_receive(0x80004000);
   
+  // For the BPF there are 5 unique sets of resistor trim values
+  // r0 r1 - High pass filter zero
+  // r2 r3 - High pass filter zero
+  // r4 r5 - 
+  // r6 r9
+  // r7 r8
+  
+
+}
+
+void mixer_sweep_loop()
+{
   // sweep mixer r0 r1 through 0b0000 to 0b1111
   /*
   while(1) {
@@ -271,18 +246,10 @@ int main() {
     }
   }
   */
+}
 
-  // For the BPF there are 5 unique sets of resistor trim values
-  // r0 r1 - High pass filter zero
-  // r2 r3 - High pass filter zero
-  // r4 r5 - 
-  // r6 r9
-  // r7 r8
-  
-
-  // switch back and forth between 0 and 1 in bit 9
-  //#define BASEBAND_I_VGA_ATTEN_VALUE 0x8026
-  
+void adc_test_loop()
+{
   uint8_t state = 0;
   uint32_t adc_i_data = 0;
   uint32_t adc_q_data = 0;
@@ -317,11 +284,140 @@ int main() {
     //HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
   }
   
-  
-  *(uint32_t *)BASEBAND_MUX_DBG_OUT = mux_dbg_out;
+}
 
-  // print out mux_dbg_out
-  sprintf(str, "mux_dbg_out (0x4C): %.8x\n", mux_dbg_out);
+int main() {
+  HAL_init();
+
+  UART_InitTypeDef UART_init_config;
+  UART_init_config.baudrate = 100000;
+  
+
+  HAL_UART_init(UART0, &UART_init_config);
+  HAL_GPIO_init(GPIOA, GPIO_PIN_0);
+  HAL_GPIO_init(GPIOA, GPIO_PIN_1);
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_1, 1);
+
+  sprintf(str, "Hi :) \n");
+  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+
+  // HAL_delay(2000);
+
+  // Payload is <header><data>, where data is "OSCIBEAR"
+  // 79   83   67   73   66   69   65   82
+  //uint8_t payload[]  = {0x79, 0x83, 0x67, 0x73, 0x69, 0x62, 0x65, 0x61, 0x72};
+  // PDU Type 4 bits
+  // RFU 2 bits
+  // TxAdd 1 bit
+  // RxAdd 1 bit
+  // Length 6 bits
+  // AdvA 6 bytes
+  // AdvData 0-31 bytes
+
+  // Create a payload from a string
+  uint8_t payload[128];
+  uint8_t payload_len = 0;
+
+  uint8_t pdu_rfu_txrxadd = 0b01000010;
+  payload[payload_len++] = pdu_rfu_txrxadd;
+  
+
+  char *payload_str = "HOTCHIPS23";
+  uint8_t pdu_len = 18; // payload_len + 7
+  // Advertiser Address
+  payload[payload_len++] = pdu_len;
+  payload[payload_len++] = 0x47; // G
+  payload[payload_len++] = 0x4F; // O
+  payload[payload_len++] = 0x42; // B
+  payload[payload_len++] = 0x45; // E
+  payload[payload_len++] = 0x41; // A
+  payload[payload_len++] = 0x52; // R
+  // Advertiser Data
+  // Length
+  payload[payload_len++] = 11;
+  // Type
+  payload[payload_len++] = 0xFF; // manufacturer specific
+  while(*payload_str) {
+    payload[payload_len++] = (uint8_t)*payload_str++;
+  }
+
+  ble_configure(BASEBAND_CONFIG_CHANNEL_INDEX, 38);
+  //  baseband_set_lut(uint8_t lut, uint8_t address, uint32_t value)
+  // Initialize all the LO LUT entries with a linspace of values
+  // LOCT vals made up of coarse lower 5 bits and fine upper 3 bits
+  uint8_t coarse = 2;
+  uint8_t fine = 1;
+  uint8_t loct = (fine % 8) << 5 | (coarse % 32);
+  for (int i = 0; i < 40; i++) {
+    baseband_set_lut(LUT_LOCT, i, (uint8_t)loct);
+  }
+  
+
+  
+  // for(int i = 0; i<255; i++)
+  // {
+  //   for (int j = 0; j < 40; j++) {
+  //     baseband_set_lut(LUT_LOCT, j, (uint8_t)i);
+  //   }
+  //   // print the current value of the LUT
+  //   sprintf(str, "current value: %d\r\n", i);
+  //   HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  //   HAL_delay(1000);
+  // }
+  
+  //baseband_set_lut(LUT_LOCT, (uint8_t)0, (uint8_t)0);
+  // Set the LUT_LOFSK values to a linear ramp from 15 to 0
+  // uint8_t val = 0;
+  // for (int i = 0; i < 64; i++) {
+  //   val = (63 - i)/4;
+  //   baseband_set_lut(LUT_LOFSK, i, val);
+  // }
+
+  for(int i = 0; i < 32; i++)
+  {
+    baseband_set_lut(LUT_LOFSK, i, 255);
+  }
+  for(int i = 32; i < 64; i++)
+  {
+    baseband_set_lut(LUT_LOFSK, i, 0);
+  }
+
+  // for (int i = 0; i < 64; i++) {
+  //   baseband_set_lut(LUT_LOFSK, i, 255);
+  // }
+
+  //while(1);
+  //void ble_configure(uint8_t target, uint32_t value)
+  
+
+  //*(uint8_t*)BASEBAND_TRIM_G0 = 0b00000000;
+  //*(uint8_t*)BASEBAND_TRIM_G0 = 0b00000000;
+
+  ///// TEST THE RX CHAIN
+  //configure_rx_chain();
+
+  //ble_receive(0x80004000);
+  //adc_test_loop();
+
+  /*
+  // Receiver testing 
+  // uint8_t toggle = 0;
+  while(1)
+  {
+    
+    ble_receive(0x80004000);
+
+  }
+  */
+  
+  
+
+
+  // switch back and forth between 0 and 1 in bit 9
+  //#define BASEBAND_I_VGA_ATTEN_VALUE 0x8026
+  
+
   /*
   for(int i = 0; i < 63; i++) {
     baseband_set_lut(LUT_LOCT, i, 0x00);
@@ -340,25 +436,17 @@ int main() {
   //uint32_t timer = 0;
   //  uint16_t cur_channel = 1;
 
-  sprintf(str, "I'm alive!\n");
-  HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
+  //sprintf(str, "Beginning transmit\n");
+  //HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
+  *(uint8_t*)BASEBAND_TRIM_G0 = 0b00000000;
+  uint8_t tx_ctrl_status = 0;
+  HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
   while (1) {
 
-/*
-    uint32_t dcsr = 0;
-    asm volatile("csrr %0, dcsr" : "=r"(dcsr));
-
-    sprintf(str, "dcsr value: %x\n", dcsr);
-    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-  */  
-    //sprintf(str, "Hi :) \n");
+    //sprintf(str, "Sending payload to baseband...\n");
     //HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-
-
-    // sprintf(str, "Sending payload to baseband...\n");
-    // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
-    //ble_send((uint32_t) payload, sizeof(payload));
+    ble_send((uint32_t) payload, payload_len);
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 1);
     /*
     // Channel switching 
     if(timer > 200000) {
@@ -367,13 +455,24 @@ int main() {
       baseband_config(BASEBAND_CONFIG_CHANNEL_INDEX, )
     }
     */
-
+    tx_ctrl_status = (*(uint32_t *)BASEBAND_STATUS0 >> 11) & 0x3;
+    while(tx_ctrl_status != 0) {
+      // write 
+      // Poll the tx_ctrl_status
+      // set tuning trim G0 0th bit 1
+      tx_ctrl_status = (*(uint32_t *)BASEBAND_STATUS0 >> 11) & 0x3;
+    }
+    //*(uint8_t*)BASEBAND_TRIM_G0 = 0b00000001;
+    HAL_GPIO_writePin(GPIOA, GPIO_PIN_0, 0);
+    sprintf(str, "\nDone.\n");
+    HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);  
     // while (done_status != 1) {
     //   sprintf(str, "*");
     // }
     // sprintf(str, "\nDone.\n");
     // HAL_UART_transmit(UART0, (uint8_t *)str, strlen(str), 0);
 
-    //HAL_delay(100);
+    HAL_delay(1);
+    //*(uint8_t*)BASEBAND_TRIM_G0 = 0b00000000;
   }
 }

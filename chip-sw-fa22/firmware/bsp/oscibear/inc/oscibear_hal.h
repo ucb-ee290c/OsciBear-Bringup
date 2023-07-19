@@ -16,7 +16,7 @@ extern "C" {
 #include "oscibear_hal_uart.h"
 
 
-#define SYS_CLK_FREQ  10000000                    // Hz
+#define SYS_CLK_FREQ  20000000                    // Hz
 #define MTIME_FREQ    (SYS_CLK_FREQ / 20000)    // tick per milliseconds
 
 void HAL_init();
