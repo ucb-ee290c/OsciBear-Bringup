@@ -60,8 +60,8 @@ all: main-build
 main-build: TileLinkTrafficAdapter-F446.elf secondary-outputs
 
 # Tool invocations
-TileLinkTrafficAdapter-F446.elf TileLinkTrafficAdapter-F446.map: $(OBJS) $(USER_OBJS) C:\Users\TK\Desktop\BWRC-ChipUtil-TileLinkTrafficGenerator\TileLinkTrafficAdapter-F446\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "TileLinkTrafficAdapter-F446.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\TK\Desktop\BWRC-ChipUtil-TileLinkTrafficGenerator\TileLinkTrafficAdapter-F446\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TileLinkTrafficAdapter-F446.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+TileLinkTrafficAdapter-F446.elf TileLinkTrafficAdapter-F446.map: $(OBJS) $(USER_OBJS) C:\Projects\Repositories\osci-bringup\chip-sw-fa22\TileLinkTrafficAdapter-F446\STM32F446RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "TileLinkTrafficAdapter-F446.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Projects\Repositories\osci-bringup\chip-sw-fa22\TileLinkTrafficAdapter-F446\STM32F446RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TileLinkTrafficAdapter-F446.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
