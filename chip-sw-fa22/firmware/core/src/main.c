@@ -318,13 +318,15 @@ int main() {
   // Create a payload from a string
   uint8_t payload[128];
   uint8_t payload_len = 0;
+  uint8_t pdu_rfu_txrxadd;
 
-  uint8_t pdu_rfu_txrxadd = 0b01000010;
+  //pdu_rfu_txrxadd = 0b01000010;
+  pdu_rfu_txrxadd = 0b01000001;
   payload[payload_len++] = pdu_rfu_txrxadd;
   
 
   char *payload_str = "HOTCHIPS23";
-  uint8_t pdu_len = 18; // payload_len + 7
+  uint8_t pdu_len = strlen(payload_str) + 8; // payload_len + 8 should be 18
   // Advertiser Address
   payload[payload_len++] = pdu_len;
   payload[payload_len++] = 0x47; // G
@@ -347,7 +349,7 @@ int main() {
   // Initialize all the LO LUT entries with a linspace of values
   // LOCT vals made up of coarse lower 5 bits and fine upper 3 bits
   uint8_t coarse = 2;
-  uint8_t fine = 1;
+  uint8_t fine = 0;
   uint8_t loct = (fine % 8) << 5 | (coarse % 32);
   for (int i = 0; i < 40; i++) {
     baseband_set_lut(LUT_LOCT, i, (uint8_t)loct);
